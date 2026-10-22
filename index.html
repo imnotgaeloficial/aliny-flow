@@ -413,7 +413,7 @@ $('datasetSave').onclick=datasetSave;$('datasetLoad').onclick=()=>datasetLoad(tr
 window.addEventListener('beforeunload',e=>{if(datasetDirty){e.preventDefault();e.returnValue=''}});
 // Compact gate printout, using only imported closure evidence.
 const gatePrintStyle=document.createElement('style');
-gatePrintStyle.textContent=`#gatePrintReport{display:none}@media print{@page{size:A4 landscape;margin:12mm}body[data-print="gates"] #gates>*{display:none!important}body[data-print="gates"] #gates>#gatePrintReport{display:block!important}#gatePrintReport{font-family:Arial,sans-serif;color:#111}#gatePrintReport h1{font-size:18px;margin:0 0 8px}#gatePrintReport p{font-size:10px;line-height:1.5}#gatePrintReport table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:10px;margin:10px 0}#gatePrintReport th,#gatePrintReport td{overflow-wrap:anywhere;padding:7px;border:1px solid #999;vertical-align:top}#gatePrintReport thead{display:table-header-group}#gatePrintReport tr{break-inside:avoid}#gatePrintReport .carrier-title td{font-weight:bold;background:#eee!important}#gatePrintReport .manual{height:32px}#gatePrintReport .print-footer{margin-top:14px;border-top:1px solid #777;padding-top:8px}}`;
+gatePrintStyle.textContent=`#gatePrintReport{display:none}@media print{@page{size:A4 portrait;margin:10mm}body[data-print="gates"] #gates>*{display:none!important}body[data-print="gates"] #gates>#gatePrintReport{display:block!important}#gatePrintReport{font-family:Arial,sans-serif;color:#111;max-width:190mm}#gatePrintReport .print-carrier{display:flex;align-items:center;gap:10px}#gatePrintReport .print-carrier-logo{display:block!important;width:90px;height:38px;object-fit:contain;flex-shrink:0}#gatePrintReport th,#gatePrintReport td{font-size:9px;white-space:normal}body[data-print="gates"] .shell{display:block}body[data-print="gates"] .main{width:100%;min-width:0}#gatePrintReport h1{font-size:18px;margin:0 0 8px}#gatePrintReport p{font-size:10px;line-height:1.5}#gatePrintReport table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:10px;margin:10px 0}#gatePrintReport th,#gatePrintReport td{overflow-wrap:anywhere;padding:7px;border:1px solid #999;vertical-align:top}#gatePrintReport thead{display:table-header-group}#gatePrintReport tr{break-inside:avoid}#gatePrintReport .carrier-title td{font-weight:bold;background:#eee!important}#gatePrintReport .manual{height:32px}#gatePrintReport .print-footer{margin-top:14px;border-top:1px solid #777;padding-top:8px}}`;
 document.head.append(gatePrintStyle);
 const gatePrintReport=document.createElement('div');gatePrintReport.id='gatePrintReport';$('gates').append(gatePrintReport);
 function closurePrintDate(g){
@@ -424,21 +424,34 @@ function closurePrintDate(g){
  const fallback=gateClosureSummary(g).time;
  return fallback==='Não informado'?'Não informado':fallback+' (coleta/processamento; fechamento não confirmado)';
 }
+function gatePrintCarrier(carrier){
+ const key=Object.keys(logos).find(k=>norm(k)===norm(carrier));
+ const src=key?logos[key]:'';
+ return `<span class="print-carrier">${src?`<img class="print-carrier-logo" src="${escapeHtml(src)}" alt="Logo ${escapeHtml(carrier)}">`:''}<span>${escapeHtml(carrier)}</span></span>`;
+}
 function buildGatePrint(){
  const rows=[...filteredGates()].sort((a,b)=>a.carrier.localeCompare(b.carrier,'pt-BR')||a.gate.localeCompare(b.gate,'pt-BR',{numeric:true}));
  let last='',body='';const statuses={yes:'Assinado',no:'Não assinado',mix:'Divergente',unknown:'Dados inválidos'};
  const uniqueOrders=new Set;rows.forEach(g=>g.source.forEach(r=>{if(clean(r.Pedido))uniqueOrders.add(clean(r.Pedido))}));
- for(const g of rows){if(last!==g.carrier){last=g.carrier;const subset=rows.filter(x=>x.carrier===last);body+=`<tr class="carrier-title"><td colspan="7">${escapeHtml(last)} — ${subset.length} gate(s)</td></tr>`}body+=`<tr><td><b>${escapeHtml(g.gate)}</b></td><td>${escapeHtml(statuses[g.status])}</td><td>${g.count}</td><td>${escapeHtml(closurePrintDate(g))}</td><td>${escapeHtml(gateClosureSummary(g).user)}</td><td class="manual"></td><td class="manual"></td></tr>`}
+ for(const g of rows){if(last!==g.carrier){last=g.carrier;const subset=rows.filter(x=>x.carrier===last);body+=`<tr class="carrier-title"><td colspan="7">${gatePrintCarrier(last)} — ${subset.length} gate(s)</td></tr>`}body+=`<tr><td><b>${escapeHtml(g.gate)}</b></td><td>${escapeHtml(statuses[g.status])}</td><td>${g.count}</td><td>${escapeHtml(closurePrintDate(g))}</td><td>${escapeHtml(gateClosureSummary(g).user)}</td><td class="manual"></td><td class="manual"></td></tr>`}
  gatePrintReport.innerHTML=`<h1>Aliny Flow — Controle de gates</h1><p><b>Impresso em:</b> ${escapeHtml(new Date().toLocaleString('pt-BR'))}<br><b>Importação:</b> ${escapeHtml($('importStamp').textContent)}<br><b>Filtro:</b> ${escapeHtml($('gCarrier').value||'Todas as transportadoras')} • ${escapeHtml($('gStatus').selectedOptions[0].text)} • Gate: ${escapeHtml($('gGate').value||'Todos')}<br><b>Período:</b> ${escapeHtml($('gDateField').selectedOptions[0].text)}: ${escapeHtml($('gFrom').value||'sem início')} até ${escapeHtml($('gTo').value||'sem fim')}${$('gSearch').value?' • Busca: '+escapeHtml($('gSearch').value):''}</p><table><colgroup><col style="width:8%"><col style="width:11%"><col style="width:7%"><col style="width:25%"><col style="width:17%"><col style="width:21%"><col style="width:11%"></colgroup><thead><tr><th>Gate</th><th>Situação</th><th>Pedidos</th><th>Data e hora de fechamento</th><th>Encerrado por</th><th>Responsável / observação</th><th>Resolvido às</th></tr></thead><tbody>${body||'<tr><td colspan="7">Nenhum gate no filtro.</td></tr>'}</tbody></table><p><b>Total:</b> ${rows.length} gates • ${uniqueOrders.size} pedidos únicos • ${new Set(rows.map(g=>g.carrier)).size} transportadoras.<br>Dados conforme o relatório importado. “Não informado”, “parcial” e “divergente” devem ser conferidos no Wiser. A data de assinatura não substitui a data de fechamento.</p><p class="print-footer">Conferido por: ____________________________________ &nbsp; Data: ____/____/________</p>`;
 }
 window.addEventListener('beforeprint',()=>{if(document.body.dataset.print==='gates')buildGatePrint()});
+const nativeGatePrint=window.print.bind(window);
+window.print=async function(){
+ if(document.body.dataset.print==='gates'){
+  buildGatePrint();
+  await Promise.all([...gatePrintReport.querySelectorAll('img')].map(img=>img.decode().catch(()=>{})));
+ }
+ nativeGatePrint();
+};
 const printCurrent=$('gPrint');printCurrent.textContent='⎙ Imprimir filtro / PDF';
 $('gUnsignedPrint').textContent='⎙ Não assinados do filtro';
 const allUnsignedButton=document.createElement('button');allUnsignedButton.className='btn';allUnsignedButton.textContent='⎙ Todos os não assinados';allUnsignedButton.type='button';printCurrent.before(allUnsignedButton);
-allUnsignedButton.onclick=()=>{
+allUnsignedButton.onclick=async()=>{
  const ids=['gSearch','gCarrier','gGate','gStatus','gFrom','gTo'];const saved=Object.fromEntries(ids.map(id=>[id,$(id).value]));
  ids.forEach(id=>$(id).value=id==='gStatus'?'no':'');
- try{if(!filteredGates().length)return notify('Nenhum gate não assinado para imprimir.');document.body.dataset.print='gates';buildGatePrint();window.print()}finally{ids.forEach(id=>$(id).value=saved[id]);renderGates()}
+ try{if(!filteredGates().length)return notify('Nenhum gate não assinado para imprimir.');document.body.dataset.print='gates';buildGatePrint();await window.print()}finally{ids.forEach(id=>$(id).value=saved[id]);renderGates()}
 };
 
 // Focused operational shortcuts: unique orders and exact waiting intervals.
