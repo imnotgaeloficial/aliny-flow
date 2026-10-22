@@ -441,6 +441,29 @@ allUnsignedButton.onclick=()=>{
  try{if(!filteredGates().length)return notify('Nenhum gate não assinado para imprimir.');document.body.dataset.print='gates';buildGatePrint();window.print()}finally{ids.forEach(id=>$(id).value=saved[id]);renderGates()}
 };
 
+// Focused operational shortcuts: unique orders and exact waiting intervals.
+const operationsPanel=document.createElement('section');operationsPanel.className='panel hideprint';operationsPanel.style.marginBottom='18px';operationsPanel.innerHTML=`<h2>Filas para acompanhar</h2><p id="opsStamp" class="mini muted" aria-live="polite"></p><div class="toolbar"><button type="button" class="btn" id="opsSeparation">Aguardando separação</button><button type="button" class="btn" id="opsRefresh">Importar relatório atualizado</button></div><h3>Conferência e carregamento por tempo</h3><p class="mini muted">Pedidos únicos, conforme Tempo em Status do arquivo. Cada pedido aparece em uma faixa. Clique para abrir a fila correspondente.</p><div class="toolbar" id="opsBands"></div><p class="mini muted" id="opsMissing"></p></section>`;
+$('dashboard').prepend(operationsPanel);
+const maxWait=document.createElement('select');maxWait.id='pMax';maxWait.setAttribute('aria-label','Tempo máximo na fila');maxWait.innerHTML='<option value="">Sem tempo máximo</option>'+[2,3,4,5,6].map(n=>`<option value="${n}">Menos de ${n} horas</option>`).join('');$('pWait').after(maxWait);
+const originalStalledOrders=stalledOrders;stalledOrders=function(summary=false){const rows=originalStalledOrders(summary),max=Number(maxWait.value);return !summary&&max?rows.filter(r=>r.wait<max):rows};maxWait.onchange=renderStalled;
+const clearStalled=$('pClear').onclick;$('pClear').onclick=()=>{maxWait.value='';clearStalled()};
+const originalStalledPrint=prepareStalledPrint;prepareStalledPrint=function(){originalStalledPrint();if(maxWait.value)$('pPrintSub').textContent+=` • Menos de ${maxWait.value} horas`};
+const originalCriticalOpen=$('priorityWaitingOpen').onclick;if(originalCriticalOpen)$('priorityWaitingOpen').onclick=()=>{maxWait.value='';originalCriticalOpen()};
+function updateOperations(){
+ $('opsStamp').textContent=$('importStamp').textContent||'Importe um relatório para atualizar as filas.';
+ const groups=uniqueOrders(records),onlyStatus=g=>g.status.size===1?[...g.status.keys()][0]:'';
+ const separation=groups.filter(g=>onlyStatus(g)==='aguardando separacao');$('opsSeparation').textContent=`Aguardando separação: ${separation.length.toLocaleString('pt-BR')}`;
+ const waiting=groups.filter(g=>['aguardando conferencia','aguardando carregamento'].includes(onlyStatus(g)));
+ $('opsBands').innerHTML=[1,2,3,4,5,6].map(min=>{const count=waiting.filter(g=>g.wait!==null&&g.wait>=min&&(min===6||g.wait<min+1)).length;return `<button type="button" class="btn" data-wait-band="${min}">${min===6?'6h ou mais':min+'h a menos de '+(min+1)+'h'}: <b>${count.toLocaleString('pt-BR')}</b></button>`}).join('');
+ const missing=waiting.filter(g=>g.wait===null).length,conflict=groups.filter(g=>g.status.size>1).length;
+ $('opsMissing').textContent=[missing?`${missing} pedidos dessas filas sem tempo válido.`:'',conflict?`${conflict} pedidos com status divergentes não entram nestes atalhos.`:'','As faixas começam em 1 hora. Os tempos não avançam automaticamente; importe uma nova exportação.'].filter(Boolean).join(' ');
+}
+$('opsBands').onclick=e=>{const button=e.target.closest('[data-wait-band]');if(!button)return;['pSearch','pCarrier','pClass','pStatus'].forEach(id=>$(id).value='');const min=Number(button.dataset.waitBand);$('pWait').value=String(min);maxWait.value=min===6?'':String(min+1);go('stalled');renderStalled()};
+$('opsSeparation').onclick=()=>{['oSearch','oCarrier','oClass'].forEach(id=>$(id).value='');$('oWait').value='0';const match=[...$('oStatus').options].find(o=>norm(o.value)==='aguardando separacao');if(!match)return notify('Nenhum pedido aguardando separação no relatório.');$('oStatus').value=match.value;go('orders');renderOrders()};
+$('opsRefresh').onclick=()=>{go('import');$('file').click()};
+const originalDashboard=renderDashboard;renderDashboard=function(){originalDashboard();updateOperations()};
+new MutationObserver(()=>{$('opsStamp').textContent=$('importStamp').textContent}).observe($('importStamp'),{childList:true,subtree:true,characterData:true});
+
 datasetLoad();
 
 })();
