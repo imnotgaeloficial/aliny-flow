@@ -3,7 +3,7 @@ const client='f2b61f77c6594225b1483f510ae2326e',redirect='https://www.alinyflow.
 const section=document.createElement('section');section.innerHTML='<span class="tag">SPOTIFY PREMIUM</span><h2>Seu Spotify no Aliny Music</h2><p>Conecte sua conta para acessar suas playlists e ouvir pelo player oficial.</p><div class="actions"><button id="spConnect" class="primary">Conectar Spotify</button><button id="spDisconnect" hidden>Desconectar</button></div><p id="spStatus" role="status" aria-live="polite">Aguardando conexão.</p><div id="spLists" class="actions"></div><div id="spControls" hidden><p id="spNow">Escolha uma playlist.</p><div class="actions"><button id="spPrev">Anterior</button><button id="spToggle">Reproduzir / pausar</button><button id="spNext">Próxima</button></div></div><a href="https://open.spotify.com/" target="_blank" rel="noopener">Abrir Spotify ↗</a>';
 document.querySelector('main .hero').after(section);
 window.addEventListener('aliny-audiobook-play',()=>{player?.pause().catch(()=>{});});
-const el=id=>document.getElementById(id),status=t=>el('spStatus').textContent=t;let session=null,player=null,device=null,refreshing=null;
+const el=id=>document.getElementById(id),status=t=>el('spStatus').textContent=t;let session=null,player=null,device=null,refreshing=null;window.alinySpotify={pause:()=>player?.pause()};
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 try{session=JSON.parse(sessionStorage.getItem(key)||'null')}catch{}
 function persist(data){session={...session,...data,expires:Date.now()+data.expires_in*1000};sessionStorage.setItem(key,JSON.stringify(session))}
