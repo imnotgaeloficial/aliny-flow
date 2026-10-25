@@ -9,7 +9,7 @@ window.createDailyOperations = function (api) {
   panel.innerHTML = `<div class="daily-heading"><div><span class="eyebrow">SEU TURNO EM FOCO</span><h2>Resumo do dia</h2></div><button type="button" class="btn" id="dailyOpenSummary">Resumo completo →</button></div><p id="dailySource" class="mini muted"></p><div class="daily-metrics" id="dailyMetrics"></div><div class="daily-columns"><section aria-labelledby="quickFindTitle"><h3 id="quickFindTitle">Busca rápida</h3><label for="dailySearch">Número do pedido ou gate</label><input type="search" id="dailySearch" placeholder="Ex.: 74618 ou 79221134" autocomplete="off"><p id="dailySearchCount" class="mini muted" role="status"></p><div id="dailySearchResults" class="daily-results"></div></section><section aria-labelledby="dailyChecklistTitle"><div class="daily-heading"><h3 id="dailyChecklistTitle">Checklist de fechamento</h3><input type="date" id="dailyChecklistDate" aria-label="Data do checklist"></div><p class="mini muted">Marque o que você conferiu. A marcação não altera pedidos ou assinaturas.</p><p id="dailyChecklistProgress" role="status"></p><progress id="dailyChecklistBar" max="5" value="0" aria-label="Progresso do fechamento"></progress><div id="dailyChecklistItems"></div><p id="dailyChecklistStatus" class="mini muted" role="status"></p><button type="button" class="btn" id="dailyChecklistDownload">Baixar checklist</button></section></div>`;
   el('dashboard').prepend(panel);
   el('dailyChecklistDate').value = today();
-  let index = [], searchTimer, lastResults = [];
+  let index = [], searchTimer, lastResults = [], shiftUI=null;
   const escape = api.escape;
   function updateChecklist() {
     const day = el('dailyChecklistDate').value;
@@ -19,6 +19,7 @@ window.createDailyOperations = function (api) {
     el('dailyChecklistBar').value = state.length;
     el('dailyChecklistDownload').disabled = !day;
     panel.querySelectorAll('[data-check-index]').forEach(input => input.disabled = !day);
+    if(shiftUI)shiftUI.render();
   }
   function search() {
     const q = api.norm(el('dailySearch').value);
@@ -59,13 +60,14 @@ window.createDailyOperations = function (api) {
     const text=`Aliny Flow — Fechamento de ${day}\n\n`+labels.map((label,i)=>`[${checked.includes(i)?'x':' '}] ${label}`).join('\n')+'\n\n'+el('dailySource').textContent;
     const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=`aliny-fechamento-${day}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
   };
-  new MutationObserver(()=>el('dailyChecklistStatus').textContent=el('cloudNotesStatus').textContent).observe(el('cloudNotesStatus'),{childList:true,characterData:true,subtree:true});
+  new MutationObserver(()=>{const text=el('cloudNotesStatus').textContent;el('dailyChecklistStatus').textContent=text;panel.querySelectorAll('[data-shift-sync]').forEach(x=>x.textContent=text)}).observe(el('cloudNotesStatus'),{childList:true,characterData:true,subtree:true});
   const menu = document.createElement('button');menu.type='button';menu.id='dailyMobileMenu';menu.className='btn';menu.textContent='☰ Menu';menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-controls','dailySideNav');
   const side=document.querySelector('.shell>.side');side.id='dailySideNav';document.querySelector('.main>.top').prepend(menu);
   menu.onclick=()=>{const open=document.body.classList.toggle('daily-menu-open');menu.setAttribute('aria-expanded',String(open));};
   side.addEventListener('click',e=>{if(e.target.closest('.nav')){document.body.classList.remove('daily-menu-open');menu.setAttribute('aria-expanded','false');}});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('daily-menu-open')){document.body.classList.remove('daily-menu-open');menu.setAttribute('aria-expanded','false');menu.focus();}});
   document.querySelectorAll('.nav').forEach(button=>button.setAttribute('aria-label',button.textContent.trim()));
+  shiftUI=window.createShiftTools(api,panel,labels,day=>{el('dailyChecklistDate').value=day;updateChecklist();el('dailyChecklistDate').focus();el('dailyChecklistTitle').scrollIntoView({block:'center',behavior:'smooth'})});
   refresh();
   return {refresh,updateChecklist};
 };
