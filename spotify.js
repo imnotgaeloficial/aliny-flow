@@ -19,3 +19,24 @@ el('spPrev').onclick=guard(async()=>{if(player)await player.previousTrack()});el
 (async()=>{try{const q=new URLSearchParams(location.search);if(q.has('code')||q.has('error')){let auth;try{auth=JSON.parse(sessionStorage.getItem(authKey)||'null')}catch{}history.replaceState({},'',location.pathname);sessionStorage.removeItem(authKey);if(!auth||auth.state!==q.get('state')||Date.now()-auth.time>600000)throw Error('Conexão expirada ou inválida. Clique em Conectar Spotify novamente.');if(q.has('error'))throw Error('Conexão cancelada no Spotify.');await exchange({client_id:client,grant_type:'authorization_code',code:q.get('code'),redirect_uri:redirect,code_verifier:auth.verifier})}if(session)await ready()}catch(e){status(e.message);el('spConnect').hidden=false}})();
 })();
 
+
+// Official artist players: one embedded player at a time.
+(()=>{
+const artists=[['Selena Gomez','0C8ZW7ezQVs4URX5aX7Kqx'],['Ariana Grande','66CXWjxzNUsdJxJ2JdwvnR'],['Ela Taubert','5xS8cfsAaFyy188dNJGDbM']];
+const panel=document.createElement('section');panel.id='favoriteArtists';
+panel.innerHTML='<span class="tag">SUAS ARTISTAS</span><h2>Selena, Ariana e Ela no seu cantinho</h2><p class="muted">Ouça pelo player oficial do Spotify. Precisa de internet; a reprodução disponível depende do Spotify e da sua conta.</p><div class="actions" id="artistChoices"></div><p id="artistStatus" role="status" aria-live="polite">Escolha uma artista para abrir o player.</p><div id="artistPlayer"></div><p class="muted">Para ouvir arquivos de áudio que você possui neste dispositivo, use Adicionar músicas na sua biblioteca.</p>';
+document.querySelector('main .hero').after(panel);
+const choices=panel.querySelector('#artistChoices'),slot=panel.querySelector('#artistPlayer'),info=panel.querySelector('#artistStatus');
+function close(){slot.replaceChildren();choices.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed','false'));info.textContent='Escolha uma artista para abrir o player.';}
+for(const [name,id] of artists){
+ const card=document.createElement('div');card.style.cssText='display:flex;flex-wrap:wrap;gap:8px;align-items:center';
+ const button=document.createElement('button');button.type='button';button.textContent='♫ '+name;button.setAttribute('aria-pressed','false');
+ const link=document.createElement('a');link.className='button';link.textContent='Abrir no Spotify ↗';link.href='https://open.spotify.com/artist/'+id;link.target='_blank';link.rel='noopener';link.setAttribute('aria-label','Abrir '+name+' no Spotify');
+ button.onclick=()=>{close();window.alinyMusic?.pause();const pending=window.alinySpotify?.pause();pending?.catch(()=>{});window.dispatchEvent(new Event('aliny-artist-selected'));button.setAttribute('aria-pressed','true');info.textContent=name+' — toque em reproduzir no player abaixo. Se ele não carregar, use Abrir no Spotify.';
+ const frame=document.createElement('iframe');frame.title='Player oficial de '+name;frame.src='https://open.spotify.com/embed/artist/'+id+'?theme=0';frame.width='100%';frame.height='352';frame.style.cssText='border:0;border-radius:16px;margin-top:12px';frame.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';frame.allowFullscreen=true;slot.append(frame);
+ const stop=document.createElement('button');stop.type='button';stop.textContent='Fechar player';stop.onclick=close;slot.append(stop);
+ };card.append(button,link);choices.append(card);
+}
+for(const event of ['aliny-music-selected','aliny-spotify-playing','aliny-audiobook-play'])window.addEventListener(event,close);
+document.getElementById('audio')?.addEventListener('play',close);
+})();
