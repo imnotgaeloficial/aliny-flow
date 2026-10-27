@@ -61,7 +61,7 @@
     var matches = carrierNames.map(function(name, index){ return {name:name,index:index}; })
       .filter(function(item){ return normalize(item.name).includes(text); });
     document.getElementById('afCarrierCount').textContent =
-      matches.length + ' transportadora(s) • relatório importado + logos cadastradas';
+      matches.length + ' transportadora(s) • ' + (api.mode()==='demo' ? 'modo demonstração' : 'relatório importado') + ' + logos cadastradas';
     document.getElementById('afCarrierList').innerHTML = matches.map(function(item) {
       var src = api.logo(item.name);
       var photo = src
@@ -89,6 +89,10 @@
       '<span><b>' + groups.closed.length + '</b> encerrados / marcados</span>' +
       '<span><b>' + groups.nr.length + '</b> aguardando NR’s (manual)</span>' +
       '<span><b>' + groups.check.length + '</b> sem classificação</span>';
+    if (api.mode()==='demo') {
+      area.innerHTML = '<div class="empty">Dados demonstrativos. Importe o Excel para conferir os gates reais.</div>';
+      return;
+    }
     if (!currentPending.length) {
       area.innerHTML = '<div class="empty">Nenhum gate não assinado no relatório carregado.</div>';
       return;
@@ -138,7 +142,7 @@
       '.af-pending-counts span{padding:9px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;font-size:12px}',
       '.af-pending-counts b{color:var(--blue);font-size:16px}.af-print-sheet{display:none}',
       '@media(max-width:690px){.af-carrier-item,.af-pending-item{align-items:flex-start;flex-wrap:wrap}.af-carrier-actions{width:100%}.af-carrier-logo-thumb,.af-logo-empty{width:78px}}',
-      '@media print{body[data-print="carrier-logo"] .shell,body[data-print="carrier-logo"] #toast,body[data-print="carrier-logo"] #authGate{display:none!important}',
+      '@media print{body[data-print="carrier-logo"] .shell,body[data-print="carrier-logo"] #toast,body[data-print="carrier-logo"] #authGate,body[data-print="carrier-logo"] #printWatermark{display:none!important}',
       'body[data-print="carrier-logo"] #afCarrierPrintSheet{display:flex!important;align-items:center;justify-content:center;background:white!important;width:100%;height:250mm;overflow:hidden;page-break-after:avoid}',
       'body[data-print="carrier-logo"] #afCarrierPrintSheet img{display:block!important;width:auto;height:auto;max-width:180mm;max-height:225mm;object-fit:contain;page-break-inside:avoid}}'
     ].join('');
