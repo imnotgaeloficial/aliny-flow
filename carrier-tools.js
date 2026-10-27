@@ -33,11 +33,26 @@
     var src = api && api.logo(carrier);
     if (!src) { alert('Cadastre primeiro a logo de ' + carrier + '.'); return; }
     var sheet = document.getElementById('afCarrierPrintSheet');
-    sheet.replaceChildren();
-    var img = document.createElement('img');
-    img.src = src;
-    img.alt = 'Logo da transportadora ' + carrier;
-    sheet.appendChild(img);
+    sheet.innerHTML =
+      '<div class="af-logo-page">' +
+        '<header class="af-logo-page-header">' +
+          '<div class="af-logo-page-brand"><span class="af-logo-brand-emblem">AF</span>' +
+            '<div><strong>ALINY FLOW</strong><small>CONTROLE LOGÍSTICO</small></div></div>' +
+          '<div class="af-logo-page-tag">IDENTIFICAÇÃO</div>' +
+        '</header>' +
+        '<div class="af-logo-page-line" aria-hidden="true"></div>' +
+        '<main class="af-logo-page-main">' +
+          '<p class="af-logo-page-eyebrow">TRANSPORTADORA</p>' +
+          '<div class="af-logo-page-photo"><img class="af-logo-page-image" src="' +
+            esc(src) + '" alt="Logo da transportadora ' + esc(carrier) + '"></div>' +
+          '<div class="af-logo-page-name-label">IDENTIFICAÇÃO DA TRANSPORTADORA</div>' +
+          '<h1 class="af-logo-page-name">' + esc(carrier) + '</h1>' +
+          '<div class="af-logo-page-dash" aria-hidden="true"></div>' +
+        '</main>' +
+        '<footer class="af-logo-page-footer"><span>ALINY FLOW <i>·</i> EXPEDIÇÃO</span>' +
+          '<span>IDENTIFICAÇÃO VISUAL</span></footer>' +
+      '</div>';
+    var img = sheet.querySelector('.af-logo-page-image');
     var previous = document.body.dataset.print || 'gates';
     document.body.dataset.print = 'carrier-logo';
     var done = false;
@@ -142,15 +157,33 @@
       '.af-pending-counts span{padding:9px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;font-size:12px}',
       '.af-pending-counts b{color:var(--blue);font-size:16px}.af-print-sheet{display:none}',
       '@media(max-width:690px){.af-carrier-item,.af-pending-item{align-items:flex-start;flex-wrap:wrap}.af-carrier-actions{width:100%}.af-carrier-logo-thumb,.af-logo-empty{width:78px}}',
-      '@media print{body[data-print="carrier-logo"] .shell,body[data-print="carrier-logo"] #toast,body[data-print="carrier-logo"] #authGate,body[data-print="carrier-logo"] #printWatermark{display:none!important}',
-      'body[data-print="carrier-logo"] #afCarrierPrintSheet{display:flex!important;align-items:center;justify-content:center;background:white!important;width:100%;height:250mm;overflow:hidden;page-break-after:avoid}',
-      'body[data-print="carrier-logo"] #afCarrierPrintSheet img{display:block!important;width:auto;height:auto;max-width:180mm;max-height:225mm;object-fit:contain;page-break-inside:avoid}}'
+      '@media print{@page{size:A4 portrait;margin:8mm}',
+      'body[data-print="carrier-logo"]{margin:0!important;padding:0!important;background:#fff!important;color:#231b2b!important}',
+      'body[data-print="carrier-logo"]>:not(#afCarrierPrintSheet){display:none!important}',
+      'body[data-print="carrier-logo"] #afCarrierPrintSheet{display:block!important;width:194mm;height:281mm;margin:0!important;padding:0!important;background:#fff!important;overflow:hidden;page-break-inside:avoid;break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}',
+      '#afCarrierPrintSheet .af-logo-page{box-sizing:border-box;position:relative;display:flex;flex-direction:column;width:194mm;height:281mm;padding:13mm 13mm 9mm;border:1.5px solid #ad8dd5;background:#fff;color:#20172c;overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact}',
+      '#afCarrierPrintSheet .af-logo-page:before{content:"";position:absolute;left:0;right:0;top:0;height:4mm;background:#7648bb;print-color-adjust:exact;-webkit-print-color-adjust:exact}',
+      '#afCarrierPrintSheet .af-logo-page-header{display:flex;justify-content:space-between;align-items:center;gap:6mm;padding:3mm 0 7mm}',
+      '#afCarrierPrintSheet .af-logo-page-brand{display:flex;align-items:center;gap:3mm;font:700 13pt Arial,sans-serif;letter-spacing:1.2px}',
+      '#afCarrierPrintSheet .af-logo-page-brand small{display:block;margin-top:1mm;font:500 7pt Arial,sans-serif;letter-spacing:2px;color:#645372}',
+      '#afCarrierPrintSheet .af-logo-brand-emblem{display:grid;place-items:center;flex-shrink:0;width:15mm;height:15mm;border:1.8px solid #7648bb;border-radius:4mm;color:#7648bb;font:800 16pt Arial,sans-serif;letter-spacing:-1px}',
+      '#afCarrierPrintSheet .af-logo-page-tag{border:1px solid #b9a2d6;color:#66428d;padding:3mm;font:700 7.5pt Arial,sans-serif;letter-spacing:1.6px;border-radius:1.6mm}',
+      '#afCarrierPrintSheet .af-logo-page-line{height:1mm;background:#7648bb;width:100%;flex-shrink:0}',
+      '#afCarrierPrintSheet .af-logo-page-main{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:10mm 0 13mm}',
+      '#afCarrierPrintSheet .af-logo-page-eyebrow{font:700 9pt Arial,sans-serif;letter-spacing:3px;color:#755598;margin:0 0 9mm}',
+      '#afCarrierPrintSheet .af-logo-page-photo{box-sizing:border-box;display:flex;align-items:center;justify-content:center;width:100%;height:128mm;flex-shrink:0;padding:12mm;border:1.2px solid #c9b2e5;background:white}',
+      '#afCarrierPrintSheet .af-logo-page-image{display:block!important;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:none!important;opacity:1!important}',
+      '#afCarrierPrintSheet .af-logo-page-name-label{margin-top:12mm;color:#806b97;font:600 8pt Arial,sans-serif;letter-spacing:2px;text-align:center}',
+      '#afCarrierPrintSheet .af-logo-page-name{margin:4mm 0 5mm;max-width:162mm;max-height:39mm;overflow:hidden;color:#20172c;font:800 22pt/1.2 Arial,sans-serif;letter-spacing:.2px;text-align:center;white-space:normal;overflow-wrap:anywhere;text-transform:uppercase}',
+      '#afCarrierPrintSheet .af-logo-page-dash{height:1.2mm;width:20mm;background:#7648bb;flex-shrink:0}',
+      '#afCarrierPrintSheet .af-logo-page-footer{display:flex;justify-content:space-between;align-items:center;gap:6mm;padding-top:6mm;border-top:1px solid #c9b2e5;font:700 7pt Arial,sans-serif;letter-spacing:1.1px;color:#665477}',
+      '#afCarrierPrintSheet .af-logo-page-footer i{font-style:normal;color:#7648bb}}'
     ].join('');
     document.head.appendChild(style);
     var listPanel = document.createElement('div');
     listPanel.className = 'panel af-carrier-tools hideprint';
     listPanel.innerHTML = '<h2>Transportadoras e impressão individual</h2>' +
-      '<p>Lista das transportadoras do relatório carregado e das logos cadastradas. Clique em <b>Imprimir só a logo</b> para imprimir uma folha sem informações de gates.</p>' +
+      '<p>Escolha uma transportadora e imprima uma identificação elegante em A4: logo centralizada e em destaque, nome grande e acabamento ultravioleta do AlinyFlow, sem dados dos gates.</p>' +
       '<div class="toolbar"><input id="afCarrierSearch" type="search" placeholder="Buscar transportadora" aria-label="Buscar transportadora">' +
       '<button type="button" class="btn primary" id="afSelectedCarrierPrint">Imprimir logo selecionada</button></div>' +
       '<p id="afCarrierCount" class="mini muted" role="status"></p><div id="afCarrierList" class="af-carrier-list"></div>';
