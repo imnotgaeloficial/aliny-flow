@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#180c29">
+<title>Placas para impressão | AlinyFlow</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color-scheme:dark;--bg:#11091b;--panel:#21132f;--panel2:#291b3b;--line:#5b4174;--text:#fff9ff;--muted:#cbb7dc;--violet:#ac80fc}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(ellipse at 15% 0%,#4f276e 0,transparent 44%),linear-gradient(135deg,#12091f,#1e112c 65%,#100819)}
+button,input,textarea,select{font:inherit}
+button,a{touch-action:manipulation}
+a{color:#f0dfff;text-decoration:none}
+a:hover{text-decoration:underline}
+main{max-width:1270px;margin:0 auto;padding:24px 20px 72px}
+header.site-head{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;border-bottom:1px solid #644b7b;padding-bottom:19px}
+.site-brand{display:flex;align-items:center;gap:13px}
+.site-mark{display:grid;place-items:center;width:52px;height:52px;border:2px solid #b991f7;color:#f5eaff;border-radius:16px;background:#3b2256;font-weight:900;letter-spacing:-1px;font-size:21px}
+.site-brand strong{display:block;font-size:19px;letter-spacing:2px}
+.site-brand small{display:block;margin-top:4px;font-size:10px;color:#dac4f5;letter-spacing:2.5px}
+.nav{display:flex;align-items:center;gap:17px;flex-wrap:wrap;font-size:13px;font-weight:700}
+h1{font-size:clamp(27px,4vw,40px);margin:27px 0 8px;line-height:1.14}
+.intro{color:var(--muted);line-height:1.6;max-width:860px;margin:0 0 25px}
+.layout{display:grid;grid-template-columns:minmax(290px,395px) minmax(0,1fr);gap:21px;align-items:start}
+.panel{background:rgba(31,18,47,.96);border:1px solid var(--line);box-shadow:0 15px 35px #0003;border-radius:18px;padding:19px}
+h2{font-size:17px;margin:0 0 14px}
+.helper{color:var(--muted);font-size:12px;line-height:1.55}
+.kicker{font-size:11px;letter-spacing:2px;font-weight:800;color:#d9bafe;margin:5px 0 12px}
+.catalog{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-height:420px;overflow-y:auto;padding:1px 2px 5px 1px}
+.sign-choice{min-height:88px;border:1px solid #674e80;border-radius:11px;background:#2a1b3d;color:var(--text);padding:12px 10px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:8px;justify-content:space-between}
+.sign-choice:hover,.sign-choice:focus-visible{border-color:#d4b7ff;outline:2px solid transparent;background:#37234e}
+.sign-choice[aria-pressed="true"]{border:2px solid #cfa5ff;padding:11px 9px;background:#493069;box-shadow:inset 0 0 0 1px #ffffff17}
+.choice-code{width:32px;height:28px;display:grid;place-items:center;border-radius:8px;border:1px solid #c9a5fd;color:#ebd9ff;font-weight:900;font-size:11px}
+.choice-name{font-weight:800;font-size:12px;line-height:1.25}
+.field{margin-top:15px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+input,select{width:100%;border-radius:9px;border:1px solid #75568f;background:#140d20;color:white;padding:11px 12px;min-height:44px}
+input:focus,select:focus,button:focus-visible{outline:2px solid #cda5ff;outline-offset:2px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:19px}
+button.action{border:1px solid #805f9e;border-radius:9px;background:#352345;padding:11px 13px;font-weight:800;font-size:13px;color:white;cursor:pointer}
+button.action.primary{background:linear-gradient(130deg,#bf94ff,#9361ed);border-color:#cba1ff;color:#200c30;flex-grow:1}
+button.action:disabled{opacity:.55;cursor:wait}
+#status{min-height:28px;font-size:12px;line-height:1.5;color:#e6d6ff;margin-top:12px}
+.preview-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 13px}
+.preview-head h2{margin:0}
+.preview-head .pill{font-size:11px;font-weight:800;padding:6px 9px;border:1px solid #8a65ae;border-radius:30px;color:#dbc5ef}
+.preview-shell{padding:17px;background:#120b1c;border:1px solid #614979;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.sheet{--accent:#7542bb;--dark:#231138;--soft:#e2d3f4;--ink:#25172e;--faint:#f6f1fc;position:relative;isolation:isolate;width:100%;aspect-ratio:297/210;container-type:inline-size;display:flex;flex-direction:column;overflow:hidden;background:#fff;color:var(--ink);box-shadow:0 9px 25px #0006;border:1px solid #d1b6e9;font-family:Arial,"Segoe UI",sans-serif}
+.sheet.portrait{aspect-ratio:210/297}
+.sheet.blue{--accent:#2762be;--dark:#10264d;--soft:#ccdcf6;--ink:#162a43;--faint:#f1f6ff}
+.sheet.graphite{--accent:#293047;--dark:#1c2133;--soft:#d3d7e2;--ink:#232838;--faint:#f3f5f8}
+.sheet:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,var(--faint),#fff 48%,var(--faint));opacity:.65}
+.sheet-top{display:flex;justify-content:space-between;align-items:center;gap:3%;min-height:17%;background:var(--dark);color:#fff;padding:3% 5%}
+.sheet-ident{display:flex;align-items:center;gap:1.7cqw;min-width:0}
+.sheet-monogram{border:2px solid #fff;border-radius:12%;width:7.8cqw;height:7.8cqw;display:grid;place-items:center;font-size:3.8cqw;font-weight:900;flex-shrink:0}
+.sheet-brand{font-size:2.45cqw;font-weight:900;letter-spacing:.14em;white-space:nowrap}
+.sheet-brand-sub{font-size:1.18cqw;margin-top:.45cqw;letter-spacing:.18em;opacity:.85;font-weight:700}
+.sheet-top-tag{border:1px solid #ffffff88;border-radius:4px;padding:1.15cqw 1.7cqw;font-size:1.4cqw;letter-spacing:.15em;font-weight:800;white-space:nowrap}
+.sheet-body{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;min-height:0;padding:4.5% 5%}
+.sheet-body:before,.sheet-body:after{content:"";position:absolute;width:8.5cqw;height:8.5cqw;pointer-events:none}
+.sheet-body:before{top:5%;left:3%;border-top:3px solid var(--accent);border-left:3px solid var(--accent)}
+.sheet-body:after{bottom:5%;right:3%;border-bottom:3px solid var(--accent);border-right:3px solid var(--accent)}
+.sheet-symbol{display:grid;place-items:center;border:3px solid var(--accent);color:var(--accent);background:#fff;width:13.8cqw;height:13.8cqw;border-radius:50%;font-size:4.7cqw;font-weight:900;letter-spacing:-.04em;box-shadow:0 0 0 .9cqw var(--soft);margin-bottom:4.2cqw;flex-shrink:0}
+.sheet-eyebrow{font-weight:900;letter-spacing:.32em;color:var(--accent);font-size:1.65cqw;margin:0 0 2.2cqw;text-transform:uppercase}
+.sheet-title{font-size:7.1cqw;line-height:1.02;letter-spacing:-.03em;font-weight:900;text-transform:uppercase;overflow-wrap:break-word;max-width:100%;margin:0;font-stretch:condensed}
+.sheet-title.long{font-size:5.9cqw;line-height:1.04}
+.sheet-title.very-long{font-size:4.8cqw;line-height:1.09}
+.sheet-underline{width:17%;height:.65cqw;min-height:3px;background:var(--accent);margin:3cqw 0 2.4cqw;flex-shrink:0}
+.sheet-subtitle{font-weight:700;letter-spacing:.13em;font-size:2.05cqw;max-width:95%;line-height:1.3;text-transform:uppercase;color:#554361}
+.sheet.blue .sheet-subtitle{color:#435d83}
+.sheet.graphite .sheet-subtitle{color:#51596c}
+.sheet-foot{min-height:9%;display:flex;align-items:center;justify-content:space-between;gap:3%;padding:2% 5%;border-top:3px solid var(--accent);font-size:1.32cqw;letter-spacing:.1em;font-weight:900}
+.sheet-foot .secondary{color:#766983}
+.sheet.blue .sheet-foot .secondary{color:#4a6384}
+.sheet.graphite .sheet-foot .secondary{color:#596073}
+.sheet.portrait .sheet-top{min-height:12%;padding:5%}
+.sheet.portrait .sheet-body{padding:9% 6%}
+.sheet.portrait .sheet-symbol{width:21cqw;height:21cqw;font-size:7cqw;margin-bottom:7cqw}
+.sheet.portrait .sheet-eyebrow{font-size:2.6cqw;margin-bottom:4cqw}
+.sheet.portrait .sheet-title{font-size:9.6cqw;line-height:1.08}
+.sheet.portrait .sheet-title.long{font-size:8.0cqw}
+.sheet.portrait .sheet-title.very-long{font-size:6.4cqw}
+.sheet.portrait .sheet-underline{margin:6cqw 0 5cqw;height:.9cqw}
+.sheet.portrait .sheet-subtitle{font-size:3.1cqw}
+.sheet.portrait .sheet-foot{min-height:7%;font-size:1.9cqw}
+.sheet.portrait .sheet-brand{font-size:3.4cqw}.sheet.portrait .sheet-brand-sub{font-size:1.75cqw}
+.sheet.portrait .sheet-monogram{width:10cqw;height:10cqw;font-size:4.3cqw}
+.sheet.portrait .sheet-top-tag{font-size:1.85cqw}
+.preview-note{margin-top:12px;color:var(--muted);font-size:12px;line-height:1.55}
+#printArea{display:none}
+@media(max-width:940px){.layout{grid-template-columns:1fr}.catalog{max-height:290px}.preview-shell{max-width:840px;margin:auto}}
+@media(max-width:520px){main{padding:19px 12px 46px}.panel{padding:14px}.preview-shell{padding:9px}.sheet-symbol{border-width:2px}.sheet-top-tag{border-width:1px}.sheet-body:before,.sheet-body:after{border-width:2px}.sheet-brand{letter-spacing:.06em}}
+@media print{
+  :root{color-scheme:light}
+  @page{size:A4 landscape;margin:0}
+  html,body{width:auto!important;height:auto!important;margin:0!important;padding:0!important;background:white!important;min-height:0!important}
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important;width:100%!important;height:auto!important}
+  .sheet{width:297mm!important;height:210mm!important;aspect-ratio:auto!important;box-shadow:none!important;border:0!important;break-inside:avoid!important;page-break-inside:avoid!important;break-after:page!important;page-break-after:always!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .sheet.portrait{width:210mm!important;height:297mm!important}
+  .sheet:last-child{break-after:auto!important;page-break-after:auto!important}
+}
+</style>
+<style id="pageSize">@page{size:A4 landscape;margin:0}</style>
+</head>
+<body>
+<main>
+<header class="site-head">
+  <div class="site-brand"><div class="site-mark">AF</div><div><strong>ALINYFLOW</strong><small>CONTROLE LOGÍSTICO</small></div></div>
+  <nav class="nav"><a href="./">← Voltar ao painel</a><a href="./imprimir-logos.html">Logos das transportadoras</a></nav>
+</header>
+<h1>Placas para impressão <span aria-hidden="true">💜</span></h1>
+<p class="intro">Identificações grandes, elegantes e prontas para colocar na expedição. Escolha o assunto, ajuste o texto se desejar e imprima em papel A4 ou salve como PDF. Os títulos são sinalizações, não informações em tempo real do Wiser.</p>
+<div class="layout">
+  <section class="panel">
+    <h2>Escolha a placa</h2>
+    <p class="kicker">CONTROLE OPERACIONAL</p>
+    <div class="catalog" id="catalog" role="group" aria-label="Modelos de placas"></div>
+    <div class="field"><label for="title">Título principal</label><input id="title" maxlength="85" placeholder="Ex.: GATES NÃO ASSINADOS"></div>
+    <div class="field"><label for="subtitle">Descrição pequena (opcional)</label><input id="subtitle" maxlength="90" placeholder="Ex.: Conferência de manifestos"></div>
+    <div class="field controls">
+      <div><label for="orientation">Formato A4</label><select id="orientation"><option value="landscape">Horizontal — placa</option><option value="portrait">Vertical — cartaz</option></select></div>
+      <div><label for="theme">Cor da placa</label><select id="theme"><option value="violet">Ultravioleta 💜</option><option value="blue">Azul 💙</option><option value="graphite">Preto elegante</option></select></div>
+    </div>
+    <div class="actions">
+      <button class="action primary" id="printOne" type="button">🖨️ Imprimir esta placa</button>
+      <button class="action" id="printAll" type="button">Imprimir coleção completa</button>
+    </div>
+    <p class="helper">“Imprimir coleção completa” gera uma página para cada modelo disponível. Para uma única identificação, use o botão roxo.</p>
+    <div id="status" role="status" aria-live="polite"></div>
+  </section>
+  <section class="panel">
+    <div class="preview-head"><h2>Prévia da placa</h2><span class="pill" id="previewFormat">A4 · Horizontal</span></div>
+    <div class="preview-shell"><div id="preview"></div></div>
+    <p class="preview-note">Dica: no Chrome, habilite “Gráficos de fundo” nas opções de impressão para destacar o ultravioleta. A placa também permanece legível em preto e branco.</p>
+  </section>
+</div>
+</main>
+<div id="printArea" aria-hidden="true"></div>
+<script>
+(function(){
+  'use strict';
+  var templates=[
+    {id:'nao-assinados',code:'GN',title:'Gates não assinados',subtitle:'Conferência de manifestos pendentes'},
+    {id:'assinados',code:'GA',title:'Gates assinados',subtitle:'Manifestos com assinatura registrada'},
+    {id:'conferencia-gates',code:'GC',title:'Gates a conferir',subtitle:'Verificar situação e documentação'},
+    {id:'aguardando-separacao',code:'AS',title:'Aguardando separação',subtitle:'Pedidos pendentes de separação'},
+    {id:'aguardando-conferencia',code:'AC',title:'Aguardando conferência',subtitle:'Pedidos em etapa de conferência'},
+    {id:'aguardando-carregamento',code:'CL',title:'Aguardando carregamento',subtitle:'Pedidos prontos para acompanhamento'},
+    {id:'bbags-pendentes',code:'BB',title:'BBags pendentes',subtitle:'Acompanhamento das bolsas pendentes'},
+    {id:'bbags-finalizadas',code:'BF',title:'BBags finalizadas',subtitle:'Registro de finalizações'},
+    {id:'pedidos-corte',code:'PC',title:'Pedidos do corte',subtitle:'Acompanhamento do corte operacional'},
+    {id:'pedidos-parados',code:'PP',title:'Pedidos parados',subtitle:'Atenção aos pedidos com tempo elevado'},
+    {id:'prioridade',code:'PR',title:'Atenção · prioridade',subtitle:'Tratativa prioritária da expedição'},
+    {id:'transportadoras',code:'TR',title:'Transportadoras',subtitle:'Identificação e documentação de expedição'}
+  ];
+  var $=function(id){return document.getElementById(id)};
+  var current=templates[0];
+  var printing=false;
+  function node(tag,cl,txt){
+    var e=document.createElement(tag);if(cl)e.className=cl;
+    if(txt!=null)e.textContent=txt;
+    return e;
+  }
+  function createSign(data,theme,orientation){
+    var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
+    var top=node('div','sheet-top');
+    var ident=node('div','sheet-ident'),monogram=node('div','sheet-monogram','AF');
+    var text=node('div'),brand=node('div','sheet-brand','ALINYFLOW'),brandSub=node('div','sheet-brand-sub','CONTROLE LOGÍSTICO');
+    text.append(brand,brandSub);ident.append(monogram,text);
+    top.append(ident,node('div','sheet-top-tag','EXPEDIÇÃO'));
+    var body=node('div','sheet-body'),symbol=node('div','sheet-symbol',data.code);
+    var eyebrow=node('div','sheet-eyebrow','SINALIZAÇÃO OPERACIONAL');
+    var title=node('h3','sheet-title',data.title.toLocaleUpperCase('pt-BR'));
+    if(data.title.length>38)title.classList.add('very-long');else if(data.title.length>24)title.classList.add('long');
+    var line=node('div','sheet-underline'),subtitle=node('div','sheet-subtitle',data.subtitle);
+    body.append(symbol,eyebrow,title,line,subtitle);
+    var foot=node('div','sheet-foot'),left=node('span',null,'ALINYFLOW · EXPEDIÇÃO'),right=node('span','secondary','IDENTIFICAÇÃO DE ÁREA');
+    foot.append(left,right);sheet.append(top,body,foot);
+    return sheet;
+  }
+  function readData(){
+    return {id:current.id,code:current.code,title:$('title').value.trim()||current.title,subtitle:$('subtitle').value.trim()};
+  }
+  function render(){
+    document.querySelectorAll('.sign-choice').forEach(function(btn){btn.setAttribute('aria-pressed',String(btn.dataset.id===current.id))});
+    var preview=$('preview');
+    preview.replaceChildren(createSign(readData(),$('theme').value,$('orientation').value));
+    $('previewFormat').textContent='A4 · '+($('orientation').value==='portrait'?'Vertical':'Horizontal');
+  }
+  function select(template){
+    current=template;
+    $('title').value=template.title;
+    $('subtitle').value=template.subtitle;
+    render();
+  }
+  templates.forEach(function(item){
+    var btn=node('button','sign-choice');
+    btn.type='button';btn.dataset.id=item.id;
+    btn.append(node('span','choice-code',item.code),node('span','choice-name',item.title));
+    btn.addEventListener('click',function(){select(item);$('status').textContent=''});
+    $('catalog').append(btn);
+  });
+  ['title','subtitle'].forEach(function(id){$(id).addEventListener('input',render)});
+  ['theme','orientation'].forEach(function(id){$(id).addEventListener('change',render)});
+  function runPrint(all){
+    if(printing)return;
+    var print=$('printArea'),orientation=$('orientation').value,theme=$('theme').value;
+    var signs=all?templates.map(function(data){return createSign(data,theme,orientation)}):[createSign(readData(),theme,orientation)];
+    print.replaceChildren.apply(print,signs);
+    $('pageSize').textContent='@page{size:A4 '+orientation+';margin:0}';
+    printing=true;
+    $('status').textContent=all?'Coleção pronta para impressão: '+templates.length+' páginas A4.':'Placa pronta para impressão em A4.';
+    // Evita imprimir prévia vazia; a placa é composta inteiramente de HTML/CSS, sem imagens externas.
+    try{window.print()}catch(err){$('status').textContent='Não foi possível abrir a impressão neste navegador.';printing=false;}
+  }
+  $('printOne').addEventListener('click',function(){runPrint(false)});
+  $('printAll').addEventListener('click',function(){runPrint(true)});
+  window.addEventListener('afterprint',function(){printing=false;$('printArea').replaceChildren()});
+  select(templates[0]);
+})();
+</script>
+</body>
+</html>
