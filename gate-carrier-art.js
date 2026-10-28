@@ -151,12 +151,12 @@ function init(){
   style.id='af-carrier-art-style';
   style.textContent=[
     '#gatePrintReport .af-carrier-page,#gatePrintReport .af-original-cover{display:none}',
-    '@page{size:A4 portrait;margin:0}',
+    '@page afCarrierGates{size:A4 portrait;margin:0}',
     '@media print{',
     'body[data-print="gates"] #printWatermark{display:none!important}',
     '#gatePrintReport.af-branded .af-original-cover{display:block!important;width:210mm!important;height:297mm!important;max-width:none!important;overflow:hidden;break-after:page;page-break-after:always;background:#fff!important;padding:0!important;margin:0!important;box-sizing:border-box!important}',
     '#gatePrintReport.af-branded .af-original-cover img{display:block!important;width:210mm!important;height:297mm!important;max-width:none!important;object-fit:fill!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}',
-    'body[data-print="gates"] #gatePrintReport.af-branded{display:block!important;width:100%;max-width:none!important}',
+    'body[data-print="gates"] #gatePrintReport.af-branded{display:block!important;width:100%;max-width:none!important;page:afCarrierGates!important;padding:0!important;margin:0!important}',
     '#gatePrintReport.af-branded .af-carrier-page{display:block!important;position:relative;isolation:isolate;break-after:page;page-break-after:always;padding:8mm 11mm 10mm;color:#1c1b23;background:white;min-height:297mm;box-sizing:border-box}',
     '#gatePrintReport.af-branded .af-carrier-page:last-child{break-after:auto;page-break-after:auto}',
     '#gatePrintReport .af-carrier-page *{box-sizing:border-box}',
