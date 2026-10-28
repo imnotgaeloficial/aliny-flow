@@ -629,6 +629,104 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
  }
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,700;6..96,800;6..96,900&amp;family=Cormorant+Garamond:wght@600;700&amp;display=swap" rel="stylesheet">
+<style id="animePosterLettering2026">
+/* Tipografia inspirada na arte anime aprovada: serifada editorial em violeta e lilás.
+   Fontes alternativas mantêm legibilidade mesmo sem acesso ao Google Fonts. */
+:root{--af-poster-serif:"Bodoni Moda","Didot","Bodoni MT","Times New Roman",Georgia,serif}
+.sheet{--poster-dark:#2f164e;--poster-lilac:#7542ab;--poster-muted:#916ac0}
+.sheet.blue{--poster-dark:#183e68;--poster-lilac:#3268a0;--poster-muted:#6186b5}
+.sheet.graphite{--poster-dark:#242c3d;--poster-lilac:#4c5773;--poster-muted:#778098}
+.sheet .sheet-title.lettered,
+.sheet.portrait .sheet-title.lettered,
+.sheet:not(.portrait).dense .sheet-title.lettered,
+.sheet:not(.portrait).compact .sheet-title.lettered{
+  font-family:var(--af-poster-serif)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:0!important;
+  max-width:98%!important;
+  margin:0!important;
+  padding:0 1.2cqw!important;
+  font-weight:800!important;
+  text-align:center!important;
+  line-height:1.01!important;
+  font-kerning:normal;
+  text-rendering:optimizeLegibility;
+}
+.sheet .sheet-title .title-top,
+.sheet.portrait .sheet-title .title-top{
+  font-family:var(--af-poster-serif)!important;
+  font-size:7.4cqw!important;
+  font-weight:800!important;
+  font-style:normal!important;
+  letter-spacing:-.065em!important;
+  line-height:1.03!important;
+  text-transform:uppercase!important;
+  text-shadow:none!important;
+  color:var(--poster-dark)!important;
+  padding:0!important;
+  margin:0!important;
+  max-width:100%;
+  overflow-wrap:break-word;
+  display:block;
+}
+.sheet .sheet-title .title-main,
+.sheet.portrait .sheet-title .title-main{
+  font-family:var(--af-poster-serif)!important;
+  font-size:9.4cqw!important;
+  font-weight:800!important;
+  font-style:normal!important;
+  letter-spacing:-.07em!important;
+  line-height:1.02!important;
+  color:var(--poster-lilac)!important;
+  text-shadow:none!important;
+  max-width:100%;
+  overflow-wrap:break-word;
+  display:block;
+}
+.sheet .sheet-title .title-top.wide-top{font-size:5.5cqw!important;letter-spacing:-.04em!important}
+.sheet .sheet-title .title-main.wide{font-size:7.0cqw!important}
+.sheet .sheet-title .title-main.extra-wide{font-size:5.0cqw!important;line-height:1.08!important}
+.sheet.portrait .sheet-title .title-top{font-size:10.5cqw!important}
+.sheet.portrait .sheet-title .title-top.wide-top{font-size:7.4cqw!important}
+.sheet.portrait .sheet-title .title-main{font-size:13.4cqw!important}
+.sheet.portrait .sheet-title .title-main.wide{font-size:9.8cqw!important}
+.sheet.portrait .sheet-title .title-main.extra-wide{font-size:6.8cqw!important}
+.sheet .sheet-title .title-main:after{content:none!important}
+.sheet .sheet-eyebrow{
+  color:var(--poster-muted)!important;
+  font-family:"Manrope","Segoe UI",Arial,sans-serif!important;
+  font-weight:800!important;
+  letter-spacing:.20em!important;
+}
+.sheet .sheet-brand{
+  font-family:"Cormorant Garamond",Georgia,serif!important;
+  font-weight:700!important;
+  letter-spacing:.065em!important;
+  font-size:3.4cqw!important;
+  color:var(--poster-dark)!important;
+}
+.sheet.portrait .sheet-brand{font-size:4.2cqw!important}
+.sheet .sheet-brand-sub{font-size:1.2cqw;letter-spacing:.19em!important}
+.sheet.portrait .sheet-brand-sub{font-size:1.8cqw}
+.sheet .sheet-subtitle{color:var(--poster-dark)!important}
+.sheet .sheet-underline{
+  width:27%!important;
+  background:linear-gradient(90deg,var(--soft),var(--poster-lilac),var(--soft))!important;
+}
+@media print{
+  .sheet .sheet-title .title-top{color:var(--poster-dark)!important}
+  .sheet .sheet-title .title-main{color:var(--poster-lilac)!important}
+  .sheet .sheet-title .title-top,.sheet .sheet-title .title-main{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+}
+</style>
 </head>
 <body>
 <main>
