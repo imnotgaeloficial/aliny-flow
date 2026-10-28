@@ -190,6 +190,16 @@ h1{letter-spacing:-.045em}
   .sheet-top,.sheet-foot,.sheet-symbol,.sheet-subtitle{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
   .sheet-title{color:var(--ink)!important}
 }
+
+/* Mantém títulos com 2–4 linhas dentro da página A4 sem cortes. */
+.sheet:not(.portrait) .sheet-top{min-height:14.5%;padding-top:2%;padding-bottom:2%}
+.sheet:not(.portrait) .sheet-body{padding:2% 6.5%}
+.sheet:not(.portrait) .sheet-foot{min-height:7%;padding-top:1.3%;padding-bottom:1.3%}
+.sheet:not(.portrait).dense:not(.compact) .sheet-symbol{width:9.4cqw;height:9.4cqw;font-size:3.3cqw;margin:0 0 3.5cqw}
+.sheet:not(.portrait).dense:not(.compact) .sheet-eyebrow{margin-bottom:1.7cqw}
+.sheet:not(.portrait).dense:not(.compact) .sheet-underline{margin:2.4cqw 0 1.8cqw}
+.sheet:not(.portrait).compact .sheet-body{padding-top:1.3%;padding-bottom:1.3%}
+.sheet:not(.portrait).compact .sheet-subtitle{padding:0.8cqw 1.3cqw}
 </style>
 <style id="pageSize">@page{size:A4 landscape;margin:0}</style>
 </head>
@@ -256,6 +266,7 @@ h1{letter-spacing:-.045em}
   function createSign(data,theme,orientation){
     var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
     sheet.append(node('div','sheet-watermark','AF'));
+    if(data.title.length>20)sheet.classList.add('dense');
     if(data.title.length>52)sheet.classList.add('compact');
     var top=node('div','sheet-top');
     var ident=node('div','sheet-ident'),monogram=node('div','sheet-monogram','AF');
