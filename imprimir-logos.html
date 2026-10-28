@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imprimir logos das transportadoras | AlinyFlow</title>
+<meta name="theme-color" content="#120a20">
+<style>
+:root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--purple:#ad7af8;--deep:#120a20;--panel:#21152f;--border:#53376b;--text:#fcf9ff;--muted:#c8b8d6}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 12% 0%,#462164 0,transparent 49%),linear-gradient(135deg,#100719,#21112f 70%,#130a21);color:var(--text);min-height:100vh}
+main{max-width:1120px;margin:0 auto;padding:28px 20px 64px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:0 0 20px;border-bottom:1px solid #6b4383}
+.identity{display:flex;align-items:center;gap:14px}
+.mark{display:grid;place-items:center;width:52px;height:52px;border:2px solid #ad7af8;border-radius:16px;background:#2c1749;font-size:21px;font-weight:900;letter-spacing:-2px}
+.brand{font-weight:900;letter-spacing:.15em;font-size:18px}
+.overline{display:block;color:#dbc5ff;font-size:10px;letter-spacing:.24em;margin-top:4px;font-weight:700}
+a{color:#f3ddff;text-decoration:none}
+a:hover{text-decoration:underline}
+h1{font-size:clamp(25px,4vw,37px);line-height:1.15;margin:28px 0 10px}
+.intro{max-width:760px;color:var(--muted);margin:0 0 23px;line-height:1.55}
+.layout{display:grid;grid-template-columns:minmax(280px,420px) minmax(290px,1fr);gap:22px;align-items:start}
+.panel{border:1px solid var(--border);background:rgba(27,16,44,.97);padding:22px;border-radius:18px;box-shadow:0 18px 45px #0002}
+h2{font-size:17px;margin:0 0 18px}
+label{display:block;font-weight:700;font-size:13px;margin:17px 0 8px}
+input,select{display:block;width:100%;font:inherit;background:#12091d;color:white;padding:13px;border:1px solid #75518d;border-radius:9px;min-height:46px}
+input[type=file]{padding:10px}
+input:focus,select:focus{outline:2px solid var(--purple);outline-offset:2px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+button,.button{border:1px solid #775c9f;background:#2d1c46;color:white;border-radius:10px;padding:12px 15px;font:700 14px system-ui;cursor:pointer}
+button.primary{background:#a16bef;color:#13051d;border-color:#c59aff}
+button:disabled{opacity:.5;cursor:not-allowed}
+.help{font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 0}
+#status{min-height:18px;color:#d5f5dd;font-size:12px;margin-top:13px}
+.preview-wrap{padding:18px;border-radius:12px;border:1px solid #523f68;background:#130d1b;overflow:auto}
+.paper{background:white;color:#20162c;aspect-ratio:210/297;width:100%;min-height:400px;display:flex;flex-direction:column;border-top:9px solid #8553c2;padding:7% 8% 5%;box-shadow:0 8px 23px #0005}
+.paper-head{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:3px solid #8553c2;padding-bottom:19px}
+.paper-logo{display:flex;align-items:center;gap:9px}
+.paper-mark{display:grid;place-items:center;width:35px;height:35px;color:#7543b4;border:2px solid #7543b4;border-radius:10px;font-size:14px;font-weight:900}
+.paper-head strong{font-size:13px;letter-spacing:2px}
+.paper-head small{display:block;font-size:6px;letter-spacing:1.7px;color:#7d6e8c}
+.paper-badge{border:1px solid #b69cd8;border-radius:5px;padding:6px;color:#68439e;font-size:8px;font-weight:800;letter-spacing:.12em}
+.paper-middle{display:flex;flex:1;flex-direction:column;justify-content:center;align-items:center;min-height:0;padding:25px 0;gap:14px}
+.eyebrow{font-weight:800;letter-spacing:3px;color:#745394;font-size:11px;text-align:center}
+.logo-frame{display:flex;align-items:center;justify-content:center;border:2px solid #cbb9e2;width:100%;height:52%;min-height:145px;background:#fff;padding:15px}
+.logo-frame img{display:block;max-width:100%;max-height:100%;object-fit:contain}
+.placeholder{text-align:center;color:#8c8194;font-size:13px;padding:20px}
+.carrier-title{font-size:clamp(16px,3vw,27px);font-weight:900;color:#281831;line-height:1.2;text-align:center;overflow-wrap:anywhere;max-width:100%;text-transform:uppercase}
+.paper-foot{border-top:1px solid #c9b2e5;padding-top:14px;display:flex;justify-content:space-between;font-size:9px;font-weight:800;letter-spacing:.8px;color:#6d5b7c}
+.back{font-size:13px;font-weight:700}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.panel{padding:16px}.paper{max-width:500px;margin:auto}}
+@media print {
+  @page{size:A4 portrait;margin:0}
+  :root{color-scheme:light}
+  body{margin:0!important;background:#fff!important;color:#000!important;min-height:0!important}
+  body>*:not(#printSheet){display:none!important}
+  #printSheet{display:flex!important}
+  .paper{width:210mm!important;height:297mm!important;min-height:0!important;max-height:297mm!important;aspect-ratio:auto!important;box-shadow:none!important;border-top:4mm solid #8553c2!important;padding:14mm 17mm 11mm!important;break-inside:avoid!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .paper-head{padding-bottom:6mm!important}.paper-mark{width:13mm;height:13mm}
+  .paper-head strong{font-size:14pt}.paper-head small{font-size:7pt}.paper-badge{font-size:8pt}
+  .paper-middle{padding:10mm 0!important;gap:8mm!important}
+  .logo-frame{height:128mm!important;min-height:128mm!important;padding:10mm!important}
+  .logo-frame img{max-height:110mm!important}
+  .eyebrow{font-size:10pt}.carrier-title{font-size:24pt;max-height:42mm;overflow:hidden}
+  .paper-foot{font-size:8pt;padding-top:6mm!important}
+}
+#printSheet{display:none}
+</style>
+</head>
+<body>
+<main>
+  <header class="head">
+    <div class="identity"><div class="mark">AF</div><div><div class="brand">ALINYFLOW</div><span class="overline">CONTROLE LOGÍSTICO</span></div></div>
+    <a class="back" href="./">← Voltar ao painel</a>
+  </header>
+  <h1>Impressão de logos 💜</h1>
+  <p class="intro">Escolha uma transportadora, confira a identificação e imprima em folha A4 vertical. Não entram informações de gates, pedidos ou assinaturas.</p>
+  <div class="layout">
+    <section class="panel" aria-label="Configurar impressão">
+      <h2>Escolha a transportadora</h2>
+      <label for="carrier">Transportadora</label>
+      <select id="carrier"><option value="">Selecione ou cadastre uma transportadora</option></select>
+      <label for="newCarrier">Adicionar transportadora</label>
+      <input id="newCarrier" placeholder="Digite o nome" maxlength="100" autocomplete="off">
+      <div class="actions"><button id="addCarrier" type="button">+ Adicionar à lista</button></div>
+      <label for="upload">Logo da transportadora (PNG, JPG ou WEBP)</label>
+      <input id="upload" type="file" accept="image/png,image/jpeg,image/webp">
+      <p class="help">A logo fica salva neste navegador. Se você cadastrou logos na área de logística deste mesmo site e navegador, tentaremos recuperá-las automaticamente.</p>
+      <div class="actions">
+        <button class="primary" id="print" type="button" disabled>🖨️ Imprimir A4</button>
+        <button id="remove" type="button" disabled>Remover logo</button>
+      </div>
+      <div id="status" role="status" aria-live="polite"></div>
+    </section>
+    <section class="panel" aria-label="Prévia de impressão">
+      <h2>Prévia da folha A4</h2>
+      <div class="preview-wrap"><div id="screenPaper"></div></div>
+    </section>
+  </div>
+</main>
+<div id="printSheet" aria-hidden="true"></div>
+<script>
+(function(){
+  'use strict';
+  var key='alinyflow_logos_individuais_v1';
+  var catalogKey='alinyflow_carrier_catalog_v1';
+  var state={names:[],logos:{}};
+  var $=function(id){return document.getElementById(id)};
+  function clean(s){return String(s||'').trim().replace(/\s+/g,' ')}
+  function norm(s){return clean(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
+  function validSrc(s){return typeof s==='string' && (/^data:image\/(png|jpeg|webp);base64,/i.test(s)||/^https:\/\//i.test(s))}
+  function addName(name){name=clean(name);if(name && !state.names.some(function(x){return norm(x)===norm(name)})) state.names.push(name)}
+  function safeParse(raw){try{return JSON.parse(raw)}catch(e){return null}}
+  function mergeLogos(obj,onlyMissing){
+    if(!obj||typeof obj!=='object'||Array.isArray(obj))return;
+    Object.keys(obj).forEach(function(name){
+      var value=obj[name];
+      if(!validSrc(value))return;
+      addName(name);
+      if(!onlyMissing || !state.logos[name]) state.logos[name]=value;
+    })
+  }
+  // Recupera mapas de logos utilizados em versões anteriores do mesmo site.
+  function restore(){
+    var saved=safeParse(localStorage.getItem(key));
+    if(saved&&Array.isArray(saved.names))saved.names.forEach(addName);
+    if(saved&&saved.logos)mergeLogos(saved.logos,false);
+    var catalog=safeParse(localStorage.getItem(catalogKey));
+    if(Array.isArray(catalog)) catalog.forEach(addName);
+    try{
+      for(var i=0;i<localStorage.length;i++){
+        var storageKey=localStorage.key(i);
+        if(storageKey===key || !/logo/i.test(storageKey||''))continue;
+        var obj=safeParse(localStorage.getItem(storageKey));
+        mergeLogos(obj,true);
+      }
+    }catch(e){}
+  }
+  function save(){
+    try{localStorage.setItem(key,JSON.stringify(state));localStorage.setItem(catalogKey,JSON.stringify(state.names));return true}
+    catch(e){notice('Sem espaço para salvar permanentemente. A logo permanece disponível nesta página.');return false}
+  }
+  function notice(message){$('status').textContent=message}
+  function selected(){return $('carrier').value}
+  function srcFor(name){
+    var key=Object.keys(state.logos).find(function(k){return norm(k)===norm(name)});
+    return key ? state.logos[key] : null;
+  }
+  function makePaper(name,src){
+    var paper=document.createElement('div');paper.className='paper';
+    var head=document.createElement('div');head.className='paper-head';
+    var left=document.createElement('div');left.className='paper-logo';
+    var emblem=document.createElement('span');emblem.className='paper-mark';emblem.textContent='AF';
+    var brand=document.createElement('div');
+    var strong=document.createElement('strong');strong.textContent='ALINYFLOW';
+    var small=document.createElement('small');small.textContent='CONTROLE LOGÍSTICO';
+    brand.append(strong,small);left.append(emblem,brand);
+    var badge=document.createElement('span');badge.className='paper-badge';badge.textContent='IDENTIFICAÇÃO';
+    head.append(left,badge);
+    var middle=document.createElement('div');middle.className='paper-middle';
+    var eyebrow=document.createElement('div');eyebrow.className='eyebrow';eyebrow.textContent='TRANSPORTADORA';
+    var frame=document.createElement('div');frame.className='logo-frame';
+    if(src){var img=document.createElement('img');img.src=src;img.alt='Logo de '+name;frame.append(img)}
+    else {var blank=document.createElement('div');blank.className='placeholder';blank.textContent='Cadastre a logo para visualizar e imprimir';frame.append(blank)}
+    var title=document.createElement('div');title.className='carrier-title';title.textContent=name||'Nome da transportadora';
+    middle.append(eyebrow,frame,title);
+    var foot=document.createElement('div');foot.className='paper-foot';
+    var f1=document.createElement('span');f1.textContent='ALINYFLOW · EXPEDIÇÃO';
+    var f2=document.createElement('span');f2.textContent='IDENTIFICAÇÃO VISUAL';
+    foot.append(f1,f2);paper.append(head,middle,foot);
+    return paper;
+  }
+  function render(){
+    var current=selected();
+    state.names.sort(function(a,b){return a.localeCompare(b,'pt-BR')});
+    var select=$('carrier');
+    select.replaceChildren(new Option('Selecione ou cadastre uma transportadora',''));
+    state.names.forEach(function(n){select.add(new Option(n,n))});
+    if(state.names.includes(current))select.value=current;
+    if(!select.value && state.names.length===1)select.value=state.names[0];
+    var name=selected(),src=srcFor(name);
+    $('screenPaper').replaceChildren(makePaper(name,src));
+    $('print').disabled=!name||!src;
+    $('remove').disabled=!name||!src;
+  }
+  $('addCarrier').addEventListener('click',function(){
+    var name=clean($('newCarrier').value);
+    if(!name){notice('Digite o nome da transportadora.');return}
+    addName(name);save();render();
+    var matched=state.names.find(function(s){return norm(s)===norm(name)});
+    $('carrier').value=matched;
+    $('newCarrier').value='';render();
+    notice('Transportadora adicionada. Agora escolha a imagem da logo.');
+  });
+  $('newCarrier').addEventListener('keydown',function(e){if(e.key==='Enter')$('addCarrier').click()});
+  $('carrier').addEventListener('change',function(){render();notice('')});
+  $('upload').addEventListener('change',function(){
+    var file=this.files&&this.files[0],name=selected();
+    if(!name){notice('Selecione primeiro a transportadora.');this.value='';return}
+    if(!file)return;
+    if(!/^image\/(png|jpeg|webp)$/.test(file.type)){notice('Escolha um arquivo PNG, JPG ou WEBP.');this.value='';return}
+    if(file.size>1500000){notice('Escolha uma imagem de até 1,5 MB.');this.value='';return}
+    var reader=new FileReader;
+    reader.onload=function(){state.logos[name]=reader.result;save();render();notice('Logo pronta para imprimir.')};
+    reader.onerror=function(){notice('Não foi possível abrir a imagem.')};
+    reader.readAsDataURL(file);this.value='';
+  });
+  $('remove').addEventListener('click',function(){
+    var name=selected();
+    Object.keys(state.logos).forEach(function(k){if(norm(k)===norm(name))delete state.logos[k]});
+    save();render();notice('Logo removida.');
+  });
+  $('print').addEventListener('click',function(){
+    var name=selected(),src=srcFor(name);
+    if(!name||!src){notice('Escolha a transportadora e cadastre uma logo antes de imprimir.');return}
+    $('printSheet').replaceChildren(makePaper(name,src));
+    var img=$('printSheet').querySelector('img');
+    Promise.resolve(img&&img.decode?img.decode().catch(function(){}):null)
+      .then(function(){window.print()})
+      .catch(function(){notice('Não foi possível abrir a impressão.')});
+  });
+  restore();render();
+})();
+</script>
+</body>
+</html>
