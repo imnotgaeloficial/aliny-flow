@@ -29,10 +29,10 @@ function signature(){
   section.append(info);
   return section;
 }
-function makeArt(group,thead,stamp,filterLabel){
+function makeArt(group,thead,stamp,filterLabel,title){
   var page=element('article','af-carrier-page');
   page.style.setProperty('--af-accent',themeFor(group.name));
-  page.setAttribute('aria-label','Folha de gates não assinados da transportadora '+group.name);
+  page.setAttribute('aria-label','Folha de '+title.toLowerCase()+' da transportadora '+group.name);
   var top=element('div','af-carrier-topline');
   top.append(element('span',null,'ALINY FLOW  •  CONTROLE LOGÍSTICO'));
   top.append(element('span',null,'EXPEDIÇÃO  /  CONFERÊNCIA'));
@@ -40,7 +40,7 @@ function makeArt(group,thead,stamp,filterLabel){
   var hero=element('header','af-carrier-hero');
   var heading=element('div','af-carrier-heading');
   heading.append(element('span','af-carrier-kicker','RELATÓRIO POR TRANSPORTADORA'));
-  heading.append(element('h2','af-carrier-title','GATES NÃO ASSINADOS'));
+  heading.append(element('h2','af-carrier-title',title));
   heading.append(element('p','af-carrier-name',group.name));
   hero.append(heading);
   var mark=element('div','af-carrier-brand');
@@ -66,7 +66,7 @@ function makeArt(group,thead,stamp,filterLabel){
   watermark.setAttribute('aria-hidden','true');
   page.append(watermark);
   var counts=element('div','af-carrier-metrics');
-  counts.append(element('div','af-carrier-metric','GATES PENDENTES: '+group.rows.length));
+  counts.append(element('div','af-carrier-metric','REGISTROS NA FOLHA: '+group.rows.length));
   counts.append(element('div','af-carrier-metric','SITUAÇÃO: '+filterLabel));
   counts.append(element('div','af-carrier-metric','GERADO: '+new Date().toLocaleDateString('pt-BR')));
   page.append(counts);
@@ -87,13 +87,38 @@ function makeArt(group,thead,stamp,filterLabel){
   page.append(foot);
   return page;
 }
+/* A arte aprovada fica intacta numa capa A4; os dados da transportadora
+   ficam nas páginas seguintes, sem cobrir o desenho original. */
+var artAssets={
+  no:'./assets/gates-nao-assinados-original.webp',
+  yes:'./assets/gates-assinados-original.webp'
+};
+var printSnapshot=null;
+function makeOriginalCover(status){
+  var cover=element('section','af-original-cover');
+  cover.setAttribute('aria-label',status==='no'?'Arte original: gates não assinados':'Arte original: gates assinados');
+  var img=document.createElement('img');
+  img.src=artAssets[status];
+  img.alt=status==='no'?'AlinyFlow — Gates não assinados, arte anime original':'AlinyFlow — Gates assinados, arte anime original';
+  cover.append(img);
+  return cover;
+}
+function restoreCarrierArt(){
+  if(!printSnapshot)return;
+  var snapshot=printSnapshot;
+  printSnapshot=null;
+  if(snapshot.report && snapshot.report.classList.contains('af-branded')){
+    snapshot.report.replaceChildren.apply(snapshot.report,snapshot.nodes);
+    snapshot.report.classList.remove('af-branded');
+  }
+}
 function prepareCarrierArt(){
   var body=document.body;
   if(!body||body.dataset.print!=='gates')return;
   var status=document.getElementById('gStatus');
-  if(!status||status.value!=='no')return;
+  if(!status||(status.value!=='no'&&status.value!=='yes'))return;
   var report=document.getElementById('gatePrintReport');
-  if(!report)return;
+  if(!report||report.classList.contains('af-branded'))return;
   var table=report.querySelector('table'),thead=table&&table.querySelector('thead');
   if(!thead)return;
   var trs=Array.from(table.querySelectorAll('tbody > tr'));
@@ -102,18 +127,22 @@ function prepareCarrierArt(){
     if(tr.classList.contains('carrier-title')){
       var c=tr.querySelector('.print-carrier'),nameNode=c&&c.querySelector('span');
       var name=nameNode?nameNode.textContent.trim():'';
-      if(!name)return;
-      var image=c.querySelector('img.print-carrier-logo');
-      current={name:name,logo:image?image.src:'',rows:[]};
+      if(!name){current=null;return;}
+      var carrierImage=c.querySelector('img.print-carrier-logo');
+      current={name:name,logo:carrierImage?carrierImage.src:'',rows:[]};
       groups.push(current);
-    }else if(current)current.rows.push(tr);
+    }else if(current){current.rows.push(tr);}
   });
-  if(!groups.length)return;
+  var filtered=groups.filter(function(g){return g.rows.length>0;});
+  if(!filtered.length)return;
   var stamp=(document.getElementById('importStamp')||{}).textContent||'';
-  var pages=groups.filter(function(x){return x.rows.length>0}).map(function(x){
-    return makeArt(x,thead,stamp,'NÃO ASSINADO');
+  var signed=status.value==='yes';
+  var title=signed?'GATES ASSINADOS':'GATES NÃO ASSINADOS';
+  var pages=[makeOriginalCover(status.value)];
+  filtered.forEach(function(g){
+    pages.push(makeArt(g,thead,stamp,signed?'ASSINADO':'NÃO ASSINADO',title));
   });
-  if(!pages.length)return;
+  printSnapshot={report:report,nodes:Array.from(report.childNodes)};
   report.replaceChildren.apply(report,pages);
   report.classList.add('af-branded');
 }
@@ -121,11 +150,14 @@ function init(){
   var style=document.createElement('style');
   style.id='af-carrier-art-style';
   style.textContent=[
-    '#gatePrintReport .af-carrier-page{display:none}',
+    '#gatePrintReport .af-carrier-page,#gatePrintReport .af-original-cover{display:none}',
+    '@page{size:A4 portrait;margin:0}',
     '@media print{',
     'body[data-print="gates"] #printWatermark{display:none!important}',
+    '#gatePrintReport.af-branded .af-original-cover{display:block!important;width:210mm!important;height:297mm!important;max-width:none!important;overflow:hidden;break-after:page;page-break-after:always;background:#fff!important;padding:0!important;margin:0!important;box-sizing:border-box!important}',
+    '#gatePrintReport.af-branded .af-original-cover img{display:block!important;width:210mm!important;height:297mm!important;max-width:none!important;object-fit:fill!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}',
     'body[data-print="gates"] #gatePrintReport.af-branded{display:block!important;width:100%;max-width:none!important}',
-    '#gatePrintReport.af-branded .af-carrier-page{display:block!important;position:relative;isolation:isolate;break-after:page;page-break-after:always;padding:0 1mm 3mm;color:#1c1b23;background:white;min-height:270mm;box-sizing:border-box}',
+    '#gatePrintReport.af-branded .af-carrier-page{display:block!important;position:relative;isolation:isolate;break-after:page;page-break-after:always;padding:8mm 11mm 10mm;color:#1c1b23;background:white;min-height:297mm;box-sizing:border-box}',
     '#gatePrintReport.af-branded .af-carrier-page:last-child{break-after:auto;page-break-after:auto}',
     '#gatePrintReport .af-carrier-page *{box-sizing:border-box}',
     '#gatePrintReport .af-carrier-topline,#gatePrintReport .af-carrier-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:7px;letter-spacing:1px;color:#55506a;font-weight:700}',
@@ -160,7 +192,10 @@ function init(){
     '}'
   ].join('');
   document.head.append(style);
+  /* Carrega as capas cedo para a prévia de impressão não ficar vazia. */
+  Object.keys(artAssets).forEach(function(status){var preview=new Image();preview.src=artAssets[status];});
   window.addEventListener('beforeprint',prepareCarrierArt);
+  window.addEventListener('afterprint',restoreCarrierArt);
 }
 if(window.alinyAuth&&window.alinyAuth.ready){
   window.alinyAuth.ready.then(init).catch(function(){});
