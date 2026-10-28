@@ -72,6 +72,9 @@
     var api = window.alinyCarriers;
     if (!api) return;
     carrierNames = api.list();
+    if (api.mode() !== 'demo') {
+      try { window.localStorage.setItem('alinyflow_carrier_catalog_v1', JSON.stringify(carrierNames)); } catch (e) {}
+    }
     var text = normalize(document.getElementById('afCarrierSearch').value);
     var matches = carrierNames.map(function(name, index){ return {name:name,index:index}; })
       .filter(function(item){ return normalize(item.name).includes(text); });
@@ -159,15 +162,7 @@
       action.textContent = 'Abrir impressão de logos';
       action.setAttribute('data-af-logos-shortcut', '');
       action.addEventListener('click', function() {
-        var tab = document.querySelector('[data-page="logos"]');
-        if (tab) tab.click();
-        else {
-          var logosPage = document.getElementById('logos');
-          if (logosPage) {
-            document.querySelectorAll('[id="dashboard"],[id="gates"],[id="logos"]').forEach(function(p) { p.hidden = p !== logosPage; });
-            logosPage.scrollIntoView({block:'start'});
-          }
-        }
+        window.location.href = './imprimir-logos.html';
       });
       shortcut.appendChild(copy);
       shortcut.appendChild(action);
@@ -217,7 +212,8 @@
     listPanel.innerHTML = '<h2>Transportadoras e impressão individual</h2>' +
       '<p>Escolha uma transportadora e imprima uma identificação elegante em A4: logo centralizada e em destaque, nome grande e acabamento ultravioleta do AlinyFlow, sem dados dos gates.</p>' +
       '<div class="toolbar"><input id="afCarrierSearch" type="search" placeholder="Buscar transportadora" aria-label="Buscar transportadora">' +
-      '<button type="button" class="btn primary" id="afSelectedCarrierPrint">Imprimir logo selecionada</button></div>' +
+      '<button type="button" class="btn primary" id="afSelectedCarrierPrint">Imprimir logo selecionada</button>' +
+      '<a class="btn" href="./imprimir-logos.html">Abrir página exclusiva de impressão</a></div>' +
       '<p id="afCarrierCount" class="mini muted" role="status"></p><div id="afCarrierList" class="af-carrier-list"></div>';
     document.getElementById('logos').appendChild(listPanel);
     var pendingPanel = document.createElement('div');
