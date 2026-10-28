@@ -327,3 +327,68 @@
   }
   window.addEventListener('beforeprint',tuneGatePrint);
 })();
+
+/* Ilustração original na impressão de gates: imagem visível no papel,
+   independente da opção "Imprimir gráficos de fundo" do Chrome. */
+;(function(){
+ 'use strict';
+ var animeSrc="data:image/webp;base64,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";
+ var style=document.createElement('style');
+ style.id='af-real-anime-gate-print';
+ style.textContent=`
+ @media print{
+  body[data-print="gates"] #gatePrintReport{isolation:isolate!important}
+  body[data-print="gates"] #gatePrintReport>img.af-anime-page-watermark{
+   display:block!important;position:fixed!important;z-index:0!important;
+   top:93mm!important;left:50%!important;transform:translateX(-50%)!important;
+   width:124mm!important;height:83mm!important;max-width:none!important;
+   object-fit:contain!important;opacity:.29!important;pointer-events:none!important;
+   -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
+  body[data-print="gates"] #gatePrintReport .af-anime-heading-art{
+   display:block!important;flex:0 0 auto!important;width:43mm!important;height:28mm!important;
+   object-fit:contain!important;opacity:.96!important;
+   border:1px solid #b58cdb!important;border-radius:8px!important;
+   background:white!important;
+   -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
+  body[data-print="gates"] #gatePrintReport>:not(.af-anime-page-watermark){position:relative!important;z-index:2!important}
+  body[data-print="gates"] #gatePrintReport tbody tr:not(.carrier-title) td{
+   background:rgba(255,255,255,.76)!important;
+  }
+  body[data-print="gates"] #gatePrintReport thead th,
+  body[data-print="gates"] #gatePrintReport .carrier-title td{
+   background:#eee5f6!important;
+  }
+ }`;
+ document.head.appendChild(style);
+ function makeImg(cls,alt){
+   var img=document.createElement('img');
+   img.className=cls;img.src=animeSrc;img.alt=alt;img.decoding='sync';
+   return img;
+ }
+ function addVisibleDrawing(){
+   var report=document.getElementById('gatePrintReport');
+   if(!report||!report.querySelector('.gate-report-heading'))return;
+   if(!report.querySelector('.af-anime-page-watermark')){
+     report.insertBefore(makeImg('af-anime-page-watermark',''),report.firstChild);
+   }
+   var heading=report.querySelector('.gate-report-heading');
+   if(heading&&!heading.querySelector('.af-anime-heading-art')){
+     var art=makeImg('af-anime-heading-art','Ilustração anime das duas amigas');
+     var badge=heading.querySelector('.gate-report-badge');
+     if(badge)heading.insertBefore(art,badge);else heading.appendChild(art);
+   }
+ }
+ var report=document.getElementById('gatePrintReport');
+ if(report){
+   new MutationObserver(addVisibleDrawing).observe(report,{childList:true});
+   addVisibleDrawing();
+ }else{
+   document.addEventListener('DOMContentLoaded',function(){
+     report=document.getElementById('gatePrintReport');
+     if(report)new MutationObserver(addVisibleDrawing).observe(report,{childList:true});
+   },{once:true});
+ }
+ window.addEventListener('beforeprint',addVisibleDrawing);
+})();
