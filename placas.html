@@ -813,7 +813,50 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
 .anime-gate .ag-bottombrand{font:700 4cqw "Cormorant Garamond",Georgia,serif;text-align:center;white-space:nowrap}
 .anime-gate .ag-bottomsmall{font:800 1.05cqw "Manrope",Arial,sans-serif;letter-spacing:.18em;text-align:center;white-space:nowrap}
 @media print{.anime-gate .ag-tablehead{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}
-</style></head>
+</style>
+<style id="exactOriginalArt2026">
+/* Impressão integral de uma arte carregada: nada é redesenhado nem retocado. */
+.exact-art-settings{
+  margin:17px 0 2px;padding:16px;
+  border:1px solid #a278c5;border-radius:16px;
+  background:linear-gradient(140deg,#4d2a68,#281936 80%);
+  box-shadow:inset 0 1px 0 #ffffff1c;
+}
+.exact-art-settings h3{font-size:15px;margin:0 0 7px;color:#f5e3ff}
+.exact-art-settings p{font-size:12px;line-height:1.58;color:#e4d1f1;margin:0 0 12px}
+.exact-art-file-label{
+  display:block;text-align:center;margin:12px 0 6px!important;
+  padding:11px 13px;border-radius:11px;border:1px solid #dcc0ff;
+  background:#caabf6;color:#271638;font-weight:900;font-size:13px;cursor:pointer;
+}
+.exact-art-file-label:focus-within{outline:2px solid white;outline-offset:2px}
+.exact-art-file-input{width:100%;min-height:40px;font-size:12px;background:#20102e;border:1px solid #a678c8}
+.exact-art-check{
+  display:flex;align-items:flex-start;gap:10px;
+  margin:12px 0!important;cursor:pointer;font-size:12px;line-height:1.5;font-weight:700;
+}
+.exact-art-check input{width:20px;height:20px;min-height:20px;margin:0;flex:none;accent-color:#c695fa}
+.exact-art-check span{flex:1}
+.exact-art-status{font-size:12px;line-height:1.5;color:#e8d4ff;margin:8px 0 0}
+.exact-art-remove{padding:8px 12px!important;font-size:12px!important}
+.sheet.exact-art-page{
+  display:block!important;background:white!important;
+  border:0!important;padding:0!important;overflow:hidden!important;
+  width:100%;position:relative;aspect-ratio:210/297;
+}
+.sheet.exact-art-page:before,.sheet.exact-art-page:after{display:none!important}
+.sheet.exact-art-page img{
+  position:absolute;inset:0;display:block;
+  width:100%;height:100%;object-fit:contain;object-position:center center;
+  max-width:100%;max-height:100%;background:white;
+  -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+}
+@media print{
+  .sheet.exact-art-page{width:210mm!important;height:297mm!important;aspect-ratio:auto!important;border:0!important;box-shadow:none!important}
+  .sheet.exact-art-page img{width:210mm!important;height:297mm!important;object-fit:contain!important}
+}
+</style>
+</head>
 <body>
 <main>
 <header class="site-head">
@@ -836,6 +879,19 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
       <div><label for="orientation">Formato A4</label><select id="orientation"><option value="portrait">Vertical — cartaz</option><option value="landscape">Horizontal — placa</option></select></div>
       <div><label for="theme">Cor da placa</label><select id="theme"><option value="violet">Ultravioleta cristal 💜</option><option value="blue">Azul 💙</option><option value="graphite">Preto elegante</option></select></div>
     </div>
+    
+    <section class="exact-art-settings" aria-label="Impressão idêntica à arte original">
+      <h3>💜 Imprimir o desenho exatamente como ficou</h3>
+      <p>Para a placa <strong>Pedidos do corte</strong>, você pode usar a imagem original completa, sem alterar as letras nem os desenhos. Salve a imagem no celular e carregue uma vez aqui. Ela fica guardada neste navegador.</p>
+      <label for="exactArtInput" class="exact-art-file-label">🦋 Escolher o desenho original</label>
+      <input id="exactArtInput" class="exact-art-file-input" type="file" accept="image/png,image/jpeg,image/webp">
+      <label class="exact-art-check" for="useExactArt">
+        <input type="checkbox" id="useExactArt" checked>
+        <span>Usar a arte original na folha “Pedidos do corte” (A4 vertical)</span>
+      </label>
+      <button type="button" class="action exact-art-remove" id="removeExactArt" hidden>Remover arte salva</button>
+      <div id="exactArtStatus" class="exact-art-status" role="status">A arte original ainda não foi carregada neste navegador.</div>
+    </section>
     <label class="duo-check" for="duoMark"><input type="checkbox" id="duoMark" checked><span><strong>🦋 Nossa marca d’água na folha</strong><small>Desenho delicado de nós duas, com lua, borboleta e brilho. Desmarque para uma folha mais formal.</small></span></label>
     <div class="actions">
       <button class="action primary" id="printOne" type="button">🖨️ Imprimir esta placa</button>
@@ -874,6 +930,73 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
   var current=templates[0];
   var searchText='';
   var printing=false;
+
+  var exactOriginalArtUrl=null;
+  var exactOriginalArtBlob=null;
+  var exactOriginalDbName='alinyflow_artes_impressao_v1';
+  function openExactDb(){
+    return new Promise(function(resolve,reject){
+      if(!window.indexedDB)return reject(new Error('Armazenamento local não disponível'));
+      var req=indexedDB.open(exactOriginalDbName,1);
+      req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains('artes'))req.result.createObjectStore('artes')};
+      req.onerror=function(){reject(req.error||new Error('Falha ao abrir armazenamento'))};
+      req.onsuccess=function(){resolve(req.result)};
+    });
+  }
+  async function saveExactArt(blob){
+    var db=await openExactDb();
+    try{
+      await new Promise(function(resolve,reject){
+        var tx=db.transaction('artes','readwrite');
+        tx.objectStore('artes').put(blob,'pedidos-corte');
+        tx.oncomplete=function(){resolve()};
+        tx.onerror=function(){reject(tx.error||new Error('Falha ao salvar imagem'))};
+      });
+    }finally{db.close()}
+  }
+  async function readExactArt(){
+    var db=await openExactDb();
+    try{
+      return await new Promise(function(resolve,reject){
+        var tx=db.transaction('artes','readonly');
+        var req=tx.objectStore('artes').get('pedidos-corte');
+        req.onsuccess=function(){resolve(req.result||null)};
+        req.onerror=function(){reject(req.error)};
+      });
+    }finally{db.close()}
+  }
+  async function deleteExactArt(){
+    var db=await openExactDb();
+    try{
+      await new Promise(function(resolve,reject){
+        var tx=db.transaction('artes','readwrite');
+        tx.objectStore('artes').delete('pedidos-corte');
+        tx.oncomplete=function(){resolve()};
+        tx.onerror=function(){reject(tx.error||new Error('Falha ao remover a imagem'))};
+      });
+    }finally{db.close()}
+  }
+  function setExactArt(blob){
+    if(exactOriginalArtUrl)URL.revokeObjectURL(exactOriginalArtUrl);
+    exactOriginalArtBlob=blob;
+    exactOriginalArtUrl=blob?URL.createObjectURL(blob):null;
+    $('removeExactArt').hidden=!blob;
+    $('exactArtStatus').textContent=blob?
+      '✓ Arte original salva aqui. Escolha “Pedidos do corte” para ver e imprimir exatamente o desenho.':
+      'A arte original ainda não foi carregada neste navegador.';
+    render();
+  }
+  function makeExactArtSheet(data){
+    var sheet=node('article','sheet portrait exact-art-page');
+    sheet.setAttribute('aria-label','Arte original completa para impressão: '+data.title);
+    var img=node('img');
+    img.src=exactOriginalArtUrl;
+    img.alt='Arte original de Pedidos do Corte, com duas personagens em anime e detalhes lilás';
+    img.decoding='sync';
+    sheet.append(img);
+    return sheet;
+  }
+
   function node(tag,cl,txt){
     var e=document.createElement(tag);if(cl)e.className=cl;
     if(txt!=null)e.textContent=txt;
@@ -982,6 +1105,10 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     return sheet;
   }
   function createSign(data,theme,orientation){
+    if(orientation==='portrait' && data.id==='pedidos-corte' && exactOriginalArtUrl && $('useExactArt').checked){
+      return makeExactArtSheet(data);
+    }
+
     if(orientation==='portrait' && ['nao-assinados','assinados','conferencia-gates'].includes(data.id))return createAnimeGateSign(data,theme);
     var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
     sheet.append(node('div','sheet-watermark','AF'));
@@ -1086,6 +1213,31 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     document.querySelectorAll('.sign-choice').forEach(function(btn){var matches=btn.textContent.toLocaleLowerCase('pt-BR').includes(searchText);btn.hidden=!matches;if(matches)visible++});
     $('catalogCount').textContent=visible+' modelo'+(visible===1?'':'s')+' encontrado'+(visible===1?'':'s');
   });
+
+  $('useExactArt').addEventListener('change',render);
+  $('exactArtInput').addEventListener('change',async function(){
+    var file=this.files&&this.files[0];
+    if(!file)return;
+    if(!/^image\/(png|jpeg|webp)$/.test(file.type)){
+      $('exactArtStatus').textContent='Escolha uma imagem PNG, JPG ou WEBP.';
+      this.value='';return;
+    }
+    if(file.size>12000000){
+      $('exactArtStatus').textContent='Escolha uma imagem de até 12 MB.';
+      this.value='';return;
+    }
+    $('exactArtStatus').textContent='Salvando a arte original neste navegador…';
+    try{
+      await saveExactArt(file);
+      $('useExactArt').checked=true;
+      setExactArt(file);
+    }catch(e){setExactArt(file);$('exactArtStatus').textContent='Imagem pronta nesta sessão, mas não foi possível guardar para a próxima visita.'}
+    this.value='';
+  });
+  $('removeExactArt').addEventListener('click',async function(){
+    try{await deleteExactArt()}catch(e){$('exactArtStatus').textContent='Não foi possível remover o desenho salvo.';return}
+    setExactArt(null);
+  });
   $('duoMark').addEventListener('change',render);
   ['title','subtitle'].forEach(function(id){$(id).addEventListener('input',render)});
   ['theme','orientation'].forEach(function(id){$(id).addEventListener('change',render)});
@@ -1098,9 +1250,12 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     printing=true;
     $('status').textContent=all?'Coleção pronta para impressão: '+templates.length+' páginas A4.':'Placa pronta para impressão em A4.';
     // Evita imprimir prévia vazia; a placa é composta inteiramente de HTML/CSS, sem imagens externas.
-    // Aguarda as fontes da placa antes de abrir a impressão; em redes restritas usa o fallback local.
+    // Aguarda imagens e fontes antes de abrir a impressão; evita arte original cortada.
     var fontReady=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
-    Promise.resolve(fontReady).catch(function(){}).then(function(){
+    var imgReady=Array.from(print.querySelectorAll('img')).map(function(img){
+      return img.decode?img.decode().catch(function(){return null}):Promise.resolve();
+    });
+    Promise.all([Promise.resolve(fontReady).catch(function(){}),Promise.all(imgReady)]).then(function(){
       try{window.print()}catch(err){$('status').textContent='Não foi possível abrir a impressão neste navegador.';printing=false}
     });
   }
@@ -1109,6 +1264,11 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
   window.addEventListener('afterprint',function(){printing=false;$('printArea').replaceChildren()});
   $('orientation').value='portrait';
   select(templates[0]);
+  readExactArt().then(function(blob){
+    if(blob)setExactArt(blob);
+  }).catch(function(){
+    $('exactArtStatus').textContent='Neste dispositivo não foi possível recuperar uma imagem salva. Você ainda pode carregar o desenho.';
+  });
 })();
 </script>
 </body>
