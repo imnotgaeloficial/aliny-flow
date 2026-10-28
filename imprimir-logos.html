@@ -175,6 +175,8 @@ button:disabled{opacity:.5;cursor:not-allowed}
       try{
         var result=await window.afAutoLogos.lookup(name);
         if(result&&validSrc(result.src)&&!srcFor(name)){
+          var verify=new Image();verify.src=result.src;
+          if(verify.decode)await verify.decode();
           state.logos[name]=result.src;logoSources[key]=result.source;
           save();render();
           if(selected()===name)notice('Logo encontrada no '+result.source+'. Confira a marca na prévia antes de imprimir.');
@@ -258,9 +260,10 @@ button:disabled{opacity:.5;cursor:not-allowed}
     if(!name||!src){notice('Escolha a transportadora e cadastre uma logo antes de imprimir.');return}
     $('printSheet').replaceChildren(makePaper(name,src));
     var img=$('printSheet').querySelector('img');
-    Promise.resolve(img&&img.decode?img.decode().catch(function(){}):null)
+    var imageReady = img && (img.decode ? img.decode() : (img.complete && img.naturalWidth > 0 ? Promise.resolve() : Promise.reject(new Error('Imagem não carregada'))));
+    Promise.resolve(imageReady)
       .then(function(){window.print()})
-      .catch(function(){notice('Não foi possível abrir a impressão.')});
+      .catch(function(){notice('A logo não carregou corretamente. Confira a prévia ou envie outra imagem antes de imprimir.')});
   });
   restore();render();
   loadSiteLogos();
