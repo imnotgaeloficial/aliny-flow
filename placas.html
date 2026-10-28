@@ -869,6 +869,25 @@ border-radius:11px;font-size:12px;font-weight:900;text-decoration:none;box-shado
 .anime-collection-banner a:hover{background:#efd9ff}
 @media(max-width:580px){.anime-collection-banner a{width:100%}}
 </style>
+<style id="afRealAnimePrintImage">
+/* Imagem desenhada das duas personagens em todas as placas e no papel. */
+.sheet.duo-enabled .duo-portrait-watermark{background-image:none!important}
+.sheet .duo-portrait-watermark .af-original-anime-art{
+ display:block!important;position:absolute;inset:0;width:100%;height:100%;
+ object-fit:contain;object-position:center center;max-width:100%;max-height:100%;
+ pointer-events:none;filter:none!important;
+}
+.sheet.duo-enabled .duo-portrait-watermark svg{display:none!important}
+.sheet.anime-gate .ag-table .duo-portrait-watermark{opacity:.40!important}
+.sheet.duo-enabled.portrait:not(.anime-gate) .duo-portrait-watermark{opacity:.43!important}
+.sheet.duo-enabled:not(.portrait) .duo-portrait-watermark{opacity:.34!important}
+@media print {
+ .sheet .duo-portrait-watermark .af-original-anime-art {
+  display:block!important;opacity:1!important;visibility:visible!important;
+  -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+ }
+}
+</style>
 </head>
 <body>
 <main>
@@ -882,7 +901,7 @@ border-radius:11px;font-size:12px;font-weight:900;text-decoration:none;box-shado
 <aside class="anime-collection-banner" aria-label="Coleção anime para impressão">
   <div><strong>🦋 Nossa coleção Anime — 13 modelos A4</strong>
   <small>Uma mesma arte com lua, borboletas e nossa dupla. Escolha o título e imprima, sem enviar imagens.</small></div>
-  <a href="./placas-anime.html">✨ Abrir coleção Anime</a>
+  <a href="./placas.html#catalog">✨ Abrir coleção Anime</a>
 </aside>
 <div class="layout">
   <section class="panel">
@@ -1080,6 +1099,13 @@ border-radius:11px;font-size:12px;font-weight:900;text-decoration:none;box-shado
         <path d="M72 112v17" fill="none"/>
       </g>`;
     backdrop.append(artwork);
+    // A arte é uma imagem real, não só um plano de fundo:
+    // assim também aparece na impressão com "gráficos de fundo" desativados.
+    var animeImg=node('img','af-original-anime-art');
+    animeImg.src="data:image/webp;base64,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";
+    animeImg.alt='';
+    animeImg.decoding='sync';
+    backdrop.append(animeImg);
     return backdrop;
   }
 
