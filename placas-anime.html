@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1b102c">
+<title>Coleção Anime • Placas A4 | AlinyFlow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600;6..96,700;6..96,800&amp;family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&amp;family=Manrope:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--violet:#bc88f8;--light:#ebd9ff;--panel:#28173a;--ink:#f7f0ff;font-family:Manrope,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 7% 4%,#63327b7d,transparent 37%),radial-gradient(ellipse at 93% 18%,#6441a342,transparent 44%),#11091d;color:var(--ink)}
+a{color:#ebd6ff;text-decoration:none}a:hover{text-decoration:underline}
+button,input{font:inherit}button{cursor:pointer}
+header{max-width:1250px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 20px;border-bottom:1px solid #785093;flex-wrap:wrap}
+.brand-row{display:flex;align-items:center;gap:12px}
+.brand-mark{width:48px;height:48px;display:grid;place-items:center;font:800 25px Georgia,serif;background:#4d2877;border:2px solid #cea4ff;border-radius:14px}
+.brand-row strong{font:800 20px Manrope,sans-serif;letter-spacing:.15em}
+.brand-row small{display:block;font-size:10px;letter-spacing:.26em;color:#d8bcea;margin-top:3px}
+nav{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:700}
+main{max-width:1250px;margin:0 auto;padding:20px 20px 70px}
+.pill{display:inline-block;color:#e9d4ff;background:#61398957;border:1px solid #9b71bd;border-radius:99px;padding:8px 13px;font-size:11px;letter-spacing:.16em;font-weight:800;margin-top:10px}
+h1{font-size:clamp(27px,5vw,43px);letter-spacing:-.06em;line-height:1.15;margin:15px 0 9px}
+.intro{color:#d9c7e9;font-size:14px;line-height:1.65;max-width:860px;margin:0 0 23px}
+.layout{display:grid;grid-template-columns:minmax(290px,395px) minmax(0,1fr);gap:20px;align-items:start}
+.card{border:1px solid #73518e;border-radius:19px;background:linear-gradient(145deg,#2d1a3e,#1c112c);padding:19px;box-shadow:0 18px 38px #0004}
+.card h2{font-size:17px;margin:0 0 12px}
+.models{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;max-height:455px;overflow-y:auto;padding:2px}
+.model{min-height:81px;text-align:left;background:#372349;border:1px solid #765592;border-radius:12px;color:#f5e9ff;padding:11px;display:flex;flex-direction:column;justify-content:space-between;gap:7px}
+.model strong{font-size:12px;line-height:1.3}.model .code{font-size:10px;color:#e6c6ff;border:1px solid #946eb3;border-radius:6px;display:inline-block;padding:4px 7px;width:max-content}
+.model[aria-pressed="true"]{border:2px solid #d0a6ff;background:linear-gradient(140deg,#68418b,#3b2754);padding:10px;box-shadow:inset 0 1px #ffffff35}
+.model:focus-visible,.main-btn:focus-visible{outline:3px solid #ead1ff;outline-offset:3px}
+.controls{margin:14px 0 0}
+.controls label{font-size:12px;display:block;margin:12px 0 6px;font-weight:800}
+.controls input{width:100%;background:#160d23;border:1px solid #825fa2;color:white;padding:11px 12px;border-radius:10px}
+.check{display:flex!important;align-items:flex-start;gap:8px;margin:11px 0!important;color:#e6d4fa;font-weight:700;font-size:12px;line-height:1.5}
+.check input{width:18px;height:18px;flex:none;margin:0;accent-color:#b184ec}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.main-btn{background:#4a2c60;border:1px solid #9c72c2;color:#fff;border-radius:11px;padding:12px 14px;font-size:12px;font-weight:800}
+.main-btn.primary{background:linear-gradient(115deg,#e2c3ff,#ab78ed);color:#211330;border-color:#f0d8ff;flex-grow:1}
+.msg{min-height:25px;font-size:12px;line-height:1.5;color:#e4cefb;margin-top:11px}
+.note{font-size:11px;color:#d8c5e9;line-height:1.7}
+.preview-title{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:13px}
+.preview-title h2{margin:0}.preview-title span{font-size:11px;border:1px solid #9770b6;border-radius:99px;padding:7px 11px}
+.preview-wrap{background:radial-gradient(ellipse at 50% 30%,#573178,#180d24 77%);border:1px solid #8863a9;border-radius:14px;padding:15px;display:flex;justify-content:center}
+#preview{width:min(100%,600px);container-type:inline-size}
+.poster{
+  position:relative;isolation:isolate;width:100%;aspect-ratio:210/297;
+  background:#fff;color:#2e1354;overflow:hidden;border:2px solid #8652c4;
+  box-shadow:0 15px 30px #0006;container-type:inline-size;
+  font-family:Manrope,Arial,sans-serif;
+}
+.poster:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 75% 25%,#f5eaff,#fff 46%,#f2e5fa 100%)}
+.poster:after{content:"";position:absolute;z-index:3;inset:1.35%;pointer-events:none;border:1.1px solid #985cc9;border-radius:3.8cqw;box-shadow:0 0 0 .5cqw #e8d2f9,inset 0 0 0 .2cqw #f6ecff}
+.poster .corner{position:absolute;z-index:4;color:#9258c7;font-size:4.5cqw;line-height:1}
+.poster .corner.tl{left:0;top:0}.poster .corner.tr{right:0;top:0}.poster .corner.bl{left:0;bottom:0}.poster .corner.br{right:0;bottom:0}
+.poster .p-head{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:4.7% 5% 0;gap:2%}
+.p-id{display:flex;align-items:center;gap:2.1cqw;min-width:0}
+.p-mark{width:12.5cqw;height:12.5cqw;display:grid;place-items:center;border:1cqw double #54218c;border-radius:2.9cqw;background:linear-gradient(145deg,#fff,#efe2ff);font:bold 7.2cqw "Cormorant Garamond",Georgia,serif;box-shadow:0 0 0 .48cqw #dec5f4;color:#472071;flex:none}
+.p-brand{font:700 5.4cqw "Cormorant Garamond",Georgia,serif;letter-spacing:.028em;line-height:1;background:linear-gradient(100deg,#341151,#ab6ddd);background-clip:text;-webkit-background-clip:text;color:transparent;white-space:nowrap}
+.p-subbrand{font:800 1.3cqw Manrope,Arial,sans-serif;letter-spacing:.24em;white-space:nowrap;margin-top:.8cqw}
+.p-exp{font:800 1.8cqw Manrope,Arial,sans-serif;letter-spacing:.09em;border:1.5px solid #9160cb;border-radius:99px;padding:1.3cqw 1.9cqw;background:#fff8;white-space:nowrap;box-shadow:0 0 0 .55cqw #eee0fc}
+.p-heartline{position:relative;display:flex;gap:1.6cqw;align-items:center;margin:1.1cqw 19% .4cqw;color:#8d4ac6;font-size:2.2cqw}
+.p-heartline:before,.p-heartline:after{content:"";height:.13cqw;flex:1;background:#c393e6}
+.p-topnotes{display:flex;justify-content:space-between;align-items:center;margin:0 7%;min-height:9cqw;gap:5%}
+.p-notehand{font:italic 700 2.6cqw "Cormorant Garamond",Georgia,serif;color:#9161c8;line-height:1;transform:rotate(-8deg);width:48%;text-align:center}
+.p-notecap{font:800 1.25cqw Manrope,Arial,sans-serif;letter-spacing:.12em;line-height:1.55;text-align:right;color:#512778;max-width:46%}
+.p-emblem{position:absolute;z-index:2;top:16.5%;left:50%;transform:translateX(-50%) rotate(45deg);width:25cqw;height:25cqw;display:grid;place-items:center;border:1.6cqw double #7841b1;border-radius:5cqw;background:linear-gradient(135deg,#fff,#e9d5f8);box-shadow:0 0 0 1.2cqw #e7d1f9,0 2cqw 4cqw #b98ed344}
+.p-emblem svg{width:69%;height:69%;transform:rotate(-45deg);fill:#37135f}
+.p-moon{position:absolute;top:22%;left:9%;width:19cqw;height:19cqw;z-index:1;background:linear-gradient(135deg,#e1c6fb,#bf94e7);border-radius:50%;opacity:.74}
+.p-moon:after{content:"";position:absolute;left:38%;top:-12%;width:18cqw;height:18cqw;border-radius:50%;background:#fcf6ff}
+.p-star{position:absolute;z-index:1;color:#a06cd5;line-height:1}
+.p-star.one{left:8%;top:29%;font-size:6cqw}.p-star.two{right:10%;top:27%;font-size:5cqw}.p-star.three{left:14%;top:50%;font-size:4cqw}.p-star.four{right:10%;top:52%;font-size:5cqw}
+.p-butterfly{position:absolute;z-index:2;width:11cqw;height:11cqw;color:#9c67ca;opacity:.85}
+.p-butterfly.left{top:30%;left:5%;transform:rotate(-22deg)}.p-butterfly.right{top:31%;right:4%;transform:rotate(16deg)}
+.p-butterfly svg{width:100%;height:100%;stroke:currentColor;fill:#e1c6f2;stroke-width:2}
+.p-eyebrow{position:absolute;z-index:2;top:38.5%;left:20%;width:60%;text-align:center;background:#fffbd;box-shadow:0 0 0 .35cqw #e4c9f7;border:1.2px solid #9b64c8;border-radius:99px;padding:1.2cqw .4cqw;font:800 1.55cqw Manrope,Arial,sans-serif;letter-spacing:.18em}
+.p-titlebox{
+ position:absolute;z-index:3;left:5.8%;right:5.8%;top:44%;height:19%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+}
+.p-t1{max-width:100%;font:800 12.4cqw "Bodoni Moda",Georgia,serif;letter-spacing:-.082em;line-height:1.03;color:#2d124e;overflow-wrap:anywhere}
+.p-t1.shrink{font-size:9.2cqw}
+.p-t2{max-width:100%;font:700 8.0cqw "Bodoni Moda",Georgia,serif;letter-spacing:-.069em;line-height:1.09;color:#8550bd;overflow-wrap:anywhere;text-shadow:.08cqw .07cqw #e3cff7}
+.p-t2.mid{font-size:6.4cqw}.p-t2.long{font-size:4.9cqw;line-height:1.14}
+.p-t1.solo{font-size:10cqw}
+.p-description{position:absolute;z-index:3;top:65.3%;left:13%;right:13%;text-align:center;border:1.2px solid #a071ce;background:#f8effee9;border-radius:99px;padding:1.4cqw .5cqw;font:800 1.55cqw Manrope,Arial,sans-serif;letter-spacing:.09em;line-height:1.25;text-transform:uppercase;color:#49216d}
+.p-girls{
+ position:absolute;z-index:1;left:4%;right:4%;width:92%;height:32%;bottom:5.9%;
+ object-fit:cover;object-position:center bottom;
+ opacity:.85;mask-image:linear-gradient(to bottom,transparent 0%,#000 15%,#000 94%,transparent 100%);
+ -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 15%,#000 94%,transparent 100%);
+}
+.p-side-note{position:absolute;z-index:2;bottom:14%;width:16%;font:italic 700 2.7cqw "Cormorant Garamond",Georgia,serif;color:#9055c3;line-height:1.05}
+.p-side-note.left{left:4%;transform:rotate(-11deg)}.p-side-note.right{right:4%;text-align:right;transform:rotate(10deg)}
+.p-footer{position:absolute;bottom:1.4%;left:5%;right:5%;z-index:4;min-height:6%;border-top:1px solid #ab80d4;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#6d39a7;gap:1cqw}
+.p-footmotto{font:800 1.35cqw Manrope,Arial,sans-serif;letter-spacing:.19em;text-align:center}
+.p-footline{width:100%;display:flex;justify-content:space-between;gap:4%;font:800 1.03cqw Manrope,Arial,sans-serif;letter-spacing:.06em;text-align:center}
+.p-glitter{position:absolute;z-index:1;inset:0;pointer-events:none;background:
+ radial-gradient(circle at 10% 14%,#a56fce 0 .45cqw,transparent .6cqw),
+ radial-gradient(circle at 88% 18%,#b58cde 0 .3cqw,transparent .44cqw),
+ radial-gradient(circle at 23% 34%,#8c55b4 0 .32cqw,transparent .46cqw),
+ radial-gradient(circle at 79% 38%,#9d62ca 0 .24cqw,transparent .42cqw),
+ radial-gradient(circle at 91% 71%,#ad83d0 0 .35cqw,transparent .48cqw)}
+.poster.plain .p-girls{opacity:.25}
+.poster.plain .p-side-note{opacity:.4}
+#printArea{display:none}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.preview-wrap{max-width:740px;margin:auto}.card{padding:15px}}
+@media(max-width:520px){main{padding:14px 12px 55px}.preview-wrap{padding:7px}.models{max-height:315px}.p-exp{font-size:1.65cqw}}
+@media print{
+ @page{size:A4 portrait;margin:0}
+ html,body{margin:0!important;padding:0!important;width:auto!important;background:white!important;height:auto!important;min-height:0!important}
+ body>*:not(#printArea){display:none!important}
+ #printArea{display:block!important;width:100%!important;height:auto!important}
+ .poster{width:210mm!important;height:297mm!important;aspect-ratio:auto!important;break-inside:avoid!important;page-break-inside:avoid!important;break-after:page!important;page-break-after:always!important;border:0!important;box-shadow:none!important;color:#2e1354!important;print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+ .poster:last-child{break-after:auto!important;page-break-after:auto!important}
+ .p-girls,.p-emblem,.p-moon,.p-eyebrow,.p-description,.p-exp,.p-footer{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand-row"><div class="brand-mark">AF</div><div><strong>ALINYFLOW</strong><small>CONTROLE LOGÍSTICO</small></div></div>
+  <nav><a href="./">← Painel</a><a href="./placas.html">Placas tradicionais</a></nav>
+</header>
+<main>
+  <span class="pill">💜 EDIÇÃO ANIME · NOSSA COLEÇÃO</span>
+  <h1>Uma arte, todos os títulos 🦋</h1>
+  <p class="intro">Todas as placas com a mesma identidade: moldura lilás, lua, borboletas, letras elegantes e nossa dupla em anime. Os modelos já estão guardados neste site. É só escolher e imprimir, sem enviar fotos ou artes.</p>
+  <div class="layout">
+    <section class="card" aria-label="Escolher modelo">
+      <h2>Escolha a folha</h2>
+      <div id="models" class="models" role="group" aria-label="13 modelos de impressão"></div>
+      <div class="controls">
+        <label for="titleInput">Título (pode editar)</label>
+        <input id="titleInput" maxlength="85">
+        <label for="descInput">Descrição da placa</label>
+        <input id="descInput" maxlength="90">
+        <label class="check" for="showGirls"><input type="checkbox" id="showGirls" checked>Incluir nossa ilustração anime na folha</label>
+      </div>
+      <div class="actions">
+        <button id="printOne" class="main-btn primary" type="button">🖨️ Imprimir esta folha</button>
+        <button id="printAll" class="main-btn" type="button">Imprimir as 13 folhas</button>
+      </div>
+      <p class="note">A4 vertical. Para salvar em PDF, escolha “Salvar como PDF” no Chrome. A coleção tem títulos de sinalização e não representa dados atualizados do Wiser.</p>
+      <div id="status" class="msg" role="status" aria-live="polite"></div>
+    </section>
+    <section class="card" aria-label="Prévia">
+      <div class="preview-title"><h2>Prévia da folha</h2><span>A4 · Vertical · Anime</span></div>
+      <div class="preview-wrap"><div id="preview"></div></div>
+      <p class="note">Os títulos mudam, mas a arte de fundo permanece a mesma em todas as folhas. Ative “Gráficos de fundo” para preservar os tons lilás na impressão.</p>
+    </section>
+  </div>
+</main>
+<div id="printArea" aria-hidden="true"></div>
+<script>
+(function(){
+"use strict";
+const imageSrc="data:image/webp;base64,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";
+const models=[
+ {id:"nao-assinados",code:"GN",title:"Gates não assinados",subtitle:"Conferência e acompanhamento"},
+ {id:"assinados",code:"GA",title:"Gates assinados",subtitle:"Conferência e acompanhamento"},
+ {id:"conferencia-gates",code:"GC",title:"Gates a conferir",subtitle:"Verificar situação e documentação"},
+ {id:"aguardando-separacao",code:"AS",title:"Aguardando separação",subtitle:"Pedidos pendentes de separação"},
+ {id:"aguardando-conferencia",code:"AC",title:"Aguardando conferência",subtitle:"Pedidos em etapa de conferência"},
+ {id:"aguardando-carregamento",code:"CL",title:"Aguardando carregamento",subtitle:"Pedidos prontos para acompanhamento"},
+ {id:"bbags-pendentes",code:"BB",title:"BBags pendentes",subtitle:"Acompanhamento das bolsas pendentes"},
+ {id:"bbags-finalizadas",code:"BF",title:"BBags finalizadas",subtitle:"Registro de finalizações"},
+ {id:"pedidos-corte",code:"PC",title:"Pedidos do corte",subtitle:"Acompanhamento do corte operacional"},
+ {id:"pedidos-parados",code:"PP",title:"Pedidos parados",subtitle:"Atenção aos pedidos com tempo elevado"},
+ {id:"prioridade",code:"PR",title:"Atenção · prioridade",subtitle:"Tratativa prioritária da expedição"},
+ {id:"transportadoras",code:"TR",title:"Transportadoras",subtitle:"Identificação e documentação de expedição"},
+ {id:"personalizada",code:"AF",title:"Minha placa personalizada",subtitle:"Escreva seu título e sua descrição"}
+];
+const $=id=>document.getElementById(id);
+const node=(tag,cl,content)=>{const e=document.createElement(tag);if(cl)e.className=cl;if(content!==undefined)e.textContent=content;return e;};
+let selected=models[0],printing=false;
+const truckSVG='<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M3 18h37v29H3zM42 28h9l10 13v6H42zM12 14h29v5H12z"/><circle cx="18" cy="50" r="6" fill="#fff"/><circle cx="18" cy="50" r="3"/><circle cx="52" cy="50" r="6" fill="#fff"/><circle cx="52" cy="50" r="3"/></svg>';
+const butterflySVG='<svg viewBox="0 0 80 80" aria-hidden="true"><path d="M40 38C17 3 3 13 8 33c3 13 16 17 32 9C21 48 19 67 32 68c8 0 10-12 8-30z"/><path d="M40 38C63 3 77 13 72 33c-3 13-16 17-32 9 19 6 21 25 8 26-8 0-10-12-8-30z"/><path d="M40 27v35M40 29l-6-8M40 29l6-8" fill="none" stroke-linecap="round"/></svg>';
+function makePoster(data,includeGirls){
+ const p=node("article","poster"+(!includeGirls?" plain":""));
+ p.setAttribute("aria-label","Folha: "+data.title);
+ ["tl","tr","bl","br"].forEach(cl=>p.append(node("span","corner "+cl,"✧")));
+ p.append(node("div","p-glitter"));
+ const head=node("div","p-head"),identity=node("div","p-id");
+ const brand=node("div");brand.append(node("div","p-brand","ALINYFLOW"),node("div","p-subbrand","CONTROLE LOGÍSTICO"));
+ identity.append(node("span","p-mark","AF"),brand);
+ head.append(identity,node("span","p-exp","🚚 EXPEDIÇÃO"));p.append(head);
+ p.append(node("div","p-heartline","♥"));
+ const notes=node("div","p-topnotes");
+ notes.append(node("span","p-notehand","Organização hoje, mais conquistas amanhã ♡"),node("span","p-notecap","DISCIPLINA · FOCO · RESULTADOS ✦"));
+ p.append(notes);
+ const diamond=node("div","p-emblem");diamond.innerHTML=truckSVG;p.append(diamond);
+ p.append(node("div","p-moon"));
+ ["one","two","three","four"].forEach(cl=>p.append(node("span","p-star "+cl,"✦")));
+ ["left","right"].forEach(cl=>{const b=node("div","p-butterfly "+cl);b.innerHTML=butterflySVG;p.append(b)});
+ p.append(node("div","p-eyebrow","✦ SINALIZAÇÃO OPERACIONAL ✦"));
+ const title=node("div","p-titlebox");
+ const parts=(data.title||"").trim().toLocaleUpperCase("pt-BR").replace(/\s+/g," ").split(" ");
+ const first=parts.shift()||"PLACA",rest=parts.join(" ");
+ title.append(node("div","p-t1"+(first.length>10?" shrink":"")+(rest?"":" solo"),first));
+ if(rest)title.append(node("div","p-t2"+(rest.length>22?" long":rest.length>12?" mid":""),rest));
+ p.append(title);
+ p.append(node("div","p-description",data.subtitle||"SINALIZAÇÃO OPERACIONAL"));
+ if(includeGirls){const girls=node("img","p-girls");girls.src=imageSrc;girls.alt="Duas personagens originais de anime em tons lilás";girls.decoding="sync";p.append(girls);}
+ p.append(node("div","p-side-note left","Mais organização, mais conquistas ♡"));
+ p.append(node("div","p-side-note right","Nós sempre conseguimos ♡"));
+ const foot=node("div","p-footer");
+ foot.append(node("div","p-footmotto","♥ LOGÍSTICA HOJE, GRANDES PLANOS SEMPRE ♥"));
+ const footline=node("div","p-footline");footline.append(node("span",null,"ALINYFLOW · EXPEDIÇÃO"),node("span",null,"♥ ORGANIZAÇÃO QUE TE LEVA MAIS LONGE"));
+ foot.append(footline);p.append(foot);
+ return p;
+}
+function readSelected(){return {id:selected.id,code:selected.code,title:($("titleInput").value.trim()||selected.title),subtitle:$("descInput").value.trim()};}
+function render(){
+ document.querySelectorAll(".model").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.id===selected.id)));
+ $("preview").replaceChildren(makePoster(readSelected(),$("showGirls").checked));
+}
+function choose(model){selected=model;$("titleInput").value=model.title;$("descInput").value=model.subtitle;render();}
+models.forEach(model=>{
+ const b=node("button","model");b.type="button";b.dataset.id=model.id;
+ b.append(node("span","code",model.code),node("strong",null,model.title));
+ b.addEventListener("click",()=>choose(model));$("models").append(b);
+});
+["titleInput","descInput","showGirls"].forEach(id=>$(id).addEventListener(id==="showGirls"?"change":"input",render));
+function printSheets(all){
+ if(printing)return;
+ const elements=(all?models:[readSelected()]).map(m=>makePoster(m,$("showGirls").checked));
+ $("printArea").replaceChildren(...elements);
+ printing=true;
+ $("status").textContent=all?"Coleção pronta: 13 folhas A4.":"Folha pronta para impressão.";
+ const fonts=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
+ const images=Array.from($("printArea").querySelectorAll("img"));
+ const loaded=images.map(img=>img.decode?img.decode().catch(()=>{}):Promise.resolve());
+ Promise.all([Promise.resolve(fonts).catch(()=>{}),...loaded]).then(()=>{
+  try{window.print()}catch(e){printing=false;$("status").textContent="Não foi possível abrir a impressão neste navegador.";}
+ });
+}
+$("printOne").addEventListener("click",()=>printSheets(false));
+$("printAll").addEventListener("click",()=>printSheets(true));
+window.addEventListener("afterprint",()=>{printing=false;$("printArea").replaceChildren();});
+choose(models[0]);
+})();
+</script>
+</body>
+</html>
