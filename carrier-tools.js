@@ -28,9 +28,26 @@
     var manual = review[keyFor(g)];
     return manual === 'closed' || manual === 'nr' ? manual : 'check';
   }
+  function logoFor(carrier) {
+    var api=window.alinyCarriers;
+    var original=api&&api.logo(carrier);
+    if(original)return original;
+    // Compartilha imagens cadastradas na página de impressão com a tela de logística.
+    try {
+      var saved=JSON.parse(localStorage.getItem('alinyflow_logos_individuais_v1')||'{}');
+      var map=saved&&saved.logos||{};
+      var name=normalize(carrier).trim().replace(/\s+/g,' ');
+      var found=Object.keys(map).find(function(k){
+        return normalize(k).trim().replace(/\s+/g,' ')===name;
+      });
+      var src=found&&map[found];
+      if(src&&(/^data:image\/(png|jpeg|webp);base64,/i.test(src)||/^https:\/\//i.test(src)))return src;
+    }catch(e){}
+    return null;
+  }
   function printLogo(carrier) {
     var api = window.alinyCarriers;
-    var src = api && api.logo(carrier);
+    var src = logoFor(carrier);
     if (!src) { alert('Cadastre primeiro a logo de ' + carrier + '.'); return; }
     var sheet = document.getElementById('afCarrierPrintSheet');
     sheet.innerHTML =
@@ -81,7 +98,7 @@
     document.getElementById('afCarrierCount').textContent =
       matches.length + ' transportadora(s) • ' + (api.mode()==='demo' ? 'modo demonstração' : 'relatório importado') + ' + logos cadastradas';
     document.getElementById('afCarrierList').innerHTML = matches.map(function(item) {
-      var src = api.logo(item.name);
+      var src = logoFor(item.name);
       var photo = src
         ? '<img class="af-carrier-logo-thumb" src="' + esc(src) + '" alt="Logo ' + esc(item.name) + '">'
         : '<span class="af-logo-empty">Sem logo</span>';
@@ -93,7 +110,7 @@
         item.index + '"' + (src ? '' : ' disabled') + '>Imprimir só a logo</button></div></div>';
     }).join('') || '<p class="muted">Nenhuma transportadora encontrada. Importe um relatório de gates ou cadastre uma logo.</p>';
     var selection = document.getElementById('logoCarrier').value;
-    document.getElementById('afSelectedCarrierPrint').disabled = !api.logo(selection);
+    document.getElementById('afSelectedCarrierPrint').disabled = !logoFor(selection);
   }
   function renderPending() {
     var api = window.alinyCarriers;
