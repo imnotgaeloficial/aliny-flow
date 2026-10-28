@@ -81,9 +81,9 @@
       window.removeEventListener('afterprint', reset);
     }
     window.addEventListener('afterprint', reset);
-    Promise.resolve(typeof img.decode === 'function' ? img.decode().catch(function(){}) : null)
+    Promise.resolve(typeof img.decode === 'function' ? img.decode() : (img.complete && img.naturalWidth ? null : Promise.reject(new Error('Logo não carregada'))))
       .then(function() { return window.print(); })
-      .catch(function(e) { reset(); alert('Falha ao abrir a impressão: ' + e.message); });
+      .catch(function(e) { reset(); alert('A logo não carregou. Confira a imagem antes de imprimir.'); });
   }
   function renderCarriers() {
     var api = window.alinyCarriers;
