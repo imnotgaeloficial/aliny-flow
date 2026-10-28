@@ -104,6 +104,93 @@ button.action:disabled{opacity:.55;cursor:wait}
   .sheet:last-child{break-after:auto!important;page-break-after:auto!important}
 }
 </style>
+<style id="premiumStyles">
+/* Edição Cristal — placas de expedição: arte elegante, título de alta leitura e impressão nítida. */
+.site-mark{background:linear-gradient(145deg,#68419e,#27133e);box-shadow:inset 0 1px #ddcaff66,0 9px 20px #0004}
+h1{letter-spacing:-.045em}
+.panel{background:linear-gradient(145deg,#261638,#1d112d 72%);border-color:#765797;box-shadow:0 18px 45px #0004}
+.preview-shell{background:radial-gradient(circle at 50% 25%,#4b2a72,#140a20 75%);border-color:#7b58a3;box-shadow:inset 0 0 0 1px #ffffff0e}
+.sign-choice{background:linear-gradient(145deg,#342047,#251733);transition:background .16s,border-color .16s,box-shadow .16s}
+.sign-choice[aria-pressed="true"]{background:linear-gradient(140deg,#63428a,#392450);box-shadow:0 0 0 2px #ac81f51f,inset 0 1px #ffffff25}
+.choice-code{background:#b68cf714;color:#ebd9ff}
+.action.primary{box-shadow:0 4px 18px #8a49d144}
+.sheet{
+  --accent:#7948be;--dark:#2e174a;--soft:#d9c3f0;--ink:#21152f;--faint:#f8f3fe;
+  border:2px solid var(--accent);
+  background:#fff;
+  box-shadow:0 16px 38px #0006;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact
+}
+.sheet.blue{--accent:#2466ba;--dark:#13335d;--soft:#c6daef;--ink:#152c47;--faint:#f3f8ff}
+.sheet.graphite{--accent:#39465a;--dark:#1c2738;--soft:#cbd2dd;--ink:#182233;--faint:#f5f7fa}
+.sheet:before{z-index:0;opacity:1;background:radial-gradient(circle at 92% 62%,var(--faint),transparent 43%),linear-gradient(135deg,#fff 44%,var(--faint) 120%)}
+.sheet:after{content:"";position:absolute;inset:2.2% 2.3%;border:1px solid var(--soft);opacity:.95;z-index:0;pointer-events:none}
+.sheet-watermark{position:absolute;z-index:0;pointer-events:none;right:-4%;top:27%;font:900 33cqw Arial,sans-serif;letter-spacing:-.12em;color:var(--accent);opacity:.042;transform:rotate(-13deg);user-select:none}
+.sheet-top,.sheet-body,.sheet-foot{position:relative;z-index:1}
+.sheet-top{
+  min-height:17%;
+  background:linear-gradient(108deg,var(--faint),#fff 66%,var(--faint));
+  color:var(--dark);
+  padding:2.7% 5.7%;
+  border-top:1.25cqw solid var(--accent);
+  border-bottom:2px solid var(--soft);
+}
+.sheet-ident{gap:1.9cqw}
+.sheet-monogram{background:#fff;border:2px solid var(--accent);color:var(--accent);border-radius:1.8cqw;box-shadow:0 0 0 .4cqw var(--soft);font-size:3.4cqw}
+.sheet-brand{font-weight:900;font-size:2.6cqw;letter-spacing:.17em}
+.sheet-brand-sub{color:var(--accent);font-size:1.15cqw;font-weight:800;opacity:1}
+.sheet-top-tag{color:var(--accent);background:#fff;border:1.5px solid var(--accent);border-radius:30px;padding:1.2cqw 1.8cqw;letter-spacing:.13em;font-size:1.32cqw}
+.sheet-body{padding:5.6% 7.5%;gap:0}
+.sheet-body:before,.sheet-body:after{border-color:var(--soft);width:8.4cqw;height:8.4cqw}
+.sheet-body:before{top:7.5%;left:4.5%}
+.sheet-body:after{bottom:8%;right:4.5%}
+.sheet-symbol{
+  position:relative;
+  width:11.9cqw;height:11.9cqw;
+  margin:1.4cqw 0 4.9cqw;
+  border:3px solid var(--accent);border-radius:2.5cqw;
+  color:var(--accent);
+  background:linear-gradient(145deg,#fff,var(--faint));
+  box-shadow:0 0 0 .65cqw var(--soft),inset 0 0 0 .7cqw #fff;
+  transform:rotate(45deg);
+  font-size:4.25cqw;
+}
+.sheet-symbol:before{content:"";position:absolute;width:2.2cqw;height:2.2cqw;right:-1.8cqw;top:-1.8cqw;background:var(--accent);clip-path:polygon(50% 0%,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0% 50%,38% 38%)}
+.sheet-symbol-text{display:block;transform:rotate(-45deg);font-weight:900}
+.sheet-eyebrow{font-size:1.63cqw;font-weight:900;letter-spacing:.26em;margin:0 0 2.4cqw;color:var(--accent)}
+.sheet-title{position:relative;font-family:"Arial Black",Arial,"Segoe UI",sans-serif;font-weight:900;letter-spacing:-.04em;font-size:7.25cqw;line-height:1.08;max-width:96%;text-wrap:balance;text-shadow:.04cqw .04cqw 0 var(--ink)}
+.sheet-title.long{font-size:6.1cqw}
+.sheet-title.very-long{font-size:4.6cqw;line-height:1.11}
+.sheet-underline{width:22%;height:.7cqw;min-height:3px;margin:3.15cqw 0 2.7cqw;border-radius:99px;background:linear-gradient(90deg,var(--accent) 0 42%,var(--soft) 42% 58%,var(--accent) 58%)}
+.sheet-subtitle{max-width:87%;padding:1.25cqw 2.1cqw;border:1px solid var(--soft);border-radius:.8cqw;background:#fff;color:var(--dark);font-size:1.73cqw;font-weight:800;letter-spacing:.08em;line-height:1.25}
+.sheet.blue .sheet-subtitle,.sheet.graphite .sheet-subtitle{color:var(--dark)}
+.sheet-foot{background:var(--faint);min-height:9%;border-top:2px solid var(--soft);padding:2% 5.7%;font-size:1.35cqw;letter-spacing:.105em;color:var(--dark)}
+.sheet-foot .secondary,.sheet.blue .sheet-foot .secondary,.sheet.graphite .sheet-foot .secondary{color:var(--accent)}
+.sheet.compact .sheet-symbol{width:9cqw;height:9cqw;font-size:3.1cqw;margin:0 0 3.4cqw}
+.sheet.compact .sheet-eyebrow{margin-bottom:1.6cqw}
+.sheet.compact .sheet-underline{margin:2cqw 0 1.5cqw}
+.sheet.portrait .sheet-top{min-height:12%;padding:4% 5%;border-top-width:1.7cqw}
+.sheet.portrait .sheet-body{padding:9% 7%;justify-content:center}
+.sheet.portrait .sheet-monogram{width:9.5cqw;height:9.5cqw;font-size:4cqw}
+.sheet.portrait .sheet-brand{font-size:3.4cqw}
+.sheet.portrait .sheet-brand-sub{font-size:1.7cqw}
+.sheet.portrait .sheet-top-tag{font-size:1.7cqw}
+.sheet.portrait .sheet-symbol{width:17.8cqw;height:17.8cqw;font-size:6.2cqw;margin:0 0 7.5cqw;border-radius:3.5cqw}
+.sheet.portrait .sheet-symbol:before{width:3.2cqw;height:3.2cqw;right:-2.4cqw;top:-2.4cqw}
+.sheet.portrait .sheet-eyebrow{font-size:2.5cqw;margin-bottom:4cqw}
+.sheet.portrait .sheet-title{font-size:9.1cqw}
+.sheet.portrait .sheet-title.long{font-size:7.7cqw}
+.sheet.portrait .sheet-title.very-long{font-size:6.0cqw}
+.sheet.portrait .sheet-underline{margin:5cqw 0 4cqw}
+.sheet.portrait .sheet-subtitle{font-size:2.65cqw;padding:2.3cqw 3cqw}
+.sheet.portrait .sheet-foot{font-size:1.9cqw;min-height:7%}
+.sheet.portrait.compact .sheet-symbol{width:13cqw;height:13cqw;font-size:4.6cqw;margin-bottom:5cqw}
+@media print{
+  .sheet{box-shadow:none!important}
+  .sheet-top,.sheet-foot,.sheet-symbol,.sheet-subtitle{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+  .sheet-title{color:var(--ink)!important}
+}
+</style>
 <style id="pageSize">@page{size:A4 landscape;margin:0}</style>
 </head>
 <body>
@@ -123,7 +210,7 @@ button.action:disabled{opacity:.55;cursor:wait}
     <div class="field"><label for="subtitle">Descrição pequena (opcional)</label><input id="subtitle" maxlength="90" placeholder="Ex.: Conferência de manifestos"></div>
     <div class="field controls">
       <div><label for="orientation">Formato A4</label><select id="orientation"><option value="landscape">Horizontal — placa</option><option value="portrait">Vertical — cartaz</option></select></div>
-      <div><label for="theme">Cor da placa</label><select id="theme"><option value="violet">Ultravioleta 💜</option><option value="blue">Azul 💙</option><option value="graphite">Preto elegante</option></select></div>
+      <div><label for="theme">Cor da placa</label><select id="theme"><option value="violet">Ultravioleta cristal 💜</option><option value="blue">Azul 💙</option><option value="graphite">Preto elegante</option></select></div>
     </div>
     <div class="actions">
       <button class="action primary" id="printOne" type="button">🖨️ Imprimir esta placa</button>
@@ -135,7 +222,7 @@ button.action:disabled{opacity:.55;cursor:wait}
   <section class="panel">
     <div class="preview-head"><h2>Prévia da placa</h2><span class="pill" id="previewFormat">A4 · Horizontal</span></div>
     <div class="preview-shell"><div id="preview"></div></div>
-    <p class="preview-note">Dica: no Chrome, habilite “Gráficos de fundo” nas opções de impressão para destacar o ultravioleta. A placa também permanece legível em preto e branco.</p>
+    <p class="preview-note">O acabamento cristal combina bordas ultravioleta, detalhes delicados e letras de alto contraste. No Chrome, ative “Gráficos de fundo” para imprimir todos os detalhes.</p>
   </section>
 </div>
 </main>
@@ -168,13 +255,19 @@ button.action:disabled{opacity:.55;cursor:wait}
   }
   function createSign(data,theme,orientation){
     var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
+    sheet.append(node('div','sheet-watermark','AF'));
+    if(data.title.length>52)sheet.classList.add('compact');
     var top=node('div','sheet-top');
     var ident=node('div','sheet-ident'),monogram=node('div','sheet-monogram','AF');
     var text=node('div'),brand=node('div','sheet-brand','ALINYFLOW'),brandSub=node('div','sheet-brand-sub','CONTROLE LOGÍSTICO');
     text.append(brand,brandSub);ident.append(monogram,text);
     top.append(ident,node('div','sheet-top-tag','EXPEDIÇÃO'));
-    var body=node('div','sheet-body'),symbol=node('div','sheet-symbol',data.code);
-    var eyebrow=node('div','sheet-eyebrow','SINALIZAÇÃO OPERACIONAL');
+    var body=node('div','sheet-body'),symbol=node('div','sheet-symbol');
+    symbol.append(node('span','sheet-symbol-text',data.code));
+    var category=data.id.indexOf('bbags-')===0?'CONTROLE DE BBAGS':
+      data.id.indexOf('nao-assinados')===0||data.id.indexOf('assinados')===0||data.id==='conferencia-gates'?'CONTROLE DE GATES':
+      data.id==='prioridade'?'ATENÇÃO OPERACIONAL':'SINALIZAÇÃO OPERACIONAL';
+    var eyebrow=node('div','sheet-eyebrow',category);
     var title=node('h3','sheet-title',data.title.toLocaleUpperCase('pt-BR'));
     if(data.title.length>38)title.classList.add('very-long');else if(data.title.length>24)title.classList.add('long');
     var line=node('div','sheet-underline'),subtitle=node('div','sheet-subtitle',data.subtitle);
