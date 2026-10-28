@@ -269,6 +269,7 @@ h1{letter-spacing:-.045em}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Rajdhani:wght@600;700&amp;display=swap" rel="stylesheet">
 <style id="alinyTypography2026">
 /* Assinatura tipográfica AlinyFlow · Expedição 2026 */
 :root{--af-display:"Barlow Condensed","Arial Narrow","Liberation Sans Narrow",Impact,"Arial Black",sans-serif;--af-text:"Manrope","Segoe UI",Arial,sans-serif}
@@ -448,6 +449,64 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
 .sheet.graphite{--ink:#232b3e;--dark:#232b3e;--accent:#39465a;--soft:#cbd2dd;--faint:#f5f7fa}
 @media print{.sheet-title{color:var(--ink)!important}.sheet-subtitle{color:var(--dark)!important}}
 </style>
+<style id="alinyLettering2026">
+/* Identidade de lettering das placas: hierarquia editorial de duas fontes,
+   grande leitura no chão de expedição e reprodução limpa em A4. */
+:root{--af-hero:"Bebas Neue","Impact","Arial Narrow",sans-serif;--af-technical:"Rajdhani","Manrope","Segoe UI",Arial,sans-serif}
+.sheet-title.lettered,
+.sheet.portrait .sheet-title.lettered,
+.sheet:not(.portrait).dense .sheet-title.lettered,
+.sheet:not(.portrait).compact .sheet-title.lettered{
+  display:flex!important;flex-direction:column;align-items:center;
+  justify-content:center;width:100%;max-width:96%;margin:0;
+  gap:.65cqw;line-height:1!important;
+  font-size:inherit!important;letter-spacing:normal!important;
+  font-family:var(--af-technical)!important;
+  overflow-wrap:anywhere;
+}
+.sheet-title .title-top{
+  display:block;color:var(--metal);font-family:var(--af-technical);
+  font-weight:700;line-height:1.05;
+  letter-spacing:.26em;
+  padding-left:.26em;
+  font-size:3.3cqw;
+  text-shadow:none;
+}
+.sheet-title .title-main{
+  display:block;max-width:100%;color:var(--title-ink)!important;
+  font-family:var(--af-hero);font-size:11.2cqw;line-height:.96;
+  letter-spacing:.022em;font-weight:400;
+  font-variant-ligatures:none;text-wrap:balance;
+  overflow-wrap:anywhere;
+  text-shadow:none;
+}
+.sheet-title .title-main.wide{font-size:8.3cqw}
+.sheet-title .title-main.extra-wide{font-size:6.25cqw;line-height:1.02}
+.sheet-title .title-top.wide-top{font-size:2.65cqw;letter-spacing:.15em}
+.sheet.portrait .sheet-title.lettered{gap:1.1cqw}
+.sheet.portrait .sheet-title .title-top{font-size:4.7cqw;letter-spacing:.28em}
+.sheet.portrait .sheet-title .title-top.wide-top{font-size:3.7cqw;letter-spacing:.16em}
+.sheet.portrait .sheet-title .title-main{font-size:15.8cqw}
+.sheet.portrait .sheet-title .title-main.wide{font-size:11.4cqw}
+.sheet.portrait .sheet-title .title-main.extra-wide{font-size:8.5cqw;line-height:1.03}
+.sheet-title .title-main:after{
+  content:"";display:block;width:22%;min-width:24px;max-width:85px;
+  height:.27cqw;background:var(--metal);margin:1.25cqw auto 0;
+  border-radius:99px;opacity:.55
+}
+.sheet.portrait .sheet-title .title-main:after{height:.42cqw;margin:2.4cqw auto 0}
+.sheet-eyebrow,.sheet-top-tag{font-family:var(--af-technical);font-weight:700}
+.sheet-brand-sub{font-family:var(--af-technical);font-weight:700}
+.sheet-subtitle{font-family:var(--af-technical);font-weight:700;letter-spacing:.045em}
+.sheet.portrait .sheet-body{gap:0}
+.sheet.portrait .sheet-title.lettered + .sheet-underline{margin-top:4cqw}
+@media print {
+  .sheet-title .title-main,.sheet-title .title-top{
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    -webkit-text-stroke:0!important;
+  }
+}
+</style>
 </head>
 <body>
 <main>
@@ -533,8 +592,29 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
       data.id.indexOf('nao-assinados')===0||data.id.indexOf('assinados')===0||data.id==='conferencia-gates'?'CONTROLE DE GATES':
       data.id==='prioridade'?'ATENÇÃO OPERACIONAL':'SINALIZAÇÃO OPERACIONAL';
     var eyebrow=node('div','sheet-eyebrow',category);
-    var title=node('h3','sheet-title',data.title.toLocaleUpperCase('pt-BR'));
-    if(data.title.length>38)title.classList.add('very-long');else if(data.title.length>24)title.classList.add('long');
+    var title=node('h3','sheet-title lettered');
+    title.setAttribute('aria-label',data.title.toLocaleUpperCase('pt-BR'));
+    // Respeita também títulos personalizados, sem exigir edição de HTML.
+    var full=data.title.trim().replace(/\\s+/g,' ').toLocaleUpperCase('pt-BR');
+    var parts=full.split(' ');
+    var first='',second=full;
+    if(parts.length>1){
+      var splitAt=(parts.length===2?1:parts.length===3?1:Math.ceil(parts.length/2));
+      first=parts.slice(0,splitAt).join(' ');
+      second=parts.slice(splitAt).join(' ');
+      if(second.length>25 && first.length<19){
+        splitAt=Math.min(parts.length-1,splitAt+1);
+        first=parts.slice(0,splitAt).join(' ');
+        second=parts.slice(splitAt).join(' ');
+      }
+    }
+    if(first){
+      var topLine=node('span','title-top'+(first.length>18?' wide-top':''),first);
+      title.append(topLine);
+    }
+    var mainLine=node('span','title-main'+(second.length>22?' extra-wide':second.length>11?' wide':''),second);
+    title.append(mainLine);
+    if(full.length>54)sheet.classList.add('compact');
     var line=node('div','sheet-underline'),subtitle=node('div','sheet-subtitle',data.subtitle);
     body.append(symbol,eyebrow,title,line,subtitle);
     var foot=node('div','sheet-foot'),left=node('span',null,'ALINYFLOW · EXPEDIÇÃO'),right=node('span','secondary','IDENTIFICAÇÃO DE ÁREA');
@@ -579,7 +659,11 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     printing=true;
     $('status').textContent=all?'Coleção pronta para impressão: '+templates.length+' páginas A4.':'Placa pronta para impressão em A4.';
     // Evita imprimir prévia vazia; a placa é composta inteiramente de HTML/CSS, sem imagens externas.
-    try{window.print()}catch(err){$('status').textContent='Não foi possível abrir a impressão neste navegador.';printing=false;}
+    // Aguarda as fontes da placa antes de abrir a impressão; em redes restritas usa o fallback local.
+    var fontReady=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
+    Promise.resolve(fontReady).catch(function(){}).then(function(){
+      try{window.print()}catch(err){$('status').textContent='Não foi possível abrir a impressão neste navegador.';printing=false}
+    });
   }
   $('printOne').addEventListener('click',function(){runPrint(false)});
   $('printAll').addEventListener('click',function(){runPrint(true)});
