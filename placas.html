@@ -507,7 +507,27 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
   }
 }
 </style>
-</head>
+<style id="alinyLetteringPolish2026">
+/* Refinamento de lettering para a série de placas A4 */
+.sheet-title .title-top{
+ color:var(--accent)!important;
+ letter-spacing:.22em;
+ text-shadow:0 1px 0 #ffffff;
+}
+.sheet-title .title-main{
+ color:var(--ink)!important;
+ letter-spacing:.028em;
+ line-height:1.03!important;
+ text-shadow:none!important;
+}
+.sheet.portrait .sheet-title .title-main{line-height:1.015!important}
+.sheet-title .title-main:after{opacity:.8;background:linear-gradient(90deg,var(--soft),var(--accent),var(--soft));height:.35cqw}
+.sheet.portrait .sheet-title .title-main:after{height:.55cqw}
+.sheet-eyebrow{letter-spacing:.20em!important}
+.sheet-brand{font-weight:800;letter-spacing:.15em}
+.sheet-subtitle{font-weight:700;letter-spacing:.035em!important}
+@media print{.sheet-title .title-main{color:var(--ink)!important}.sheet-title .title-top{color:var(--accent)!important}}
+</style></head>
 <body>
 <main>
 <header class="site-head">
