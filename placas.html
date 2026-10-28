@@ -46,6 +46,7 @@ button.action:disabled{opacity:.55;cursor:wait}
 .preview-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 13px}
 .preview-head h2{margin:0}
 .preview-head .pill{font-size:11px;font-weight:800;padding:6px 9px;border:1px solid #8a65ae;border-radius:30px;color:#dbc5ef}
+#preview{width:100%;min-width:0}
 .preview-shell{padding:17px;background:#120b1c;border:1px solid #614979;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .sheet{--accent:#7542bb;--dark:#231138;--soft:#e2d3f4;--ink:#25172e;--faint:#f6f1fc;position:relative;isolation:isolate;width:100%;aspect-ratio:297/210;container-type:inline-size;display:flex;flex-direction:column;overflow:hidden;background:#fff;color:var(--ink);box-shadow:0 9px 25px #0006;border:1px solid #d1b6e9;font-family:Arial,"Segoe UI",sans-serif}
 .sheet.portrait{aspect-ratio:210/297}
@@ -154,7 +155,8 @@ button.action:disabled{opacity:.55;cursor:wait}
     {id:'pedidos-corte',code:'PC',title:'Pedidos do corte',subtitle:'Acompanhamento do corte operacional'},
     {id:'pedidos-parados',code:'PP',title:'Pedidos parados',subtitle:'Atenção aos pedidos com tempo elevado'},
     {id:'prioridade',code:'PR',title:'Atenção · prioridade',subtitle:'Tratativa prioritária da expedição'},
-    {id:'transportadoras',code:'TR',title:'Transportadoras',subtitle:'Identificação e documentação de expedição'}
+    {id:'transportadoras',code:'TR',title:'Transportadoras',subtitle:'Identificação e documentação de expedição'},
+    {id:'personalizada',code:'AF',title:'Minha placa personalizada',subtitle:'Escreva um título e uma descrição'}
   ];
   var $=function(id){return document.getElementById(id)};
   var current=templates[0];
