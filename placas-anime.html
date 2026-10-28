@@ -75,12 +75,12 @@ h1{font-size:clamp(27px,5vw,43px);letter-spacing:-.06em;line-height:1.15;margin:
 .p-butterfly{position:absolute;z-index:2;width:11cqw;height:11cqw;color:#9c67ca;opacity:.85}
 .p-butterfly.left{top:30%;left:5%;transform:rotate(-22deg)}.p-butterfly.right{top:31%;right:4%;transform:rotate(16deg)}
 .p-butterfly svg{width:100%;height:100%;stroke:currentColor;fill:#e1c6f2;stroke-width:2}
-.p-eyebrow{position:absolute;z-index:2;top:38.5%;left:20%;width:60%;text-align:center;background:#fffbd;box-shadow:0 0 0 .35cqw #e4c9f7;border:1.2px solid #9b64c8;border-radius:99px;padding:1.2cqw .4cqw;font:800 1.55cqw Manrope,Arial,sans-serif;letter-spacing:.18em}
+.p-eyebrow{position:absolute;z-index:2;top:38.5%;left:20%;width:60%;text-align:center;background:#fffdfde8;box-shadow:0 0 0 .35cqw #e4c9f7;border:1.2px solid #9b64c8;border-radius:99px;padding:1.2cqw .4cqw;font:800 1.55cqw Manrope,Arial,sans-serif;letter-spacing:.18em}
 .p-titlebox{
  position:absolute;z-index:3;left:5.8%;right:5.8%;top:44%;height:19%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
 }
 .p-t1{max-width:100%;font:800 12.4cqw "Bodoni Moda",Georgia,serif;letter-spacing:-.082em;line-height:1.03;color:#2d124e;overflow-wrap:anywhere}
-.p-t1.shrink{font-size:9.2cqw}
+.p-t1.shrink{font-size:9.2cqw}.p-t1.tiny{font-size:6.4cqw;letter-spacing:-.045em}
 .p-t2{max-width:100%;font:700 8.0cqw "Bodoni Moda",Georgia,serif;letter-spacing:-.069em;line-height:1.09;color:#8550bd;overflow-wrap:anywhere;text-shadow:.08cqw .07cqw #e3cff7}
 .p-t2.mid{font-size:6.4cqw}.p-t2.long{font-size:4.9cqw;line-height:1.14}
 .p-t1.solo{font-size:10cqw}
@@ -198,7 +198,7 @@ function makePoster(data,includeGirls){
  const title=node("div","p-titlebox");
  const parts=(data.title||"").trim().toLocaleUpperCase("pt-BR").replace(/\s+/g," ").split(" ");
  const first=parts.shift()||"PLACA",rest=parts.join(" ");
- title.append(node("div","p-t1"+(first.length>10?" shrink":"")+(rest?"":" solo"),first));
+ title.append(node("div","p-t1"+(first.length>13?" tiny":first.length>10?" shrink":"")+(rest?"":" solo"),first));
  if(rest)title.append(node("div","p-t2"+(rest.length>22?" long":rest.length>12?" mid":""),rest));
  p.append(title);
  p.append(node("div","p-description",data.subtitle||"SINALIZAÇÃO OPERACIONAL"));
