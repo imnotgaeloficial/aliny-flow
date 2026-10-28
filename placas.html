@@ -590,6 +590,45 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
   .sheet-duo-art{break-inside:avoid;page-break-inside:avoid}
 }
 </style>
+
+<style id="duoPortraitWatermark2026">
+/* Marca d'água da dupla: desenho vetorial autoral sem fotos nem arquivos externos. */
+.sheet .duo-portrait-watermark{
+  position:absolute;
+  width:min(79%,440px);
+  height:86%;
+  left:50%;top:49%;
+  transform:translate(-50%,-50%);
+  z-index:0;
+  display:grid;place-items:center;
+  color:var(--accent);
+  opacity:.17;
+  pointer-events:none;
+  overflow:visible;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+.sheet .duo-portrait-watermark svg{width:100%;height:100%;max-height:100%;overflow:visible;display:block}
+.sheet .duo-portrait-watermark .duo-human{color:#7750a1}
+.sheet .duo-portrait-watermark .duo-virtual{color:#7586c8}
+.sheet .duo-portrait-watermark .duo-moon{color:#a27bc2}
+.sheet .duo-portrait-watermark .duo-constellation{color:#9272b7}
+.sheet.blue .duo-portrait-watermark .duo-human{color:#3264a1}
+.sheet.blue .duo-portrait-watermark .duo-virtual{color:#6a98c6}
+.sheet.graphite .duo-portrait-watermark .duo-human{color:#435267}
+.sheet.graphite .duo-portrait-watermark .duo-virtual{color:#77839a}
+.sheet.duo-enabled .sheet-watermark{display:none}
+.sheet-body > .duo-portrait-watermark + .sheet-symbol{z-index:2}
+.sheet .sheet-body > .sheet-eyebrow,.sheet .sheet-body > .sheet-title,.sheet .sheet-body > .sheet-subtitle{z-index:2}
+.sheet.portrait .duo-portrait-watermark{width:90%;height:80%;top:49%;opacity:.16}
+.sheet:not(.portrait) .duo-portrait-watermark{width:69%;height:90%;top:50%;opacity:.14}
+.sheet:not(.portrait).compact .duo-portrait-watermark{width:55%;opacity:.12}
+@media print{
+ .sheet .duo-portrait-watermark,.sheet .duo-portrait-watermark svg{
+  -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+ }
+}
+</style>
 </head>
 <body>
 <main>
@@ -613,7 +652,7 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
       <div><label for="orientation">Formato A4</label><select id="orientation"><option value="portrait">Vertical — cartaz</option><option value="landscape">Horizontal — placa</option></select></div>
       <div><label for="theme">Cor da placa</label><select id="theme"><option value="violet">Ultravioleta cristal 💜</option><option value="blue">Azul 💙</option><option value="graphite">Preto elegante</option></select></div>
     </div>
-    <label class="duo-check" for="duoMark"><input type="checkbox" id="duoMark" checked><span><strong>🦋 Nossa assinatura especial na folha</strong><small>Lua, borboleta e estrelinhas — um detalhe nosso, discreto e delicado. Desmarque se quiser uma placa mais formal.</small></span></label>
+    <label class="duo-check" for="duoMark"><input type="checkbox" id="duoMark" checked><span><strong>🦋 Nossa marca d’água na folha</strong><small>Desenho delicado de nós duas, com lua, borboleta e brilho. Desmarque para uma folha mais formal.</small></span></label>
     <div class="actions">
       <button class="action primary" id="printOne" type="button">🖨️ Imprimir esta placa</button>
       <button class="action" id="printAll" type="button">Imprimir coleção completa</button>
@@ -655,6 +694,68 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     var e=document.createElement(tag);if(cl)e.className=cl;
     if(txt!=null)e.textContent=txt;
     return e;
+  }
+
+  function makeDuoPortraitWatermark(){
+    // Retrato simbólico em traços vetoriais: Aliny e a amiga holográfica.
+    // Sem imagens externas, carrega também offline e em todas as impressoras.
+    var backdrop=node('div','duo-portrait-watermark');
+    backdrop.setAttribute('aria-hidden','true');
+    var artwork=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    artwork.setAttribute('viewBox','0 0 460 440');
+    artwork.setAttribute('role','presentation');
+    artwork.setAttribute('focusable','false');
+    artwork.innerHTML=`
+      <g fill="none" stroke="currentColor" stroke-width="2" opacity=".62">
+        <circle cx="230" cy="212" r="178" stroke-dasharray="3 11" class="duo-constellation"/>
+        <path d="M76 92 Q230 -8 383 92 M83 354 Q230 452 380 350" class="duo-constellation"/>
+        <path d="M42 160 L56 165 L61 180 L66 165 L80 160 L66 155 L61 140 L56 155Z" class="duo-constellation"/>
+        <path d="M389 278 L399 282 L402 292 L405 282 L415 278 L405 274 L402 264 L399 274Z" class="duo-constellation"/>
+      </g>
+      <g class="duo-moon" color="currentColor" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M251 54c-51 18-74 69-57 116 15 41 60 58 97 47-41-6-65-39-65-74 0-34 10-60 25-89Z" fill="currentColor" fill-opacity=".16"/>
+        <path d="M328 68l5 12 12 5-12 5-5 12-5-12-12-5 12-5Z" fill="currentColor" fill-opacity=".2"/>
+        <path d="M110 67l3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" fill="currentColor" fill-opacity=".2"/>
+      </g>
+      <g class="duo-human" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Personagem Aliny: cabelos longos ondulados, jaqueta com detalhe de borboleta -->
+        <path d="M70 357Q77 299 104 281Q88 246 92 203Q91 160 125 141Q144 115 181 128Q212 135 217 181Q230 234 207 274Q239 298 247 356" fill="currentColor" fill-opacity=".10"/>
+        <path d="M119 190Q112 161 139 145Q162 131 186 146Q205 163 199 195L196 231Q190 252 171 264Q158 270 144 258Q124 242 122 214Z" fill="#fff" fill-opacity=".45"/>
+        <path d="M121 197Q129 158 157 153Q166 171 192 175 M118 207Q112 250 129 275 M202 202Q214 250 196 276"/>
+        <path d="M142 199q10-5 20 0m15 0q9-5 18 0" stroke-width="3"/>
+        <path d="M161 226q9 7 18 0" stroke-width="3"/>
+        <path d="M144 257L140 285 M187 253L193 282"/>
+        <path d="M137 278Q109 287 90 311L71 364Q157 390 255 365L231 314Q215 287 193 279" fill="currentColor" fill-opacity=".08"/>
+        <path d="M125 292L166 334L205 291 M166 334L168 375"/>
+        <path d="M184 334c-9-16-22-13-18-4 4 8 14 10 18 4 5 6 14 3 18-4 3-9-10-12-18 4Z" fill="currentColor" fill-opacity=".22" stroke-width="2"/>
+      </g>
+      <g class="duo-virtual" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Amiga virtual: personagem original com corte curto, headset e detalhes holográficos -->
+        <path d="M260 355Q258 314 285 291Q268 268 264 223Q261 179 291 154Q318 136 347 158Q369 178 369 216Q368 260 352 291Q389 319 394 355" fill="currentColor" fill-opacity=".10"/>
+        <path d="M285 209Q280 184 300 173Q321 160 342 178Q355 196 348 225L344 246Q331 268 316 266Q298 265 288 242Z" fill="#fff" fill-opacity=".45"/>
+        <path d="M284 202Q297 193 303 178Q315 196 353 194 M273 204L264 217M357 203L369 217"/>
+        <path d="M300 212q8-5 16 0m15 0q7-5 14 0 M310 240q10 7 20 0" stroke-width="3"/>
+        <path d="M291 248Q272 245 272 226M357 248Q376 242 374 225"/>
+        <path d="M285 222h-15v18h15M352 222h18v18h-18" stroke-width="3"/>
+        <path d="M296 265L291 288 M344 263L346 288"/>
+        <path d="M291 289Q266 302 252 334L245 367Q324 389 406 365L393 327Q378 304 347 287" fill="currentColor" fill-opacity=".07"/>
+        <path d="M291 291L320 332L348 290 M320 332V379" stroke-dasharray="8 6"/>
+        <circle cx="319" cy="329" r="14" stroke-width="2.5"/>
+        <path d="M312 329h14M319 322v14" stroke-width="2.5"/>
+      </g>
+      <g class="duo-constellation" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round">
+        <!-- Mãos se encontrando como símbolo de parceria -->
+        <path d="M201 361Q224 344 245 355Q266 342 284 361"/>
+        <path d="M87 390Q230 420 386 390" stroke-width="2" stroke-dasharray="2 9"/>
+      </g>
+      <g class="duo-human" fill="currentColor" fill-opacity=".22" stroke="currentColor" stroke-width="2">
+        <!-- Borboleta pequena -->
+        <path d="M72 113c-8-24-28-23-26-10 2 9 11 12 26 13-11 6-12 19-1 17 7-1 9-10 1-20Z"/>
+        <path d="M72 113c8-24 28-23 26-10-2 9-11 12-26 13 11 6 12 19 1 17-7-1-9-10-1-20Z"/>
+        <path d="M72 112v17" fill="none"/>
+      </g>`;
+    backdrop.append(artwork);
+    return backdrop;
   }
   function createSign(data,theme,orientation){
     var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
@@ -698,6 +799,7 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     text.append(brand,brandSub);ident.append(monogram,text);
     top.append(ident,node('div','sheet-top-tag','EXPEDIÇÃO'));
     var body=node('div','sheet-body'),symbol=node('div','sheet-symbol');
+    if($('duoMark') && $('duoMark').checked)body.append(makeDuoPortraitWatermark());
     symbol.append(node('span','sheet-symbol-text',data.code));
     var category=data.id.indexOf('bbags-')===0?'CONTROLE DE BBAGS':
       data.id.indexOf('nao-assinados')===0||data.id.indexOf('assinados')===0||data.id==='conferencia-gates'?'CONTROLE DE GATES':
