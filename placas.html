@@ -317,6 +317,119 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
  .sheet-subtitle{color:var(--dark)!important}
 }
 </style>
+
+<style id="alinyCrystalFinal">
+/* AlinyFlow Crystal Edition: detalhe premium, mas com contraste e reprodução A4 */
+.sheet{
+  --title-ink:#392057;--light-crystal:#f0e7f9;--metal:#986bbd;
+  border-color:#9064ba;
+}
+.sheet.blue{--title-ink:#203d67;--light-crystal:#e7f0fb;--metal:#587fac}
+.sheet.graphite{--title-ink:#263349;--light-crystal:#ecedf2;--metal:#6c7483}
+.sheet:before{
+  background:
+    radial-gradient(ellipse at 95% 36%,var(--light-crystal),transparent 38%),
+    radial-gradient(ellipse at 6% 78%,var(--faint),transparent 42%),
+    #fff!important;
+}
+.sheet:after{border-color:var(--soft);border-width:1px}
+.sheet-watermark{
+  right:-6%;top:24%;font-family:var(--af-display);
+  font-size:33cqw;font-weight:900;letter-spacing:-.12em;
+  color:var(--title-ink);opacity:.047;transform:rotate(-11deg);
+}
+.sheet-crystal{position:absolute;z-index:0;pointer-events:none;user-select:none;opacity:.52}
+.sheet-crystal.one{
+  top:24%;right:10%;width:12cqw;height:15cqw;
+  clip-path:polygon(50% 0,95% 28%,86% 80%,50% 100%,13% 80%,4% 28%);
+  background:linear-gradient(136deg,transparent 0 34%,var(--light-crystal) 35% 53%,transparent 55%),
+             linear-gradient(40deg,transparent 0 40%,var(--soft) 40.5% 42%,transparent 42.5%);
+}
+.sheet-crystal.two{
+  left:7%;bottom:18%;width:5cqw;height:6.5cqw;
+  clip-path:polygon(50% 0,100% 48%,50% 100%,0 48%);
+  background:linear-gradient(135deg,var(--soft),transparent 75%);
+  opacity:.43
+}
+.sheet.portrait .sheet-crystal.one{top:30%;right:7%;width:14cqw;height:18cqw}
+.sheet.portrait .sheet-crystal.two{left:9%;bottom:22%;width:7cqw;height:9cqw}
+.sheet-top{
+  background:linear-gradient(105deg,var(--light-crystal),#fff 32%,#fff 75%,var(--faint));
+  border-top-color:var(--accent);
+  border-bottom:1.5px solid var(--soft)
+}
+.sheet-monogram{
+  border-radius:2.3cqw;
+  background:linear-gradient(145deg,#fff,var(--light-crystal));
+  box-shadow:0 0 0 .35cqw #e9ddf3;
+}
+.sheet-brand{color:var(--title-ink);letter-spacing:.18em}
+.sheet-brand-sub{color:var(--accent);opacity:1}
+.sheet-top-tag{
+  background:linear-gradient(120deg,#fff,var(--faint));
+  color:var(--title-ink);
+  border-color:var(--metal);
+  box-shadow:none;
+}
+.sheet-symbol{
+  border-color:var(--metal);color:var(--title-ink);
+  background:linear-gradient(145deg,#fff,var(--light-crystal));
+  box-shadow:0 0 0 .65cqw var(--light-crystal),inset 0 0 0 .45cqw #fff;
+}
+.sheet-symbol:before{background:var(--metal)}
+.sheet-eyebrow{color:var(--metal)}
+.sheet-title,.sheet-title.long,.sheet-title.very-long{
+  color:var(--title-ink)!important;text-shadow:none!important;
+  -webkit-text-stroke:0!important;
+}
+.sheet-underline{
+  width:20%;
+  height:.5cqw;min-height:2px;
+  background:linear-gradient(90deg,transparent,var(--metal) 15% 43%,var(--soft) 43% 57%,var(--metal) 57% 85%,transparent);
+  margin-top:3.1cqw;margin-bottom:2.4cqw;
+  border-radius:0;
+}
+.sheet-subtitle,.sheet.portrait .sheet-subtitle{
+  padding:.6cqw 1.3cqw;
+  color:var(--title-ink)!important;
+  border:0!important;border-radius:0;
+  background:transparent!important;
+  box-shadow:none;
+  letter-spacing:.04em;
+  font-weight:700;
+}
+.sheet-subtitle:before,.sheet-subtitle:after{
+  content:"✧";color:var(--metal);font-weight:800;
+  display:inline-block;margin:0 1cqw;opacity:.9;
+}
+.sheet-foot{
+  background:linear-gradient(90deg,var(--faint),white 53%,var(--faint));
+  border-top:1.5px solid var(--soft);
+  color:var(--title-ink);
+}
+.sheet-foot .secondary{color:var(--metal)!important}
+.sheet-foot:before{
+  content:"✧";position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);color:var(--metal);
+  font-size:1.9cqw;font-weight:800
+}
+.sheet-bands{opacity:.62}
+.sheet-bands i{height:.2cqw}
+.sheet-category-stamp{opacity:.4;color:var(--title-ink)}
+.sheet.portrait .sheet-title{font-size:12.2cqw!important}
+.sheet.portrait .sheet-title.long{font-size:10cqw!important}
+.sheet.portrait .sheet-title.very-long{font-size:7.25cqw!important}
+@media(max-width:520px){
+  .sheet-foot:before{font-size:2.1cqw}
+}
+@media print{
+ .sheet-title,.sheet-title.long,.sheet-title.very-long{color:var(--title-ink)!important}
+ .sheet-foot,.sheet-brand{color:var(--title-ink)!important}
+ .sheet-crystal,.sheet-top,.sheet-foot,.sheet-subtitle,.sheet-watermark{
+   -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+ }
+}
+</style>
 </head>
 <body>
 <main>
@@ -350,7 +463,7 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
   <section class="panel">
     <div class="preview-head"><h2>Prévia da placa</h2><span class="pill" id="previewFormat">A4 · Horizontal</span></div>
     <div class="preview-shell"><div id="preview"></div></div>
-    <p class="preview-note">O acabamento cristal combina bordas ultravioleta, detalhes delicados e letras de alto contraste. No Chrome, ative “Gráficos de fundo” para imprimir todos os detalhes.</p>
+    <p class="preview-note">Edição Cristal: título roxo profundo, ornamentos delicados e letras de alto contraste. No Chrome, ative “Gráficos de fundo” para imprimir todos os detalhes.</p>
   </section>
 </div>
 </main>
@@ -385,6 +498,8 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
   function createSign(data,theme,orientation){
     var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
     sheet.append(node('div','sheet-watermark','AF'));
+    sheet.append(node('span','sheet-crystal one'));
+    sheet.append(node('span','sheet-crystal two'));
     sheet.append(node('div','sheet-category-stamp','ALINYFLOW //  EXPEDIÇÃO'));
     var bars=node('div','sheet-bands');for(var k=0;k<3;k++)bars.append(node('i'));sheet.append(bars);
     if(data.title.length>20)sheet.classList.add('dense');
