@@ -595,7 +595,7 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     var title=node('h3','sheet-title lettered');
     title.setAttribute('aria-label',data.title.toLocaleUpperCase('pt-BR'));
     // Respeita também títulos personalizados, sem exigir edição de HTML.
-    var full=data.title.trim().replace(/\\s+/g,' ').toLocaleUpperCase('pt-BR');
+    var full=data.title.trim().replace(/\s+/g,' ').toLocaleUpperCase('pt-BR');
     var parts=full.split(' ');
     var first='',second=full;
     if(parts.length>1){
