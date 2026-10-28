@@ -758,7 +758,62 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
  }
 }
 </style>
-</head>
+
+<style id="animeGateForm2026">
+/* Folha de conferência anime em A4: referência lilás + formulário real. */
+.sheet.anime-gate{
+  --ag-deep:#301251;--ag-mid:#7d47bd;--ag-soft:#dbc3f4;
+  display:flex;flex-direction:column;position:relative;isolation:isolate;
+  padding:0!important;overflow:hidden;border:2px solid var(--ag-mid);
+  background:radial-gradient(circle at 75% 25%,#f1e6ff,#fff 43%,#f8f1ff);
+  color:var(--ag-deep);
+}
+.sheet.anime-gate.blue{--ag-deep:#173960;--ag-mid:#356ab1;--ag-soft:#d1e1f3}
+.sheet.anime-gate.graphite{--ag-deep:#242d3f;--ag-mid:#566078;--ag-soft:#d8dbe5}
+.sheet.anime-gate:before{content:"";position:absolute;inset:1.3%;border:2px double var(--ag-mid);border-radius:3.5cqw;pointer-events:none;z-index:0}
+.sheet.anime-gate:after{content:"";position:absolute;inset:2.2%;border:1px solid var(--ag-soft);border-radius:3.5cqw;pointer-events:none;z-index:0}
+.anime-gate .ag-top,.anime-gate .ag-heading,.anime-gate .ag-meta,.anime-gate .ag-table,.anime-gate .ag-sign,.anime-gate .ag-bottom{position:relative;z-index:2}
+.anime-gate .ag-top{min-height:16%;padding:5.2% 6% 1%;border-bottom:1px solid var(--ag-mid)}
+.anime-gate .ag-idrow{display:flex;align-items:center;justify-content:space-between;gap:2%}
+.anime-gate .ag-idleft{display:flex;align-items:center;gap:2.5cqw;min-width:0}
+.anime-gate .ag-logo{width:12cqw;height:12cqw;flex:none;display:grid;place-items:center;font:900 6cqw Impact,sans-serif;color:var(--ag-deep);border:2px solid var(--ag-mid);border-radius:2.8cqw;box-shadow:0 0 0 .6cqw #eaddf6;background:#fff}
+.anime-gate .ag-company{font:700 6cqw "Cormorant Garamond",Georgia,serif;line-height:1;color:var(--ag-deep)}
+.anime-gate .ag-label{font:800 1.2cqw "Manrope",Arial,sans-serif;letter-spacing:.22em;padding-top:.8cqw}
+.anime-gate .ag-exp{font:800 1.7cqw "Manrope",Arial,sans-serif;letter-spacing:.09em;border:1.5px solid var(--ag-mid);border-radius:99px;padding:1.3cqw 2.1cqw;background:#ffffffd9}
+.anime-gate .ag-topline{display:flex;justify-content:space-between;align-items:center;gap:5%;padding:2.3cqw 1.3cqw 0;color:var(--ag-mid)}
+.anime-gate .ag-script{font:italic 700 2.5cqw "Cormorant Garamond",Georgia,serif;transform:rotate(-5deg);line-height:1;white-space:pre-line}
+.anime-gate .ag-topnote{font:800 1.2cqw "Manrope",Arial,sans-serif;letter-spacing:.12em;line-height:1.5;text-align:center;white-space:pre-line}
+.anime-gate .ag-heading{min-height:23%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:3cqw 5cqw 1.5cqw}
+.anime-gate .ag-decor{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 6%;font:normal 5cqw Georgia,serif;color:var(--ag-mid);opacity:.45;pointer-events:none}
+.anime-gate .ag-t1{font:800 15cqw "Bodoni Moda",Georgia,serif;line-height:1;letter-spacing:-.075em;color:var(--ag-deep);text-shadow:.06cqw .06cqw #e6d3ff;max-width:100%}
+.anime-gate .ag-t2{font:700 7cqw "Bodoni Moda",Georgia,serif;line-height:1.12;letter-spacing:-.06em;color:var(--ag-mid);max-width:100%;overflow-wrap:anywhere}
+.anime-gate .ag-t2.long{font-size:5.7cqw}
+.anime-gate .ag-ribbon{margin-top:1.6cqw;border:1.5px solid var(--ag-mid);border-radius:99px;padding:.8cqw 2.3cqw;background:#ffffffd9;font:800 1.37cqw "Manrope",Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;max-width:97%;overflow-wrap:anywhere}
+.anime-gate .ag-meta{display:grid;grid-template-columns:1fr 1.3fr .9fr;gap:1.2cqw;padding:0 4.2cqw;min-height:7%}
+.anime-gate .ag-field{display:flex;flex-direction:column;justify-content:space-between;gap:.4cqw;padding:1.1cqw 1.3cqw;background:#ffffffc7;border:1px solid var(--ag-mid);border-radius:1.4cqw}
+.anime-gate .ag-field-label{font:800 1.14cqw "Manrope",Arial,sans-serif;letter-spacing:.03em}
+.anime-gate .ag-blank{height:1.3cqw;border-bottom:1px solid var(--ag-mid)}
+.anime-gate .ag-table{margin:1.5cqw 4.2cqw;min-height:0;flex:1;display:flex;flex-direction:column;border:1.3px solid var(--ag-mid);border-radius:1.5cqw;overflow:hidden;background:linear-gradient(#ffffff79,#f6edff54)}
+.anime-gate .ag-tablehead{display:grid;grid-template-columns:18% 34% 16% 32%;min-height:5.3cqw;background:linear-gradient(120deg,#572b93,var(--ag-mid));color:#fff;position:relative;z-index:2}
+.anime-gate .ag-tablehead span{display:grid;place-items:center;text-align:center;font:800 1.15cqw "Manrope",Arial,sans-serif;letter-spacing:.05em;line-height:1.1;border-right:1px solid #ffffff66;padding:.4cqw}
+.anime-gate .ag-tablehead span:last-child{border:0}
+.anime-gate .ag-tablelines{display:flex;flex-direction:column;min-height:0;flex:1;position:relative;z-index:1}
+.anime-gate .ag-tableline{display:grid;grid-template-columns:18% 34% 16% 32%;border-bottom:1px solid #7d47bd88;min-height:0;flex:1}
+.anime-gate .ag-tableline:last-child{border:0}
+.anime-gate .ag-tableline span{border-right:1px solid #7d47bd66}
+.anime-gate .ag-tableline span:last-child{border:0}
+.anime-gate .ag-table .duo-portrait-watermark{left:50%!important;top:auto!important;bottom:0!important;transform:translateX(-50%)!important;width:96%!important;height:90%!important;opacity:.28!important;z-index:0!important;background-position:center bottom!important}
+.anime-gate .ag-table .duo-portrait-watermark svg{display:block}
+.anime-gate .ag-sign{display:grid;grid-template-columns:1.55fr 1fr;gap:1.4cqw;min-height:8%;height:8%;margin:0 4.2cqw}
+.anime-gate .ag-signbox{border:1.3px solid var(--ag-mid);border-radius:1.4cqw;background:#ffffffca;display:flex;flex-direction:column;justify-content:space-between;padding:1.2cqw 1.5cqw}
+.anime-gate .ag-signbox strong{font:800 1.2cqw "Manrope",Arial,sans-serif;letter-spacing:.03em}
+.anime-gate .ag-signbox span{width:90%;text-align:center;align-self:center;border-bottom:1px solid var(--ag-mid);font-size:1.4cqw}
+.anime-gate .ag-bottom{min-height:9%;display:flex;align-items:center;justify-content:space-between;gap:3%;padding:1cqw 6% 3%}
+.anime-gate .ag-quote{max-width:28%;font:italic 700 2.3cqw "Cormorant Garamond",Georgia,serif;line-height:1.1;white-space:pre-line;color:var(--ag-mid)}
+.anime-gate .ag-bottombrand{font:700 4cqw "Cormorant Garamond",Georgia,serif;text-align:center;white-space:nowrap}
+.anime-gate .ag-bottomsmall{font:800 1.05cqw "Manrope",Arial,sans-serif;letter-spacing:.18em;text-align:center;white-space:nowrap}
+@media print{.anime-gate .ag-tablehead{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}
+</style></head>
 <body>
 <main>
 <header class="site-head">
@@ -767,7 +822,7 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
 </header>
 <div class="studio-label">ESTÚDIO DE IMPRESSÃO · ALINYFLOW</div>
 <h1>Placas para impressão <span aria-hidden="true">💜</span></h1>
-<p class="intro">Identificações grandes, elegantes e prontas para colocar na expedição. Escolha o assunto, ajuste o texto se desejar e imprima em papel A4 ou salve como PDF. Os títulos são sinalizações, não informações em tempo real do Wiser.</p>
+<p class="intro">Folhas de conferência em estilo anime e placas elegantes, prontas para a expedição. Escolha o assunto, ajuste o texto se desejar e imprima em papel A4 ou salve como PDF. Os títulos são sinalizações, não informações em tempo real do Wiser.</p>
 <div class="layout">
   <section class="panel">
     <h2>Escolha a placa</h2>
@@ -786,7 +841,7 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
       <button class="action primary" id="printOne" type="button">🖨️ Imprimir esta placa</button>
       <button class="action" id="printAll" type="button">Imprimir coleção completa</button>
     </div>
-    <p class="helper">“Imprimir coleção completa” gera uma página para cada modelo disponível. Para uma única identificação, use o botão roxo.</p>
+    <p class="helper">Nos modelos de gates, a folha vertical traz linhas para preenchimento e assinatura. “Imprimir coleção completa” gera uma página para cada modelo disponível. Para uma única identificação, use o botão roxo.</p>
     <div id="status" role="status" aria-live="polite"></div>
   </section>
   <section class="panel">
@@ -886,7 +941,48 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     backdrop.append(artwork);
     return backdrop;
   }
+
+  function createAnimeGateSign(data,theme){
+    var sheet=node('article','sheet portrait anime-gate '+theme);
+    sheet.setAttribute('aria-label','Folha para conferência: '+data.title);
+    var top=node('div','ag-top'),toprow=node('div','ag-idrow'),idleft=node('div','ag-idleft');
+    var idbrand=node('div');idbrand.append(node('div','ag-company','ALINYFLOW'),node('div','ag-label','CONTROLE LOGÍSTICO'));
+    idleft.append(node('div','ag-logo','AF'),idbrand);
+    toprow.append(idleft,node('div','ag-exp','✦ EXPEDIÇÃO'));top.append(toprow);
+    var tagline=node('div','ag-topline');
+    tagline.append(node('div','ag-script','Organização hoje, mais conquistas amanhã ♡'),
+      node('div','ag-topnote','DISCIPLINA ✦ FOCO · RESULTADOS'));
+    top.append(tagline);sheet.append(top);
+    var heading=node('div','ag-heading'),decor=node('div','ag-decor');
+    decor.append(node('span',null,'✦ 🦋'),node('span',null,'☾ ✧'));
+    heading.append(decor);
+    var tt=data.title.trim().toLocaleUpperCase('pt-BR').split(/\s+/);
+    var a=tt.shift()||'GATES',b=tt.join(' ')||'CONFERÊNCIA';
+    heading.append(node('div','ag-t1',a),node('div','ag-t2'+(b.length>19?' long':''),b),
+      node('div','ag-ribbon','✦ '+(data.subtitle||'Conferência e acompanhamento')+' ✦'));
+    sheet.append(heading);
+    var meta=node('div','ag-meta');
+    ['DATA:','TRANSPORTADORA:','TOTAL DE GATES:'].forEach(function(t){var c=node('div','ag-field');c.append(node('div','ag-field-label',t),node('div','ag-blank'));meta.append(c)});
+    sheet.append(meta);
+    var table=node('div','ag-table'),th=node('div','ag-tablehead');
+    ['Nº DO GATE','TRANSPORTADORA','QTDE PEDIDOS','OBSERVAÇÕES'].forEach(function(t){th.append(node('span',null,t))});
+    table.append(th);
+    if($('duoMark').checked){sheet.classList.add('duo-enabled');table.append(makeDuoPortraitWatermark())}
+    var lines=node('div','ag-tablelines');
+    for(var i=0;i<12;i++){var tr=node('div','ag-tableline');for(var j=0;j<4;j++)tr.append(node('span'));lines.append(tr)}
+    table.append(lines);sheet.append(table);
+    var sign=node('div','ag-sign');
+    var sig1=node('div','ag-signbox');sig1.append(node('strong',null,'✎ Assinatura do conferente da transportadora'),node('span',null,''));
+    var sig2=node('div','ag-signbox');sig2.append(node('strong',null,'▣ Data do gate'),node('span',null,'____ / ____ / ______'));
+    sign.append(sig1,sig2);sheet.append(sign);
+    var foot=node('div','ag-bottom'),center=node('div');
+    center.append(node('div','ag-bottombrand','✦ ALINYFLOW ✦'),node('div','ag-bottomsmall','EXPEDIÇÃO · LOGÍSTICA · RESULTADOS'));
+    foot.append(node('div','ag-quote','Mais organização, mais conquistas ♡'),center,node('div','ag-quote','Nós por nós, sempre ♡'));
+    sheet.append(foot);
+    return sheet;
+  }
   function createSign(data,theme,orientation){
+    if(orientation==='portrait' && ['nao-assinados','assinados','conferencia-gates'].includes(data.id))return createAnimeGateSign(data,theme);
     var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
     sheet.append(node('div','sheet-watermark','AF'));
     if($('duoMark') && $('duoMark').checked){
