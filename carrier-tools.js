@@ -182,7 +182,15 @@
         window.location.href = './imprimir-logos.html';
       });
       shortcut.appendChild(copy);
-      shortcut.appendChild(action);
+      var links = document.createElement('div');
+      links.style.cssText = 'display:flex;gap:9px;flex-wrap:wrap;align-items:center';
+      links.appendChild(action);
+      var signAction = document.createElement('a');
+      signAction.className = 'btn';
+      signAction.href = './placas.html';
+      signAction.textContent = '🪧 Imprimir placas dos gates e pedidos';
+      links.appendChild(signAction);
+      shortcut.appendChild(links);
       var heading = page.querySelector('h2');
       if (heading) heading.after(shortcut);
       else page.prepend(shortcut);
@@ -230,7 +238,8 @@
       '<p>Escolha uma transportadora e imprima uma identificação elegante em A4: logo centralizada e em destaque, nome grande e acabamento ultravioleta do AlinyFlow, sem dados dos gates.</p>' +
       '<div class="toolbar"><input id="afCarrierSearch" type="search" placeholder="Buscar transportadora" aria-label="Buscar transportadora">' +
       '<button type="button" class="btn primary" id="afSelectedCarrierPrint">Imprimir logo selecionada</button>' +
-      '<a class="btn" href="./imprimir-logos.html">Abrir página exclusiva de impressão</a></div>' +
+      '<a class="btn" href="./imprimir-logos.html">Abrir página exclusiva de impressão</a>' +
+      '<a class="btn" href="./placas.html">🪧 Placas da expedição</a></div>' +
       '<p id="afCarrierCount" class="mini muted" role="status"></p><div id="afCarrierList" class="af-carrier-list"></div>';
     document.getElementById('logos').appendChild(listPanel);
     var pendingPanel = document.createElement('div');
