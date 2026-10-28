@@ -143,6 +143,38 @@
     if (initialized || !window.alinyCarriers || !document.getElementById('logos')) return;
     initialized = true;
     var api = window.alinyCarriers;
+    // Um atalho visível evita que a impressão individual fique escondida na navegação.
+    ['dashboard', 'gates'].forEach(function(pageId) {
+      var page = document.getElementById(pageId);
+      if (!page || page.querySelector('[data-af-logos-shortcut]')) return;
+      var shortcut = document.createElement('div');
+      shortcut.className = 'panel hideprint';
+      shortcut.style.cssText = 'margin:14px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border:1px solid #8558c4';
+      var copy = document.createElement('div');
+      copy.innerHTML = '<strong style="font-size:15px">🖨️ Logos das transportadoras</strong>' +
+        '<p class="mini muted" style="margin:5px 0 0">Selecione a transportadora, visualize a logo e imprima sua identificação em folha A4.</p>';
+      var action = document.createElement('button');
+      action.type = 'button';
+      action.className = 'btn primary';
+      action.textContent = 'Abrir impressão de logos';
+      action.setAttribute('data-af-logos-shortcut', '');
+      action.addEventListener('click', function() {
+        var tab = document.querySelector('[data-page="logos"]');
+        if (tab) tab.click();
+        else {
+          var logosPage = document.getElementById('logos');
+          if (logosPage) {
+            document.querySelectorAll('[id="dashboard"],[id="gates"],[id="logos"]').forEach(function(p) { p.hidden = p !== logosPage; });
+            logosPage.scrollIntoView({block:'start'});
+          }
+        }
+      });
+      shortcut.appendChild(copy);
+      shortcut.appendChild(action);
+      var heading = page.querySelector('h2');
+      if (heading) heading.after(shortcut);
+      else page.prepend(shortcut);
+    });
     var style = document.createElement('style');
     style.textContent = [
       '.af-carrier-tools{margin-top:16px}.af-carrier-list{display:grid;gap:9px;margin-top:14px}',
