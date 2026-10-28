@@ -202,6 +202,68 @@ h1{letter-spacing:-.045em}
 .sheet:not(.portrait).compact .sheet-subtitle{padding:0.8cqw 1.3cqw}
 </style>
 <style id="pageSize">@page{size:A4 landscape;margin:0}</style>
+
+<style id="alinyPrintSignature">
+/* Versão 2026 — sinalização A4 premium, legível e sem dependência de imagens */
+body{background:radial-gradient(circle at 75% 8%,#66408b45,transparent 32%),radial-gradient(circle at 3% 0%,#64328c50,transparent 40%),linear-gradient(135deg,#120b1c,#21112f 65%,#0d0817)}
+.site-mark{box-shadow:0 12px 24px #8051bb3b,inset 0 1px #ffffff66}
+h1{letter-spacing:-.045em}
+.panel{border-radius:20px;background:linear-gradient(150deg,#2a193a,#1c1129 78%);border-color:#78569b;box-shadow:0 18px 38px #0005}
+.nav a{display:inline-block;padding:9px 13px;border:1px solid #9574b17a;border-radius:99px;background:#ffffff08;text-decoration:none}
+.nav a:hover{background:#9d71d33b}
+.studio-label{display:inline-flex;align-items:center;gap:9px;color:#ead6ff;border:1px solid #a37bce8c;border-radius:99px;background:#6e448834;padding:7px 12px;font-size:10px;font-weight:900;letter-spacing:.16em;margin-top:22px}
+.studio-label:before{content:"✦";color:#ddbdff}
+.studio-label+h1{margin-top:12px}
+.catalog-search{width:100%;margin:0 0 12px;background:#170e22;border-color:#8057ab;border-radius:12px}
+.catalog-count{font-size:11px;color:#d9c2ed;margin:-4px 0 12px}
+.sign-choice{border-radius:12px;transition:transform .15s ease,border-color .15s ease}
+.sign-choice:hover{transform:translateY(-2px)}
+.sign-choice[aria-pressed="true"]{box-shadow:0 0 0 1px #cba5fb90,0 6px 18px #9c64d52a}
+.sign-choice[aria-pressed="true"]:after{content:"✓";position:absolute;top:8px;right:11px;color:#e9d4ff;font-weight:900}
+.sign-choice{position:relative}
+.sign-choice[hidden]{display:none!important}
+.controls select,.field input{border-radius:11px}
+.action{border-radius:11px!important}
+.action.primary{background:linear-gradient(120deg,#d9b9ff,#a678fa)!important;color:#29113b!important;border-color:#eed3ff!important;box-shadow:0 7px 18px #925ad744}
+.preview-shell{background:radial-gradient(ellipse at center,#523474,#140b20 75%);border-color:#8863ac;box-shadow:inset 0 0 0 1px #ffffff11}
+.sheet{--accent:#7949bd;--dark:#2a1747;--soft:#dfccef;--ink:#1d1527;--faint:#f9f4fd;border:2px solid var(--accent)}
+.sheet:before{background:radial-gradient(circle at 4% 90%,var(--faint),transparent 42%),radial-gradient(circle at 95% 20%,var(--faint),transparent 38%),#fff!important}
+.sheet:after{inset:2.2% 2.3%;border:1px solid var(--soft)}
+.sheet-watermark{top:23%;right:-2%;opacity:.067;font-size:32cqw;transform:rotate(-12deg)}
+.sheet-top{background:linear-gradient(100deg,var(--faint),white 72%,var(--faint));border-top:1.6cqw solid var(--accent);border-bottom:2px solid var(--soft);min-height:15.5%;padding:2.3% 5.9%}
+.sheet-top-tag{font-weight:900;font-size:1.5cqw;border:1.5px solid var(--accent);box-shadow:0 0 0 .35cqw var(--soft)}
+.sheet-brand{letter-spacing:.16em}
+.sheet-body:before{top:7%;left:4%;width:11cqw;height:11cqw;border-color:var(--soft)}
+.sheet-body:after{bottom:7%;right:4%;width:11cqw;height:11cqw;border-color:var(--soft)}
+.sheet-symbol{border-width:3px;background:linear-gradient(145deg,#fff,var(--faint));box-shadow:0 0 0 .75cqw var(--soft),inset 0 0 0 .55cqw white,0 4px 12px #51416b27}
+.sheet-eyebrow{letter-spacing:.24em;font-size:1.75cqw}
+.sheet-title{font-family:"Arial Black","Arial",sans-serif;font-size:7.65cqw;letter-spacing:-.045em;text-shadow:none!important;color:var(--ink);max-width:97%;overflow-wrap:anywhere}
+.sheet-title.long{font-size:6.25cqw}
+.sheet-title.very-long{font-size:4.75cqw}
+.sheet-underline{height:.8cqw;min-height:3px;width:24%;background:linear-gradient(90deg,var(--accent) 0 42%,var(--soft) 42% 58%,var(--accent) 58%)}
+.sheet-subtitle{font-size:1.85cqw;color:var(--dark);background:var(--faint);border:1.6px solid var(--soft);border-radius:50px;letter-spacing:.08em;max-width:94%}
+.sheet-foot{background:linear-gradient(90deg,var(--faint),#fff,var(--faint));border-top:2px solid var(--soft);font-weight:900}
+.sheet-bands{position:absolute;bottom:9%;left:6%;right:6%;z-index:1;display:flex;justify-content:space-between;gap:1%;height:1.2cqw;opacity:.92}
+.sheet-bands i{display:block;background:var(--accent);height:.27cqw;flex:1;border-radius:99px}
+.sheet-bands i:nth-child(2){background:var(--soft);flex:.45}
+.sheet-bands i:nth-child(3){flex:.12}
+.sheet-category-stamp{position:absolute;top:21%;right:5.5%;font-size:1.1cqw;color:var(--accent);font-weight:900;letter-spacing:.14em;opacity:.65;transform:rotate(-90deg);transform-origin:right center}
+.sheet.portrait .sheet-title{font-size:9.3cqw}
+.sheet.portrait .sheet-title.long{font-size:7.8cqw}
+.sheet.portrait .sheet-title.very-long{font-size:6.1cqw}
+.sheet.portrait .sheet-eyebrow{font-size:2.5cqw}
+.sheet.portrait .sheet-subtitle{font-size:2.8cqw;border-radius:2cqw}
+.sheet.portrait .sheet-category-stamp{font-size:1.6cqw}
+.sheet.portrait .sheet-bands{bottom:7%;height:1.4cqw}
+.sheet:not(.portrait).dense .sheet-title{font-size:6.15cqw}
+.sheet:not(.portrait).compact .sheet-title{font-size:4.7cqw}
+@media(max-width:520px){.preview-shell{padding:9px}.panel{border-radius:16px}}
+@media print{
+  .sheet{box-shadow:none!important;border:0!important;outline:0!important}
+  .sheet-title{color:var(--ink)!important;text-shadow:none!important}
+  .sheet-top,.sheet-foot,.sheet-bands,.sheet-symbol,.sheet-watermark,.sheet-subtitle{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+</style>
 </head>
 <body>
 <main>
@@ -209,17 +271,20 @@ h1{letter-spacing:-.045em}
   <div class="site-brand"><div class="site-mark">AF</div><div><strong>ALINYFLOW</strong><small>CONTROLE LOGÍSTICO</small></div></div>
   <nav class="nav"><a href="./">← Voltar ao painel</a><a href="./imprimir-logos.html">Logos das transportadoras</a></nav>
 </header>
+<div class="studio-label">ESTÚDIO DE IMPRESSÃO · ALINYFLOW</div>
 <h1>Placas para impressão <span aria-hidden="true">💜</span></h1>
 <p class="intro">Identificações grandes, elegantes e prontas para colocar na expedição. Escolha o assunto, ajuste o texto se desejar e imprima em papel A4 ou salve como PDF. Os títulos são sinalizações, não informações em tempo real do Wiser.</p>
 <div class="layout">
   <section class="panel">
     <h2>Escolha a placa</h2>
     <p class="kicker">CONTROLE OPERACIONAL</p>
+    <input id="searchModels" class="catalog-search" type="search" placeholder="🔎 Buscar placa: gates, BBags, corte..." aria-label="Buscar modelos de placas">
+    <div class="catalog-count" id="catalogCount">13 modelos disponíveis</div>
     <div class="catalog" id="catalog" role="group" aria-label="Modelos de placas"></div>
     <div class="field"><label for="title">Título principal</label><input id="title" maxlength="85" placeholder="Ex.: GATES NÃO ASSINADOS"></div>
     <div class="field"><label for="subtitle">Descrição pequena (opcional)</label><input id="subtitle" maxlength="90" placeholder="Ex.: Conferência de manifestos"></div>
     <div class="field controls">
-      <div><label for="orientation">Formato A4</label><select id="orientation"><option value="landscape">Horizontal — placa</option><option value="portrait">Vertical — cartaz</option></select></div>
+      <div><label for="orientation">Formato A4</label><select id="orientation"><option value="portrait">Vertical — cartaz</option><option value="landscape">Horizontal — placa</option></select></div>
       <div><label for="theme">Cor da placa</label><select id="theme"><option value="violet">Ultravioleta cristal 💜</option><option value="blue">Azul 💙</option><option value="graphite">Preto elegante</option></select></div>
     </div>
     <div class="actions">
@@ -257,6 +322,7 @@ h1{letter-spacing:-.045em}
   ];
   var $=function(id){return document.getElementById(id)};
   var current=templates[0];
+  var searchText='';
   var printing=false;
   function node(tag,cl,txt){
     var e=document.createElement(tag);if(cl)e.className=cl;
@@ -266,6 +332,8 @@ h1{letter-spacing:-.045em}
   function createSign(data,theme,orientation){
     var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
     sheet.append(node('div','sheet-watermark','AF'));
+    sheet.append(node('div','sheet-category-stamp','ALINYFLOW //  EXPEDIÇÃO'));
+    var bars=node('div','sheet-bands');for(var k=0;k<3;k++)bars.append(node('i'));sheet.append(bars);
     if(data.title.length>20)sheet.classList.add('dense');
     if(data.title.length>52)sheet.classList.add('compact');
     var top=node('div','sheet-top');
@@ -309,6 +377,11 @@ h1{letter-spacing:-.045em}
     btn.addEventListener('click',function(){select(item);$('status').textContent=''});
     $('catalog').append(btn);
   });
+  $('searchModels').addEventListener('input',function(){
+    searchText=this.value.trim().toLocaleLowerCase('pt-BR');var visible=0;
+    document.querySelectorAll('.sign-choice').forEach(function(btn){var matches=btn.textContent.toLocaleLowerCase('pt-BR').includes(searchText);btn.hidden=!matches;if(matches)visible++});
+    $('catalogCount').textContent=visible+' modelo'+(visible===1?'':'s')+' encontrado'+(visible===1?'':'s');
+  });
   ['title','subtitle'].forEach(function(id){$(id).addEventListener('input',render)});
   ['theme','orientation'].forEach(function(id){$(id).addEventListener('change',render)});
   function runPrint(all){
@@ -325,6 +398,7 @@ h1{letter-spacing:-.045em}
   $('printOne').addEventListener('click',function(){runPrint(false)});
   $('printAll').addEventListener('click',function(){runPrint(true)});
   window.addEventListener('afterprint',function(){printing=false;$('printArea').replaceChildren()});
+  $('orientation').value='portrait';
   select(templates[0]);
 })();
 </script>
