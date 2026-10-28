@@ -85,9 +85,10 @@ button:disabled{opacity:.5;cursor:not-allowed}
       <div class="actions"><button id="addCarrier" type="button">+ Adicionar à lista</button></div>
       <label for="upload">Logo da transportadora (PNG, JPG ou WEBP)</label>
       <input id="upload" type="file" accept="image/png,image/jpeg,image/webp">
-      <p class="help">A logo fica salva neste navegador. Se você cadastrou logos na área de logística deste mesmo site e navegador, tentaremos recuperá-las automaticamente.</p>
+      <p class="help">O AlinyFlow recupera automaticamente as logos já presentes no site e, quando possível, procura a imagem pelo nome da transportadora no Wikimedia Commons. Confira a marca antes de imprimir. Você pode enviar sua própria imagem quando não houver correspondência.</p>
       <div class="actions">
         <button class="primary" id="print" type="button" disabled>🖨️ Imprimir A4</button>
+        <button id="autoSearch" type="button">✨ Buscar logo automaticamente</button>
         <button id="remove" type="button" disabled>Remover logo</button>
       </div>
       <div id="status" role="status" aria-live="polite"></div>
@@ -99,25 +100,32 @@ button:disabled{opacity:.5;cursor:not-allowed}
   </div>
 </main>
 <div id="printSheet" aria-hidden="true"></div>
+<script src="./auto-logo-lookup.js"></script>
 <script>
 (function(){
   'use strict';
   var key='alinyflow_logos_individuais_v1';
   var catalogKey='alinyflow_carrier_catalog_v1';
   var state={names:[],logos:{}};
+  var autoChecked={},autoPending={},logoSources={};
   var $=function(id){return document.getElementById(id)};
   function clean(s){return String(s||'').trim().replace(/\s+/g,' ')}
   function norm(s){return clean(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
   function validSrc(s){return typeof s==='string' && (/^data:image\/(png|jpeg|webp);base64,/i.test(s)||/^https:\/\//i.test(s))}
   function addName(name){name=clean(name);if(name && !state.names.some(function(x){return norm(x)===norm(name)})) state.names.push(name)}
   function safeParse(raw){try{return JSON.parse(raw)}catch(e){return null}}
+  function normalizedMatch(a,b){
+    if(norm(a)===norm(b))return true;
+    var normalizeBusiness=window.afAutoLogos&&window.afAutoLogos.businessName;
+    return !!(normalizeBusiness&&normalizeBusiness(a).length>=5&&normalizeBusiness(a)===normalizeBusiness(b));
+  }
   function mergeLogos(obj,onlyMissing){
     if(!obj||typeof obj!=='object'||Array.isArray(obj))return;
     Object.keys(obj).forEach(function(name){
       var value=obj[name];
       if(!validSrc(value))return;
       addName(name);
-      if(!onlyMissing || !state.logos[name]) state.logos[name]=value;
+      if(!onlyMissing || !srcFor(name)) state.logos[name]=value;
     })
   }
   // Recupera mapas de logos utilizados em versões anteriores do mesmo site.
@@ -143,8 +151,41 @@ button:disabled{opacity:.5;cursor:not-allowed}
   function notice(message){$('status').textContent=message}
   function selected(){return $('carrier').value}
   function srcFor(name){
-    var key=Object.keys(state.logos).find(function(k){return norm(k)===norm(name)});
+    var key=Object.keys(state.logos).find(function(k){return normalizedMatch(k,name)});
     return key ? state.logos[key] : null;
+  }
+  async function loadSiteLogos(){
+    if(!window.afAutoLogos)return;
+    var all=await window.afAutoLogos.bundled();
+    var count=Object.keys(all).length;
+    mergeLogos(all,true); // Nunca substitui uma logo enviada pela pessoa.
+    render();
+    if(selected()) await ensureAuto(selected());
+    if(count&&srcFor(selected()))notice('Logo recuperada automaticamente do AlinyFlow. Confira a prévia e imprima.');
+  }
+  async function ensureAuto(name,force){
+    if(!name || srcFor(name))return;
+    var key=norm(name);
+    if(autoPending[key])return autoPending[key];
+    if(autoChecked[key]&&!force)return;
+    autoChecked[key]=true;
+    if(!window.afAutoLogos)return;
+    notice('Procurando a logo de '+name+' automaticamente…');
+    autoPending[key]=(async function(){
+      try{
+        var result=await window.afAutoLogos.lookup(name);
+        if(result&&validSrc(result.src)&&!srcFor(name)){
+          state.logos[name]=result.src;logoSources[key]=result.source;
+          save();render();
+          if(selected()===name)notice('Logo encontrada no '+result.source+'. Confira a marca na prévia antes de imprimir.');
+        }else if(selected()===name && !srcFor(name)){
+          notice('Não encontrei uma logo segura para esse nome. Você pode enviar uma imagem da transportadora.');
+        }
+      }catch(e){
+        if(selected()===name&&!srcFor(name))notice('Busca automática indisponível agora. Você ainda pode enviar a logo.');
+      }finally{delete autoPending[key];}
+    })();
+    return autoPending[key];
   }
   function makePaper(name,src){
     var paper=document.createElement('div');paper.className='paper';
@@ -190,10 +231,12 @@ button:disabled{opacity:.5;cursor:not-allowed}
     var matched=state.names.find(function(s){return norm(s)===norm(name)});
     $('carrier').value=matched;
     $('newCarrier').value='';render();
-    notice('Transportadora adicionada. Agora escolha a imagem da logo.');
+    notice('Transportadora adicionada. Buscando a logo automaticamente…');
+    ensureAuto(matched);
   });
   $('newCarrier').addEventListener('keydown',function(e){if(e.key==='Enter')$('addCarrier').click()});
-  $('carrier').addEventListener('change',function(){render();notice('')});
+  $('carrier').addEventListener('change',function(){render();notice('');ensureAuto(selected())});
+  $('autoSearch').addEventListener('click',function(){var name=selected();if(!name){notice('Selecione uma transportadora primeiro.');return}if(srcFor(name)){notice('Esta transportadora já tem uma logo. Para substituir, envie uma imagem ou remova a atual.');return}ensureAuto(name,true)});
   $('upload').addEventListener('change',function(){
     var file=this.files&&this.files[0],name=selected();
     if(!name){notice('Selecione primeiro a transportadora.');this.value='';return}
@@ -207,7 +250,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
   });
   $('remove').addEventListener('click',function(){
     var name=selected();
-    Object.keys(state.logos).forEach(function(k){if(norm(k)===norm(name))delete state.logos[k]});
+    Object.keys(state.logos).forEach(function(k){if(normalizedMatch(k,name))delete state.logos[k]});
     save();render();notice('Logo removida.');
   });
   $('print').addEventListener('click',function(){
@@ -220,6 +263,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
       .catch(function(){notice('Não foi possível abrir a impressão.')});
   });
   restore();render();
+  loadSiteLogos();
 })();
 </script>
 </body>
