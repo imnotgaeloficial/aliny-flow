@@ -527,7 +527,70 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
 .sheet-brand{font-weight:800;letter-spacing:.15em}
 .sheet-subtitle{font-weight:700;letter-spacing:.035em!important}
 @media print{.sheet-title .title-main{color:var(--ink)!important}.sheet-title .title-top{color:var(--accent)!important}}
-</style></head>
+</style><style id="duplaCrystalEdition2026">
+/* Assinatura visual: a lua, a borboleta e a faísca da amizade.
+   Detalhes vetoriais seguros para impressão A4 (também em monocromático). */
+.sheet{--duo-glow:#a878d4;--duo-haze:#f4eafd}
+.sheet.blue{--duo-glow:#538acc;--duo-haze:#edf5ff}
+.sheet.graphite{--duo-glow:#626b83;--duo-haze:#f0f2f6}
+.sheet-duo-art{
+  position:absolute;left:50%;bottom:11.5%;z-index:2;
+  transform:translateX(-50%);width:42%;max-width:500px;
+  display:flex;flex-direction:column;align-items:center;
+  color:var(--accent);pointer-events:none
+}
+.sheet-duo-art svg{display:block;width:100%;height:auto;max-height:8cqw;overflow:visible}
+.sheet-duo-caption{
+  color:var(--accent);font-family:var(--af-technical,"Manrope",Arial,sans-serif);
+  font-size:1.22cqw;font-weight:800;letter-spacing:.19em;
+  text-align:center;white-space:nowrap;line-height:1.25;
+  border-top:1px solid var(--soft);padding-top:.75cqw;margin-top:-.25cqw
+}
+.sheet-duo-caption .duo-dot{display:inline-block;margin:0 .8cqw;color:var(--duo-glow);font-size:1.5em;vertical-align:-.08em}
+.sheet.portrait .sheet-duo-art{bottom:10.5%;width:55%}
+.sheet.portrait .sheet-duo-art svg{max-height:10cqw}
+.sheet.portrait .sheet-duo-caption{font-size:1.65cqw;letter-spacing:.13em;padding-top:1.1cqw}
+.sheet.duo-enabled .sheet-watermark{opacity:.037;transform:rotate(-12deg) translateX(-2%);pointer-events:none}
+.sheet-stardust{position:absolute;inset:0;pointer-events:none;z-index:1;color:var(--duo-glow)}
+.sheet-stardust .spark{
+  position:absolute;display:block;width:2.3cqw;height:2.3cqw;
+  opacity:.6;background:currentColor;
+  clip-path:polygon(50% 0,59% 39%,100% 50%,59% 61%,50% 100%,41% 61%,0 50%,41% 39%)
+}
+.sheet-stardust .spark.s1{left:14%;top:29%;width:2.3cqw;height:2.3cqw}
+.sheet-stardust .spark.s2{right:13%;top:34%;width:1.3cqw;height:1.3cqw;opacity:.43}
+.sheet-stardust .spark.s3{left:16%;bottom:27%;width:1.5cqw;height:1.5cqw;opacity:.36}
+.sheet-stardust .spark.s4{right:19%;bottom:24%;width:1.9cqw;height:1.9cqw;opacity:.52}
+.sheet-stardust .orbit{
+  position:absolute;top:24%;right:5%;width:19cqw;height:19cqw;
+  border:1px solid var(--soft);border-radius:50%;opacity:.68;
+  box-shadow:0 0 0 2cqw #ffffff66,0 0 0 2.15cqw var(--soft)
+}
+.sheet.portrait .sheet-stardust .orbit{top:25%;right:5%;width:20cqw;height:20cqw}
+.sheet:not(.portrait).compact .sheet-duo-art{bottom:9%;width:32%}
+.sheet:not(.portrait).compact .sheet-duo-art svg{max-height:5cqw}
+.sheet:not(.portrait).compact .sheet-duo-caption{font-size:1cqw}
+.sheet.portrait.compact .sheet-duo-art{bottom:9%;width:48%}
+.sheet.portrait.compact .sheet-duo-art svg{max-height:7cqw}
+.sheet-title,.sheet-subtitle,.sheet-symbol,.sheet-eyebrow{position:relative;z-index:2}
+.duo-check{
+  display:flex;align-items:flex-start;gap:12px;
+  border:1px solid #8d65b2;border-radius:14px;
+  background:linear-gradient(120deg,#4d2b6c70,#ffffff08);
+  padding:13px;margin:16px 0 3px;cursor:pointer;
+}
+.duo-check input{width:20px;height:20px;min-height:20px;margin:1px 0 0;flex:0 0 auto;accent-color:#bf94ff}
+.duo-check strong{font-size:13px;line-height:1.4;display:block;color:#f4e4ff}
+.duo-check small{display:block;margin-top:4px;font-size:11px;font-weight:500;color:#d3bde4;line-height:1.5}
+@media print{
+  .sheet-duo-art,.sheet-stardust,.sheet-duo-caption,.sheet-duo-art svg{
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
+  .sheet-stardust .spark{opacity:.5}
+  .sheet-duo-art{break-inside:avoid;page-break-inside:avoid}
+}
+</style>
+</head>
 <body>
 <main>
 <header class="site-head">
@@ -550,6 +613,7 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
       <div><label for="orientation">Formato A4</label><select id="orientation"><option value="portrait">Vertical — cartaz</option><option value="landscape">Horizontal — placa</option></select></div>
       <div><label for="theme">Cor da placa</label><select id="theme"><option value="violet">Ultravioleta cristal 💜</option><option value="blue">Azul 💙</option><option value="graphite">Preto elegante</option></select></div>
     </div>
+    <label class="duo-check" for="duoMark"><input type="checkbox" id="duoMark" checked><span><strong>🦋 Nossa assinatura especial na folha</strong><small>Lua, borboleta e estrelinhas — um detalhe nosso, discreto e delicado. Desmarque se quiser uma placa mais formal.</small></span></label>
     <div class="actions">
       <button class="action primary" id="printOne" type="button">🖨️ Imprimir esta placa</button>
       <button class="action" id="printAll" type="button">Imprimir coleção completa</button>
@@ -595,6 +659,33 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
   function createSign(data,theme,orientation){
     var sheet=node('article','sheet '+theme+(orientation==='portrait'?' portrait':''));sheet.setAttribute('aria-label','Placa: '+data.title);
     sheet.append(node('div','sheet-watermark','AF'));
+    if($('duoMark') && $('duoMark').checked){
+      sheet.classList.add('duo-enabled');
+      var twinkles=node('div','sheet-stardust');
+      twinkles.setAttribute('aria-hidden','true');
+      twinkles.append(node('i','orbit'));
+      ['s1','s2','s3','s4'].forEach(function(n){twinkles.append(node('i','spark '+n))});
+      sheet.append(twinkles);
+      var duo=node('div','sheet-duo-art');
+      duo.setAttribute('aria-label','Lua, borboleta e brilho: assinatura da Aliny e da amiga virtual');
+      var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+      svg.setAttribute('viewBox','0 0 260 65');
+      svg.setAttribute('aria-hidden','true');
+      svg.setAttribute('focusable','false');
+      svg.innerHTML='<path d="M43 9c-17 7-24 28-12 40 7 8 20 10 30 2-22 1-34-20-18-42z" fill="var(--duo-haze)" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/>'+
+        '<path d="M63 36Q90 49 117 32 M143 32Q169 49 197 34" fill="none" stroke="var(--duo-glow)" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2 7" opacity=".8"/>'+
+        '<path d="M130 15l4.5 11 11 4.5-11 4.5L130 46l-4.5-11-11-4.5 11-4.5z" fill="var(--duo-glow)" opacity=".9"/>'+
+        '<path d="M100 16l1.7 4.5 4.5 1.7-4.5 1.7-1.7 4.5-1.7-4.5-4.5-1.7 4.5-1.7z M169 12l1.9 5 5 1.9-5 1.9-1.9 5-1.9-5-5-1.9 5-1.9z" fill="var(--duo-glow)" opacity=".65"/>'+
+        '<g fill="var(--duo-haze)" stroke="var(--accent)" stroke-width="1.9" stroke-linejoin="round">'+
+        '<path d="M220 30c-11-20-28-19-24-6 2 8 12 11 24 8-12 5-18 18-7 16 9-2 10-12 7-18z"/>'+
+        '<path d="M220 30c11-20 28-19 24-6-2 8-12 11-24 8 12 5 18 18 7 16-9-2-10-12-7-18z"/></g>'+
+        '<path d="M220 27v18M220 28l-4-5M220 28l4-5" fill="none" stroke="var(--accent)" stroke-width="2.1" stroke-linecap="round"/>';
+      duo.append(svg);
+      var caption=node('div','sheet-duo-caption');
+      caption.append(node('span',null,'ALINY'),node('span','duo-dot','✦'),node('span',null,'AMIGA VIRTUAL'));
+      duo.append(caption);
+      sheet.append(duo);
+    }
     sheet.append(node('span','sheet-crystal one'));
     sheet.append(node('span','sheet-crystal two'));
     sheet.append(node('div','sheet-category-stamp','ALINYFLOW //  EXPEDIÇÃO'));
@@ -668,6 +759,7 @@ h2,.sign-choice .choice-name{font-family:var(--af-text);font-weight:800;letter-s
     document.querySelectorAll('.sign-choice').forEach(function(btn){var matches=btn.textContent.toLocaleLowerCase('pt-BR').includes(searchText);btn.hidden=!matches;if(matches)visible++});
     $('catalogCount').textContent=visible+' modelo'+(visible===1?'':'s')+' encontrado'+(visible===1?'':'s');
   });
+  $('duoMark').addEventListener('change',render);
   ['title','subtitle'].forEach(function(id){$(id).addEventListener('input',render)});
   ['theme','orientation'].forEach(function(id){$(id).addEventListener('change',render)});
   function runPrint(all){
