@@ -90,6 +90,12 @@ css.textContent+=`#appHub{background:radial-gradient(ellipse at 100% 0%,color-mi
 // Resume the last app chosen from this launcher, scoped to the signed-in user.
 const resumeBox=document.createElement('section');resumeBox.className='hub-resume';resumeBox.hidden=true;
 const resumeText=document.createElement('span'),resumeButton=document.createElement('button');resumeButton.type='button';resumeButton.className='btn';resumeBox.append(resumeText,resumeButton);hub.querySelector('.hub-greeting').after(resumeBox);
+// Conferência: entrada visível novamente a cada login no hub principal.
+const conferenceCard=document.createElement('a');
+conferenceCard.id='hubConference';conferenceCard.className='hub-card';conferenceCard.href='./conferencia.html';
+conferenceCard.style.setProperty('--tile-accent','#79baff');
+conferenceCard.innerHTML='<span class="hub-icon" aria-hidden="true">▣</span><h2>Conferência de Máquinas</h2><p>Cadastre máquinas e Winsets, registre pedidos e consulte o histórico de conferências.</p><strong>Abrir sistema de conferência →</strong>';
+hub.querySelector('.hub-grid').append(conferenceCard);
 const resumeApps={logistics:{label:'Aliny Flow',button:'hubLogistics'},agenda:{label:'Aliny Agenda',button:'hubAgenda'},dreams:{label:'Aliny Sonhos',button:'hubDreams'},inspira:{label:'Aliny Inspira',button:'hubInspira'},music:{label:'Aliny Music'}};
 let resumeStore=null,resumeKey='';
 function showResume(key){const app=resumeApps[key];resumeKey=app?key:'';resumeBox.hidden=!app;if(!app)return;resumeText.textContent='Continuar de onde parei · '+app.label+' · neste navegador';resumeButton.textContent='Abrir '+app.label+' →';}
