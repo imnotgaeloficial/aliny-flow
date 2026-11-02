@@ -185,11 +185,6 @@
       var links = document.createElement('div');
       links.style.cssText = 'display:flex;gap:9px;flex-wrap:wrap;align-items:center';
       links.appendChild(action);
-      var signAction = document.createElement('a');
-      signAction.className = 'btn';
-      signAction.href = './placas.html';
-      signAction.textContent = '🪧 Imprimir placas dos gates e pedidos';
-      links.appendChild(signAction);
       shortcut.appendChild(links);
       var heading = page.querySelector('h2');
       if (heading) heading.after(shortcut);
@@ -239,7 +234,7 @@
       '<div class="toolbar"><input id="afCarrierSearch" type="search" placeholder="Buscar transportadora" aria-label="Buscar transportadora">' +
       '<button type="button" class="btn primary" id="afSelectedCarrierPrint">Imprimir logo selecionada</button>' +
       '<a class="btn" href="./imprimir-logos.html">Abrir página exclusiva de impressão</a>' +
-      '<a class="btn" href="./placas.html">🪧 Placas da expedição</a></div>' +
+      '</div>' +
       '<p id="afCarrierCount" class="mini muted" role="status"></p><div id="afCarrierList" class="af-carrier-list"></div>';
     document.getElementById('logos').appendChild(listPanel);
     var pendingPanel = document.createElement('div');
@@ -295,100 +290,3 @@
 })();
 
 
-/* AlinyFlow: impressão anime para gates, preservando o relatório e os dados existentes. */
-;(function(){
-  'use strict';
-  if(document.getElementById('alinyAnimeGatePrintStyle')) return;
-  var style=document.createElement('style');
-  style.id='alinyAnimeGatePrintStyle';
-  style.textContent="@media print{\n@page{size:A4 portrait;margin:12mm 11mm}\nbody[data-print=\"gates\"]{background:#fff!important}\nbody[data-print=\"gates\"]::before{content:\"\";position:fixed;inset:4mm;border:1.2px solid #8c57c5;border-radius:11px;box-shadow:inset 0 0 0 2px #f0e3ff,0 0 0 .6px #c5a6ed;pointer-events:none;z-index:7}\nbody[data-print=\"gates\"] #gatePrintReport{font-family:Georgia,\"Times New Roman\",serif!important;color:#281640!important;max-width:188mm!important;padding:3mm 4mm!important;isolation:isolate;position:relative}\nbody[data-print=\"gates\"] #gatePrintReport::before{content:\"\";position:fixed;top:93mm;left:25mm;width:160mm;height:106mm;background-image:url(\"data:image/webp;base64,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\");background-position:center;background-repeat:no-repeat;background-size:contain;opacity:.16;pointer-events:none;z-index:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}\nbody[data-print=\"gates\"] #gatePrintReport::after{content:\"✦  🦋   ✧   ♡   ✧   🦋  ✦\";display:block;text-align:center;font-family:Georgia,serif;letter-spacing:4px;font-size:11px;color:#8a54bd;border-top:1px solid #cfb4ed;padding-top:7px;margin-top:15px}\nbody[data-print=\"gates\"] #gatePrintReport>:not(.anime-watermark){position:relative;z-index:1}\nbody[data-print=\"gates\"] #gatePrintReport .gate-report-heading{border:2px double #8a51c3!important;border-radius:14px;background:linear-gradient(120deg,#fbf7ff,#f3eaff)!important;padding:14px 17px!important;margin:0 0 12px!important;display:flex;align-items:center;gap:10px;break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}\nbody[data-print=\"gates\"] #gatePrintReport .gate-report-heading::after{content:\"🦋 ✦\";font-size:25px;color:#8445bc;white-space:nowrap}\nbody[data-print=\"gates\"] #gatePrintReport .gate-report-kicker{font-family:Arial,sans-serif;color:#77509e!important;font-size:8px!important;letter-spacing:2.1px!important}\nbody[data-print=\"gates\"] #gatePrintReport h1{font-family:Georgia,\"Times New Roman\",serif!important;color:#4b167c!important;font-size:24px!important;line-height:1.05!important;letter-spacing:.4px;margin:4px 0 2px!important;text-shadow:1px 1px 0 #e9d5fa}\nbody[data-print=\"gates\"] #gatePrintReport .gate-report-badge{font-family:Arial,sans-serif;font-weight:700;color:#683592!important;border-color:#b18ad7!important;border-radius:100px!important;background:#f8f1ff!important}\nbody[data-print=\"gates\"] #gatePrintReport .gate-print-summary{display:flex!important;flex-wrap:wrap!important;justify-content:space-around!important;background:#f7f0ff!important;border:1px solid #c7a5e7!important;border-radius:11px!important;padding:10px!important;gap:6px 10px!important;font:700 10px Arial,sans-serif!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}\nbody[data-print=\"gates\"] #gatePrintReport p{font-family:Arial,sans-serif!important;color:#2b2240!important;line-height:1.45!important}\nbody[data-print=\"gates\"] #gatePrintReport>p{padding:3px 2px!important;font-size:9px!important}\nbody[data-print=\"gates\"] #gatePrintReport table{width:100%!important;table-layout:fixed!important;border-collapse:collapse!important;margin:10px 0!important;background:transparent!important}\nbody[data-print=\"gates\"] #gatePrintReport thead{display:table-header-group!important}\nbody[data-print=\"gates\"] #gatePrintReport th{font-family:Arial,sans-serif!important;font-weight:800!important;letter-spacing:.12px;color:#35135d!important;background:#e8d7f9!important;border:1px solid #8b5abb!important;font-size:8px!important;padding:7px 4px!important;text-align:left!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}\nbody[data-print=\"gates\"] #gatePrintReport td{font-family:Arial,sans-serif!important;font-size:8.5px!important;line-height:1.4!important;color:#171021!important;border:1px solid #bfa7d4!important;background:rgba(255,255,255,.78)!important;padding:7px 5px!important;overflow-wrap:anywhere!important;white-space:normal!important}\nbody[data-print=\"gates\"] #gatePrintReport tbody tr:not(.carrier-title):nth-child(even) td{background:rgba(245,238,251,.75)!important}\nbody[data-print=\"gates\"] #gatePrintReport .carrier-title td{background:#f1e7fc!important;border-top:2px solid #8c56b7!important;color:#4e2376!important;font-weight:800!important;padding:6px 7px!important}\nbody[data-print=\"gates\"] #gatePrintReport .print-carrier{display:flex!important;align-items:center!important;gap:9px!important}\nbody[data-print=\"gates\"] #gatePrintReport .print-carrier-logo{width:122px!important;height:47px!important;object-fit:contain!important;background:white!important;border-radius:5px!important;padding:2px!important}\nbody[data-print=\"gates\"] #gatePrintReport tr{break-inside:avoid!important}\nbody[data-print=\"gates\"] #gatePrintReport .manual{height:32px!important}\nbody[data-print=\"gates\"] #gatePrintReport .carrier-checker-signature{margin-top:16px!important;padding:11px 12px!important;border:1px solid #b994db!important;border-radius:11px!important;background:#faf6ff!important;max-width:none!important;break-inside:avoid!important}\nbody[data-print=\"gates\"] #gatePrintReport .carrier-checker-signature b{font-family:Arial,sans-serif!important;color:#542483!important;letter-spacing:.4px}\nbody[data-print=\"gates\"] #gatePrintReport .carrier-checker-signature .carrier-sign-line{border-bottom:1px solid #642f91!important;height:11mm!important}\nbody[data-print=\"gates\"] #gatePrintReport .carrier-checker-signature p{font-size:9px!important;line-height:1.9!important}\n}";
-  document.head.appendChild(style);
-  function tuneGatePrint(){
-    var report=document.getElementById('gatePrintReport');
-    if(!report)return;
-    var heading=report.querySelector('.gate-report-heading h1');
-    if(!heading)return;
-    var state=document.getElementById('gStatus');
-    heading.textContent=state&&state.value==='no'?'GATES NÃO ASSINADOS':state&&state.value==='yes'?'GATES ASSINADOS':'CONTROLE DE GATES';
-    var kicker=report.querySelector('.gate-report-kicker');
-    if(kicker)kicker.textContent='ALINYFLOW · EXPEDIÇÃO · CONTROLE LOGÍSTICO';
-    var badge=report.querySelector('.gate-report-badge');
-    if(badge)badge.textContent='CONFERÊNCIA E ACOMPANHAMENTO';
-  }
-  function watchReport(){
-    var report=document.getElementById('gatePrintReport');
-    if(!report)return false;
-    new MutationObserver(tuneGatePrint).observe(report,{childList:true});
-    return true;
-  }
-  if(!watchReport()){
-    var bootObserver=new MutationObserver(function(){if(watchReport())bootObserver.disconnect();});
-    bootObserver.observe(document.body,{childList:true,subtree:true});
-  }
-  window.addEventListener('beforeprint',tuneGatePrint);
-})();
-
-/* Ilustração original na impressão de gates: imagem visível no papel,
-   independente da opção "Imprimir gráficos de fundo" do Chrome. */
-;(function(){
- 'use strict';
- var animeSrc="data:image/webp;base64,UklGRkwGAABXRUJQVlA4IEAGAAAQQgCdASpAAf8APzmWv1g0vTWqKPZLE6AnCWdud0JKWrjRUpn5/1Ad/5PL6DST9d8p/mWWfeTWpAnrEKmg2ZgWc2GsydtRX/qklykif6RTNe1eAedXPPuevoEnxe1eMAQTONXMpoDD3Qh/wKHppauUMhDdt9vpKFZ2Mrkpy2zpKiH16RlMk74tq/5z8G30KKQBUQ9OIgOE/NMYKKSTU5Te96cL+8Da3SI9MO38ekdIqBFk7kkAcrMcuySqME5oN0WTp0EZIB1a50FG5I2o+zwpLtJvjlfzA6GJIPr1U+xfSBzJm/5VHttDE+EbRrGonJi0BQn/QDfJ1BqYBTR+NFu+21BOpDl3kygkQDA6HJdVpOO8DnQymRvQtkk5xmmloRTGPDYcWJrY9xtTZ4klMPRc3GBB9qEd/+iskyIj0VQ+1dWql6w3TSN56Vg0wcspvB0BibWhN2+ydlaGKVTU0FRa3sK6FEsPA/9chwI1ihvN9x06DtfCosOprAanciHeNg38iUvwdwKvMbDBrMCqEORxH/tCEg6WRS/PNZJGTvCMR0ZyqB6zUlIDj4IGINgSjogMUErUvL8Tt4e9lNrQv89qrjvQKkuPlnqhB3o0/9WmW4B2hJqeslw4nC+h5u4jNfpLHHVs3j0a8DkFNOo/DC/PLYeKsuxZKm8qVE3GeLOC72Dqw+7EhjEcLnFmUGVK/qLY174erLyNYAAA/umJYZiSAduLNylskt/TIfe3VkexKiuQAQc+AcS+waWVOMmkSHuNmp3EN0YICygfaIh2FpcO/9qYN75eJoIIe3syDALMoqexn5KGlUxi3fOLuwNvXUb8Tag8MutoVXRz4nc3A5ZxQY4tNhNPyolEgEFW1Oaw9spgO8FNAOHHu0J64jY/soAV9ybSIIoGlMNJlPrlyk0yzHMX9Vgwk4swo68bCrDRSkJTje3FS+GaiGbjngOHcdNfNRN5SPZ+rFu37x7qilTIP4Tz51OHzDzQewQ1vNP+E+XTxbZNJdETdfA33/bs+ne1sr0Khr2f7lGasa+xJ1WQ1EAAJZjf23obHvMdm7DZJM3RVLYLOHz/jfmfJKdaGWoc37Vkz7bwLBaipNdztz8ex2r6KLCPXKsDMwVAel8MB0dHqgoephAjIfrbv7hI3mSnSGCLMTHPbLfcn/5JTL6AAdFWX5Ods1FuwMQPOvrDkbWDSe5ZDHZ//xbfNxHJvB3sCQUSZoI90MYvNzUkvkG56uoRGIB4Mn/EovJ9i0bi2Aaf8PBxnRL2JSqpXp20B33vuUtB0iyPRkmB2W0X5Tv7ks1Fx1piefNB20J4YlpOPgonBhjRS3WLFw/fXmZs5NPHOp4vbdGRR2WINlJ8Eq64oyJWGDqFIfpHNEdkTJxDNICJE2s14EB3At8bbsRcbW2Wzs0zGRe4JvLLNHykJ99KYZNW/MJIwhbwwyTmHUsctJpakkL/0KXqjG7BVn5Hsjo3jfZ2vhRlMUeUDcAzHJC52RZHB+I6e5ZXH1whWYhOQSRt/WpfgFcIYnYkWwYxEHLe8S0IvAemB45pDYUBYGCPoPnUwyXcEQid8hMlUP7ruhOFSMk+XYiIw7bWFzZ6toQVdWzUjTq3c/xNPhy3hlZz5egNH/9kSTgldarACoKmQnPt/9RHGoqMZXOqGLeCIdIAjeQf1+0Sfxvh8zJDrz6GDVsKplzPrUACuivhmnOi+b8lDGslEONP5yodGLMTnufIH9EjR3iEMZYHxeD5sUxF4iO3LU1o0ZCeuL9WlnBRDTotw9O2hxP7Nz9FD9G48i6icxb/Gb1dj6Jl1cqGWzkhU7t68sqknuv6+3jjn0EXphm2RBvb5pKKN2mupziVShWsFp79lIK+iGcrbcyAn+Li+f+mPS5BoXKpGwDkRxdbTcbY8GtFAv2uAS0EZ2rVkyLKoMgZZ1A000GwpmIroDNIRH9sf+cL2xwoZTm9fBrsNG2qnO3KEENVqnqEtyR1tgPLX9i55LuOXSCQOWEfUazgVsQbaT4wPHS8KkIj4aQ3NieuEL8O4Uci6UaxWQUO8QOUk03xzv+Ba4GDuK05TH7Mw0sG1QMzZANzBQhE5z5CtEaAwyBnCFJ1Sq+Rx1+/4UN1FToayKfjCIwyWQT69kAA";
- var style=document.createElement('style');
- style.id='af-real-anime-gate-print';
- style.textContent=`
- @media print{
-  body[data-print="gates"] #gatePrintReport{isolation:isolate!important}
-  body[data-print="gates"] #gatePrintReport>img.af-anime-page-watermark{
-   display:block!important;position:fixed!important;z-index:0!important;
-   top:93mm!important;left:50%!important;transform:translateX(-50%)!important;
-   width:124mm!important;height:83mm!important;max-width:none!important;
-   object-fit:contain!important;opacity:.29!important;pointer-events:none!important;
-   -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
-  }
-  body[data-print="gates"] #gatePrintReport .af-anime-heading-art{
-   display:block!important;flex:0 0 auto!important;width:43mm!important;height:28mm!important;
-   object-fit:contain!important;opacity:.96!important;
-   border:1px solid #b58cdb!important;border-radius:8px!important;
-   background:white!important;
-   -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
-  }
-  body[data-print="gates"] #gatePrintReport>:not(.af-anime-page-watermark){position:relative!important;z-index:2!important}
-  body[data-print="gates"] #gatePrintReport tbody tr:not(.carrier-title) td{
-   background:rgba(255,255,255,.76)!important;
-  }
-  body[data-print="gates"] #gatePrintReport thead th,
-  body[data-print="gates"] #gatePrintReport .carrier-title td{
-   background:#eee5f6!important;
-  }
- }`;
- document.head.appendChild(style);
- function makeImg(cls,alt){
-   var img=document.createElement('img');
-   img.className=cls;img.src=animeSrc;img.alt=alt;img.decoding='sync';
-   return img;
- }
- function addVisibleDrawing(){
-   var report=document.getElementById('gatePrintReport');
-   if(!report||!report.querySelector('.gate-report-heading'))return;
-   if(!report.querySelector('.af-anime-page-watermark')){
-     report.insertBefore(makeImg('af-anime-page-watermark',''),report.firstChild);
-   }
-   var heading=report.querySelector('.gate-report-heading');
-   if(heading&&!heading.querySelector('.af-anime-heading-art')){
-     var art=makeImg('af-anime-heading-art','Ilustração anime das duas amigas');
-     var badge=heading.querySelector('.gate-report-badge');
-     if(badge)heading.insertBefore(art,badge);else heading.appendChild(art);
-   }
- }
- var report=document.getElementById('gatePrintReport');
- if(report){
-   new MutationObserver(addVisibleDrawing).observe(report,{childList:true});
-   addVisibleDrawing();
- }else{
-   document.addEventListener('DOMContentLoaded',function(){
-     report=document.getElementById('gatePrintReport');
-     if(report)new MutationObserver(addVisibleDrawing).observe(report,{childList:true});
-   },{once:true});
- }
- window.addEventListener('beforeprint',addVisibleDrawing);
-})();
