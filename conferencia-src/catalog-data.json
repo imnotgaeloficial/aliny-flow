@@ -2141,11 +2141,14 @@
       "code": "F121-BR-WH-NE",
       "pn": "F121-BR-WH-NE",
       "name": "New Lattíssima One White 110V",
-      "ean": "",
-      "validEan": false,
+      "ean": "7630477884655",
+      "validEan": true,
       "kind": "machine",
       "needsReview": false,
-      "subtype": "MAQ-B2C"
+      "subtype": "MAQ-B2C",
+      "barcodeSource": "Wiser · Embalagem UN",
+      "barcodeVerifiedDate": "2026-11-02",
+      "barcodeSourceUrl": "https://nespresso.wiser.log.br/embalagem/71984"
     },
     {
       "id": "71982",
@@ -3186,11 +3189,14 @@
       "code": "GDV2-BR-YE-NE",
       "pn": "GDV2-BR-YE-NE",
       "name": "VERTUO POP YELLOW 110V",
-      "ean": "",
-      "validEan": false,
+      "ean": "7630311563937",
+      "validEan": true,
       "kind": "machine",
       "needsReview": false,
-      "subtype": "MAQ-B2C"
+      "subtype": "MAQ-B2C",
+      "barcodeSource": "Wiser · Embalagem UN",
+      "barcodeVerifiedDate": "2026-11-02",
+      "barcodeSourceUrl": "https://nespresso.wiser.log.br/embalagem/72047"
     },
     {
       "id": "72044",
