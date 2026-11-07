@@ -244,7 +244,7 @@
       '<p class="mini muted">A falta de data em “Manifesto Assinado Em” no Excel não prova a situação atual no Wiser. Os encerramentos só são confirmados com o campo explícito “Gate Encerrado Em”; “Aguardando NR’s” é uma classificação manual.</p>' +
       '<div id="afPendingCounts" class="af-pending-counts"></div><div id="afPendingArea"></div>' +
       '<p class="mini muted">Classificações manuais são guardadas somente neste navegador; não alteram o Wiser. Faça nova exportação para atualizar as assinaturas.</p>';
-    document.getElementById('gates').querySelector('h2').after(pendingPanel);
+    (document.getElementById('gateMonthCoverage') || document.getElementById('gates').querySelector('h2')).after(pendingPanel);
     var sheet = document.createElement('div');
     sheet.className = 'af-print-sheet';
     sheet.id = 'afCarrierPrintSheet';
